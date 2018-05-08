@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'tournament/menu.css' %}" />
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zaklady bukmacherskie</title>
+    <h1>Zaklady bukmacherskie "u Henia"</h1>
+</head>
+<body>
+
+<ol>
+    <li><a href="#">Turnieje</a>
+      <ul>
+          {% for tournament in tournaments %}
+            <li><a href="{% url 'tournament' tournament_name=tournament.name %}"> {{ tournament.name }} </a></li>
+          {% endfor %}
+      </ul>
+    </li>
+
+    <li><a href="#">Trwajace turnieje</a>
+      <ul>
+        <li><a href="{% url 'my_results' %}">Moje wyniki</a></li>
+        <li><a href="#">Wyniki innych graczy</a></li>
+        <li><a href="{% url 'vote_overview' %}">Typowanie</a></li>
+        <li><a href="#">Symulacja</a></li>
+      </ul>
+    </li>
+
+     <li><a href="#">Zakonczone turnieje</a>
+      <ul>
+        <li><a href="#">Moje wyniki</a></li>
+        <li><a href="#">Wyniki inych graczy</a></li>
+      </ul>
+    </li>
+
+    <li><a href="{% url 'info' %}">Info</a></li>
+
+    <li><a href="#">Uzytkownik {{request.user.username}} </a>
+      <ul>
+        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+        <li><a href="{% url 'auth_password_change' %}">Change password</a></li>
+      </ul>
+    </li>
+  </ol>
+
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

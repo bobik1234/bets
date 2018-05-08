@@ -1,0 +1,30 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+
+{% load filters %}
+
+
+<p>Matches to vote</p>
+<form method="POST" action=".">
+    {% csrf_token %}
+    {% for match in matches_to_bet %}
+        {% for field in form %}
+            {% if match.home_team.name == field.label|team_name and match.id == field.label|match_id|add:0 %}
+                <p>{{ field.errors }}<img src={{ match.home_team.flag }}>
+                {{ field.label|team_name }} {{ field }}
+            {% endif %}
+        {% endfor %}
+        :
+        {% for field in form %}
+            {% if match.away_team.name ==  field.label|team_name and match.id == field.label|match_id|add:0 %}
+                {{ field }} {{ field.label|team_name }} <img src={{ match.away_team.flag }}> {{ field.errors }}
+            {% endif %}
+        {% endfor %}
+    <br>
+    {% endfor %}
+
+<input type=submit>
+</form>
+
+{% endblock %}
