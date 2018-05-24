@@ -61,7 +61,7 @@ def vote_form(request):
         matches_to_bet.append(Match.objects.get(pk=id))
 
 
-    form = Vote(request.POST or None, matches_to_bet=matches_to_bet)
+    form = Vote(request.POST or None, matches_to_bet=matches_to_bet, user=user)
     if form.is_valid():
         for match in matches_to_bet:
             print(form.cleaned_data["{}_{}".format(match.home_team.name,match.id)])
@@ -92,7 +92,7 @@ def vote_change_form(request):
     for bet_id in id_ongoing_bets:
         ongoing_bets.append(Bet.objects.get(pk=bet_id))
 
-    form = Vote(request.POST or None, ongoing_bets=ongoing_bets)
+    form = Vote(request.POST or None, ongoing_bets=ongoing_bets, user=user)
     if form.is_valid():
         for bet in ongoing_bets:
             print(form.cleaned_data["{}_{}".format(bet.match.home_team.name,bet.match.id)]) #tylko do printowania
