@@ -19,7 +19,7 @@
   {% for round, user_scores in rounds.items %}
     <tr>
         <td align="center" valign="middle">{{ round }}</td>
-        <td align="center" valign="middle">{% for user, points in user_scores.items %} {{ points }}{% endfor %}</td>
+        <td align="center" valign="middle">{% for user, points in user_scores %} {{ points }}{% endfor %}</td>
     </tr>
   {% endfor %}
 {% endfor %}

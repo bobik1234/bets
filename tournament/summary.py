@@ -1,14 +1,24 @@
 from tournament.models import Bet, Match
+import operator
 
 def get_points_per_user(finished_bets):
     """
 
     :param finished_bets:  - lista slownikow {bet:..., score=...} - patrz ponizsza funkcja get_finished_bets
     :return: Lista slownikow i to zagniezdzonych
+
+        Zmienna scores ma strukture:
             {tournament : {'round' : {user : score,
                                       user : score)}...
                            'summary' : {user : score},
                                        {user : score}}
+
+        Po sortowaniu i finalnie mamy:
+                {tournament : {'round' : [(user, score), (user, score)... ]...
+                               'summary' : [(user, score), (user, score)... ]}
+
+
+
     """
 
     scores = {}
@@ -31,15 +41,17 @@ def get_points_per_user(finished_bets):
             scores[tournament_name]['summary'][user] += finished_bet['score']
         else:
             scores[tournament_name]['summary'][user] = finished_bet['score']
-
-    return scores
+    #return scores
 
     #sortujemy slowniki
 
     sorted_rounds_results = {}
-    for tournament in scores.items():
-        for round, results in tournament.items():
-            sorted_rounds_results[round] = sorted(results.items(), key=operator.itemgetter(1)) #, reverse=True)
+    for tournament_name, round_scores in scores.items():
+        for round_name, results in round_scores.items():
+            if not (tournament_name in sorted_rounds_results.keys()):
+                sorted_rounds_results[tournament_name] = {}
+            sorted_rounds_results[tournament_name][round_name] = sorted(results.items(), key=operator.itemgetter(1),
+                                                                        reverse=True)
 
     return sorted_rounds_results
 

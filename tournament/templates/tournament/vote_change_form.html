@@ -1,0 +1,53 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+
+{% load filters %}
+
+{% if ongoing_bets  %}
+    <p>You can change your bets</p>
+    <form method="POST" action=".">
+        {% csrf_token %}
+        {% for bet in ongoing_bets %}
+            {% for field in form %}
+                {% if bet.match.home_team.name == field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
+                    <p>{{ field.errors }}<img src={{ bet.match.home_team.flag }}>
+                    {{ field.label|team_name }}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+            :
+            {% for field in form %}
+                {% if bet.match.away_team.name ==  field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
+                    {{ field }} {{ field.label|team_name }} <img src={{ bet.match.away_team.flag }}> {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+        <br>
+        {% endfor %}
+
+    <input type=submit>
+    </form>
+
+{% else %}
+    <p>Na chwile obecna nie ma meczy dla ktorych mozna zmienic wynik</p>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+ {% for bet in ongoing_bets %}
+        <h4>
+            {{bet.match.tournament}} ---->
+            <img src={{ bet.match.home_team.flag }}>
+            {{ bet.match.home_team.name }}
+            {{ bet.expected_home_goals }} : {{ bet.expected_away_goals }}
+            {{ bet.match.away_team.name }}
+            <img src={{ bet.match.away_team.flag }}>
+        </h4>
+    {% endfor %}

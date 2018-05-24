@@ -38,8 +38,10 @@ def tournament(request, tournament_name):
 def vote_overview(request):
 
     user = request.user
-    context, id_matches_to_bet = vote_context(user)
-    request.session['id_matches_to_bet'] = id_matches_to_bet
+    #context, id_matches_to_bet, id_ongoing_bets = vote_context(user) #jest tak bo jest to JSON parsing problem trzy linijki nizej  request.session
+    #request.session['id_matches_to_bet'] = id_matches_to_bet
+    #request.session['id_ongoing_bets'] = id_ongoing_bets
+    context, _, _ = vote_context(user)  # jest tak bo jest to JSON parsing problem trzy linijki nizej  request.session
 
     return render(request, 'tournament/vote_overview.html', context)
 
@@ -48,8 +50,16 @@ def vote_overview(request):
 def vote_form(request):
 
     matches_to_bet = []
-    for id in request.session['id_matches_to_bet']:
+
+    #for id in request.session['id_matches_to_bet']:
+    #    matches_to_bet.append(Match.objects.get(pk=id))
+
+    user = request.user
+    _, id_matches_to_bet, _ = vote_context(user)  # pewnie nieoptymalne ale powyzsze trzeba bylo usunac bo nie odswiezal strony
+
+    for id in id_matches_to_bet:
         matches_to_bet.append(Match.objects.get(pk=id))
+
 
     form = Vote(request.POST or None, matches_to_bet=matches_to_bet)
     if form.is_valid():
@@ -62,9 +72,38 @@ def vote_form(request):
             m.save()
 
         user = request.user
-        context, _ = vote_context(user)
+        context, _, _ = vote_context(user)
         return render(request, 'tournament/vote_overview.html', context)
     context = {'matches_to_bet' : matches_to_bet,
                'form': form}
     return render(request, 'tournament/vote_form.html', context,  RequestContext(request))
 
+@login_required(login_url='/accounts/login/')
+def vote_change_form(request):
+
+    ongoing_bets = []
+
+    #for bet_id in request.session['id_ongoing_bets']:
+    #    ongoing_bets.append(Bet.objects.get(pk=bet_id))
+
+    user = request.user
+    _, _, id_ongoing_bets = vote_context(user)  # pewnie nieoptymalne ale powyzsze trzeba bylo usunac bo nie odswiezal strony
+
+    for bet_id in id_ongoing_bets:
+        ongoing_bets.append(Bet.objects.get(pk=bet_id))
+
+    form = Vote(request.POST or None, ongoing_bets=ongoing_bets)
+    if form.is_valid():
+        for bet in ongoing_bets:
+            print(form.cleaned_data["{}_{}".format(bet.match.home_team.name,bet.match.id)]) #tylko do printowania
+
+            Bet.objects.filter(id=bet.id).update(
+                expected_home_goals = form.cleaned_data["{}_{}".format(bet.match.home_team.name, bet.match.id)],
+                expected_away_goals = form.cleaned_data["{}_{}".format(bet.match.away_team.name, bet.match.id)])
+
+        user = request.user
+        context, _, _ = vote_context(user)
+        return render(request, 'tournament/vote_overview.html', context)
+    context = {'ongoing_bets' : ongoing_bets,
+               'form': form}
+    return render(request, 'tournament/vote_change_form.html', context,  RequestContext(request))
