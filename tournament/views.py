@@ -55,7 +55,7 @@ def vote_form(request):
     #    matches_to_bet.append(Match.objects.get(pk=id))
 
     user = request.user
-    _, id_matches_to_bet, _ = vote_context(user)  # pewnie nieoptymalne ale powyzsze trzeba bylo usunac bo nie odswiezal strony
+    _, id_matches_to_bet, _ = vote_context(user)  #TODO pewnie nieoptymalne ale powyzsze trzeba bylo usunac bo nie odswiezal strony
 
     for id in id_matches_to_bet:
         matches_to_bet.append(Match.objects.get(pk=id))

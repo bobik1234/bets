@@ -53,7 +53,9 @@ def get_points_per_user(finished_bets):
             sorted_rounds_results[tournament_name][round_name] = sorted(results.items(), key=operator.itemgetter(1),
                                                                         reverse=True)
 
-    return sorted_rounds_results
+    sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
+
+    return sorted_rounds_results_with_place
 
 
 def get_finished_bets(user = None, tournament_name = None, active_tournaments = True):
@@ -109,5 +111,49 @@ def _who_won(home_goals, away_goals):
         return "duce"
     else:
         return "away team won"
+
+
+def _set_place(sorted_rounds_results):
+    """
+    Ustawia miejsce na posortowanych slownikach - ktore miejsce ma uzytkownik w danej rundzie
+
+
+    {tournament : {'round' : [(user, score), (user, score)... ]...
+                               'summary' : [(user, score), (user, score)... ]}
+
+    :param sorted_rounds_results:
+    :return:
+    """
+
+    sorted_rounds_results_with_place = {}
+
+
+    for tournament_name, tournament_data in sorted_rounds_results.items():
+
+        rounds_dict = {}
+
+        for round_name, round_data in tournament_data.items():
+
+            list = []
+            previous_score = None
+
+            for i, user_and_score in enumerate(round_data, start=1):
+                user, score = user_and_score
+
+                if score == previous_score:
+                    list.append(("-", user, score))
+                else:
+                    list.append((i, user, score))
+
+                previous_score = score
+
+            rounds_dict.update({round_name : list})
+
+        sorted_rounds_results_with_place.update({tournament_name : rounds_dict })
+
+    return sorted_rounds_results_with_place
+
+
+
 
 

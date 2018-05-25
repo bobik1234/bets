@@ -23,12 +23,14 @@
         <h4>Wyniki rundy {{ round }}</h4>
             <table>
                 <tr>
+                    <th>Place</th>
                     <th>User</th>
                     <th>Score</th>
                 </tr>
-        {% for user, points in user_scores %}
+        {% for place, user, points in user_scores %}
 
                 <tr>
+                    <td align="center" valign="middle">{{ place }}</td>
                     <td align="center" valign="middle">{{ user }}</td>
                     <td align="center" valign="middle"> {{ points }}</td>
                 </tr>

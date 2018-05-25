@@ -14,12 +14,16 @@
 <table>
     <tr>
         <th>Round</th>
+        <th>Place</th>
         <th>Score</th>
     </tr>
   {% for round, user_scores in rounds.items %}
     <tr>
         <td align="center" valign="middle">{{ round }}</td>
-        <td align="center" valign="middle">{% for user, points in user_scores %} {{ points }}{% endfor %}</td>
+        {% for place, user, points in user_scores %}
+            <td align="center" valign="middle">{{ place }}</td>
+            <td align="center" valign="middle"> {{ points }}</td>
+        {% endfor %}
     </tr>
   {% endfor %}
 {% endfor %}
