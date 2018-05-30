@@ -2,6 +2,9 @@ from django.db import models
 from django.conf import settings
 from django_countries.fields import CountryField
 
+ROUND = (('1','one'), ('2','two'), ('3','three'),
+             ('QF', "Quarterfinal"), ('SF', "Semifinal"), ('F', "Final"), ('All', "All"))
+
 class Tournament(models.Model):
     name = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
@@ -13,8 +16,6 @@ class Match(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     home_team = CountryField()
     away_team = CountryField()
-    ROUND = (('1','one'), ('2','two'), ('3','three'), ('4','four'), ('5',"five"), ('6', 'six'),
-             ('QF', "Quarterfinal"), ('SF', "Semifinal"), ('F', "Final"))
     round = models.CharField(max_length=2, choices=ROUND, default='1')
     home_goals = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
     away_goals = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)

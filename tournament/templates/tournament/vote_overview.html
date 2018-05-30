@@ -13,6 +13,7 @@
             {{ bet.expected_home_goals }} : {{ bet.expected_away_goals }}
             {{ bet.match.away_team.name }}
             <img src={{ bet.match.away_team.flag }}>
+             ----> Match date: {{bet.match.match_date }}
         </h4>
     {% endfor %}
     <a href="/tournament/vote_change_form">You can change your bets here</a>
@@ -30,30 +31,11 @@
             <img src={{ match.home_team.flag }}>
             {{ match.home_team.name }} - {{ match.away_team.name }}
             <img src={{ match.away_team.flag }}>
+            ----> Match date: {{match.match_date }}
         </h4>
     {% endfor %}
 
     <a href="/tournament/vote_form">You can vote here</a>
-{% else %}
-    Nothig
-{% endif %}
-
-<h3 style="color:blue">Finished bets:</h3>
-
-{% if finished_bets  %}
-
-    {% for bet in finished_bets %}
-        <h4>
-            {{bet.match.tournament}} ---->
-            <img src={{ bet.match.home_team.flag }}>
-            {{ bet.match.home_team.name }}
-            {{ bet.expected_home_goals }} : {{ bet.expected_away_goals }}
-            {{ bet.match.away_team.name }}
-            <img src={{ bet.match.away_team.flag }}>
-            Final result: {{ bet.match.home_goals }} : {{ bet.match.away_goals }}
-        </h4>
-    {% endfor %}
-
 {% else %}
     Nothig
 {% endif %}
@@ -68,6 +50,7 @@
             <img src={{ match.home_team.flag }}>
             {{ match.home_team.name }} - {{ match.away_team.name }}
             <img src={{ match.away_team.flag }}>
+            ----> Match date: {{match.match_date }}
         </h4>
     {% endfor %}
 

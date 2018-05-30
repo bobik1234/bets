@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^vote_overview/$', views.vote_overview, name='vote_overview'),
     url(r'^vote_form/$', views.vote_form, name='vote_form'),
     url(r'^vote_change_form/$', views.vote_change_form, name='vote_change_form'),
+    url(r'^other_results/$', views.other_results, name='other_results'),
 ]
