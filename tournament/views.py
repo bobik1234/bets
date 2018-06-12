@@ -6,7 +6,7 @@ from tournament.forms import Vote, ChooseUser
 from tournament.models import Bet, Match
 from tournament.db_handler import get_user
 
-#TODO: dopisac ladna strone do zmiany hasla... po zmianie nie wraca do aplikacji...
+#TODO: dopisac ladna strone do zmiany hasla... po zmianie nie wraca do aplikacji, trzeba recznie wrocic...
 
 @login_required(login_url='/accounts/login/')
 def index(request):
