@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context
+from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context, get_matches_to_bet
 from django.template import RequestContext
 from tournament.forms import Vote, ChooseUser
 from tournament.models import Bet, Match
@@ -15,6 +15,10 @@ def index(request):
 @login_required(login_url='/accounts/login/')
 def info(request):
     return render(request, 'tournament/info.html')
+
+@login_required(login_url='/accounts/login/')
+def simulation(request):
+    return render(request, 'tournament/simulation.html')
 
 @login_required(login_url='/accounts/login/')
 def my_results(request):
@@ -40,10 +44,7 @@ def tournament(request, tournament_name):
 def vote_overview(request):
 
     user = request.user
-    #context, id_matches_to_bet, id_ongoing_bets = vote_context(user) #jest tak bo jest to JSON parsing problem trzy linijki nizej  request.session
-    #request.session['id_matches_to_bet'] = id_matches_to_bet
-    #request.session['id_ongoing_bets'] = id_ongoing_bets
-    context, _, _ = vote_context(user)  # jest tak bo jest to JSON parsing problem trzy linijki nizej  request.session
+    context = vote_context(user)
 
     return render(request, 'tournament/vote_overview.html', context)
 
@@ -51,14 +52,8 @@ def vote_overview(request):
 @login_required(login_url='/accounts/login/')
 def vote_form(request):
 
-    matches_to_bet = []
-
     user = request.user
-    _, id_matches_to_bet, _ = vote_context(user)
-
-    for id in id_matches_to_bet:
-        matches_to_bet.append(Match.objects.get(pk=id))
-
+    matches_to_bet, _ = get_matches_to_bet(user)
 
     form = Vote(request.POST or None, matches_to_bet=matches_to_bet, user=user)
     if form.is_valid():
@@ -72,7 +67,7 @@ def vote_form(request):
             m.save()
 
         user = request.user
-        context, _, _ = vote_context(user)
+        context = vote_context(user)
         return render(request, 'tournament/vote_overview.html', context)
     context = {'matches_to_bet' : matches_to_bet,
                'form': form}
@@ -81,13 +76,8 @@ def vote_form(request):
 @login_required(login_url='/accounts/login/')
 def vote_change_form(request):
 
-    ongoing_bets = []
-
     user = request.user
-    _, _, id_ongoing_bets = vote_context(user)  # pewnie nieoptymalne ale powyzsze trzeba bylo usunac bo nie odswiezal strony
-
-    for bet_id in id_ongoing_bets:
-        ongoing_bets.append(Bet.objects.get(pk=bet_id))
+    ongoing_bets = get_ongoing_bets(user=user)
 
     form = Vote(request.POST or None, ongoing_bets=ongoing_bets, user=user)
     if form.is_valid():
@@ -99,7 +89,7 @@ def vote_change_form(request):
                 expected_away_goals = form.cleaned_data["{}_{}".format(bet.match.away_team.name, bet.match.id)])
 
         user = request.user
-        context, _, _ = vote_context(user)
+        context = vote_context(user)
         return render(request, 'tournament/vote_overview.html', context)
     context = {'ongoing_bets' : ongoing_bets,
                'form': form}
@@ -111,7 +101,6 @@ def other_results(request):
 
     #TODO: get_finished_bets - tu by trzeba bylo dodac runde, z defaltu na All i dodac funckje get_ongoing_bets
     #TODO: other_result.html ma duzo wspolnego z my_results.html - moze jakos ujednolicic...
-    #TODO: pomyslec jak zmergowac utils.py i view_utils w jedno
 
     form = ChooseUser(request.POST or None)
 

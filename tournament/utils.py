@@ -7,7 +7,7 @@ def vote_context(user):
     """
     Doprecyzujmy co znaczy:
     'ongoing_bets'     --> mecze ktore sie juz obstawilismy ale mozna jeszcze zmienic ich wynik
-    'matches_to_bet'   --> mecze nie obstawione ale ktore mozna obstawiac (nawet na minute przed meczem)
+    'matches_to_bet'   --> mecze nie obstawione ale ktore mozna obstawiac
     'too_late_to_bet'  --> mecze nie obstawione, ktore juz sie rozpoczely albo zakonczyly
     'finished_bets'    --> mecze ktore obstawialismy i nie mozna zmienic ich wyniku - tocza sie albo juz sie zakonczyly
 
@@ -15,39 +15,15 @@ def vote_context(user):
     :return:
     """
 
-    # TODO: do przemyslenia - funkcje rozdzielic na trzy zeby zwracaly trzy rozne parametry
 
-    now = timezone.now()
-    user_bets = []
-    for bet in bet_list(user):
-        user_bets.append(bet)
+    matches_to_bet, too_late_to_bet = get_matches_to_bet(user)
 
-    matches_to_bet = []
-    id_matches_to_bet = []
-    id_ongoing_bets = []
-    too_late_to_bet = []
-    matches_already_bet = [m.match for m in user_bets]
-    ongoing_bets = [bet for bet in user_bets if now < bet.match.match_date]
-
-    for bet in ongoing_bets:
-        id_ongoing_bets.append(bet.id)
-
-    finished_bets = [bet for bet in user_bets if (bet.expected_away_goals is not None) and (now > bet.match.match_date)]
-
-    for match in match_list():
-        if match not in matches_already_bet:
-            if now > match.match_date:
-                too_late_to_bet.append(match)
-            else:
-                matches_to_bet.append(match)
-                id_matches_to_bet.append(match.id)
-
-    context = {'ongoing_bets': ongoing_bets,
+    context = {'ongoing_bets': get_ongoing_bets(user=user),
                'matches_to_bet': matches_to_bet,
                'too_late_to_bet': too_late_to_bet,
-               'finished_bets': finished_bets}
+               'finished_bets': get_finished_bets(user)}
 
-    return context, id_matches_to_bet, id_ongoing_bets
+    return context
 
 def get_points_per_user(finished_bets):
     """
@@ -58,12 +34,12 @@ def get_points_per_user(finished_bets):
         Zmienna scores ma strukture:
             {tournament : {'round' : {user : score,
                                       user : score)}...
-                           'summary' : {user : score},
-                                       {user : score}}
+                           'General Classification' : {user : score},
+                                                       {user : score}}
 
         Po sortowaniu i finalnie mamy:
                 {tournament : {'round' : [(user, score), (user, score)... ]...
-                               'summary' : [(user, score), (user, score)... ]}
+                               'General_Classification' : [(user, score), (user, score)... ]}
 
 
 
@@ -74,7 +50,7 @@ def get_points_per_user(finished_bets):
     for finished_bet in finished_bets:
         tournament_name = finished_bet['bet'].match.tournament.name
         if not (tournament_name in scores.keys()):
-            scores[tournament_name] = {'summary' : {}}
+            scores[tournament_name] = {'General Classification' : {}}
         round = finished_bet['bet'].match.round
         if not (round in scores[tournament_name].keys()):
             scores[tournament_name][round] = {}
@@ -85,10 +61,10 @@ def get_points_per_user(finished_bets):
         else:
             scores[tournament_name][round][user] = finished_bet['score']
 
-        if user in scores[tournament_name]['summary'].keys():
-            scores[tournament_name]['summary'][user] += finished_bet['score']
+        if user in scores[tournament_name]['General Classification'].keys():
+            scores[tournament_name]['General Classification'][user] += finished_bet['score']
         else:
-            scores[tournament_name]['summary'][user] = finished_bet['score']
+            scores[tournament_name]['General Classification'][user] = finished_bet['score']
 
 
     #sortujemy slowniki
@@ -105,6 +81,33 @@ def get_points_per_user(finished_bets):
 
     return sorted_rounds_results_with_place
 
+def get_matches_to_bet(user):
+    """
+    Zwraca mecze do obstawienia przez usera oraz informuje ktore sa juz za pozno do obstawienia
+
+    :param user:
+    :return:
+    """
+    user_bets = []
+
+    for bet in bet_list(user):
+        user_bets.append(bet)
+
+    now = timezone.now()
+    matches_to_bet = []
+    too_late_to_bet = []
+    matches_already_bet = [m.match for m in user_bets]
+
+    for match in match_list():
+        if match not in matches_already_bet:
+            if now > match.match_date:
+                too_late_to_bet.append(match)
+            else:
+                matches_to_bet.append(match)
+
+
+    return matches_to_bet, too_late_to_bet
+
 
 def get_finished_bets(user = None, tournament_name = None, active_tournaments = True, round = 'All'):
     """
@@ -116,27 +119,22 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
 
     finished_bets = []
     user_bet_list = bet_list(user)
+    now = timezone.now()
 
-    # TODO: Refactor -- pominnismy iterowac przez bet_list najpierw a nie przez mecze
-
-    for match in match_list(tournament_name, round):
-        if (match.home_goals is None) or (match.away_goals is None):
-            continue
+    for bet in user_bet_list:
 
         if tournament_name is not None:
-            if not (tournament_name == match.tournament.name):
+            if not (tournament_name == bet.match.tournament.name):
                 continue
 
-        if (match.tournament.active is not active_tournaments):
-             continue
+        if (bet.match.tournament.active is not active_tournaments):
+            continue
 
         if not (round == 'All'):
-            if not (round == match.round):
+            if not (round == bet.match.round):
                 continue
-
-        for bet in user_bet_list: #trzeba by to bylo czytelniej zaifowac
-            if match == bet.match:
-                finished_bets.append({'bet': bet, 'score': _calculate_score(bet, match)})
+        if (now > bet.match.match_date):
+            finished_bets.append({'bet': bet, 'score': _calculate_score(bet, bet.match)})
 
     return finished_bets
 
@@ -150,27 +148,25 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
 
     ongoing_bets = []
     user_bet_list = bet_list(user)
+    now = timezone.now()
 
-    #TODO: Refactor -- pominnismy iterowac przez bet_list najpierw a nie przez mecze
-
-    for match in match_list(tournament_name, round):
+    for bet in user_bet_list:
 
         if tournament_name is not None:
-            if not (tournament_name == match.tournament.name):
+            if not (tournament_name == bet.match.tournament.name):
                 continue
-            if (not match.tournament.active):
+            if (not bet.match.tournament.active):
                 continue
 
         if not (round == 'All'):
-            if not (round == match.round):
+            if not (round == bet.match.round):
                 continue
 
-        if (match.home_goals is not None) or (match.away_goals is not None):
+        if (bet.match.home_goals is not None) or (bet.match.away_goals is not None):
             continue
 
-        for bet in user_bet_list:  # trzeba by to bylo czytelniej zaifowac
-            if match == bet.match:
-                ongoing_bets.append(bet)
+        if (now < bet.match.match_date):
+            ongoing_bets.append(bet)
 
     return ongoing_bets
 
@@ -178,6 +174,10 @@ def _calculate_score(bet, match):
     """
     Sprawdza ile punktow zwrocic za zaklad (bet) i zwraca ta ilosc
     """
+
+    if (match.home_goals is None) or (match.away_goals is None):
+        return 0
+
     if (match.home_goals == bet.expected_home_goals) and (match.away_goals == bet.expected_away_goals):
         return 3
     elif _who_won(match.home_goals, match.away_goals) == _who_won(bet.expected_home_goals, bet.expected_away_goals):

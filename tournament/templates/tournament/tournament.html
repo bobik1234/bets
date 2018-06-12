@@ -17,29 +17,32 @@
     {% endif %}
 {% endfor %}
 
+{% if points_per_user %}
 
-{% for tournament_name, rounds in points_per_user.items %}
-  {% for round, user_scores in rounds.items %}
-        <h4>Wyniki rundy {{ round }}</h4>
-            <table>
-                <tr>
-                    <th>Place</th>
-                    <th>User</th>
-                    <th>Score</th>
-                </tr>
-        {% for place, user, points in user_scores %}
+    {% for tournament_name, rounds in points_per_user.items %}
+      {% for round, user_scores in rounds.items %}
+            <h4>Wyniki rundy {{ round }}</h4>
+                <table>
+                    <tr>
+                        <th>Place</th>
+                        <th>User</th>
+                        <th>Score</th>
+                    </tr>
+            {% for place, user, points in user_scores %}
 
-                <tr>
-                    <td align="center" valign="middle">{{ place }}</td>
-                    <td align="center" valign="middle">{{ user }}</td>
-                    <td align="center" valign="middle"> {{ points }}</td>
-                </tr>
-        {% endfor %}
-        </table>
-  {% endfor %}
-{% endfor %}
+                    <tr>
+                        <td align="center" valign="middle">{{ place }}</td>
+                        <td align="center" valign="middle">{{ user }}</td>
+                        <td align="center" valign="middle"> {{ points }}</td>
+                    </tr>
+            {% endfor %}
+            </table>
+      {% endfor %}
+    {% endfor %}
 
-
+{% else %}
+    <p> Zaden mecz sie jeszcze nie zakonczyl - brak klasyfikacji </p>
+{% endif %}
 
 
 {% endblock %}

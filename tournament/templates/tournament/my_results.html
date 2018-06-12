@@ -6,54 +6,64 @@
 <link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
 
 <br>
-<h2>Moje rezultaty w toczacych sie turniejach</h2>
 
-{% for tournament_name, rounds in points_per_user.items %}
-  <h3>"{{ tournament_name }}"</h3>
+{% if points_per_user %}
 
-<table>
-    <tr>
-        <th>Round</th>
-        <th>Score</th>
-    </tr>
-  {% for round, user_scores in rounds.items %}
-    <tr>
-        <td align="center" valign="middle">{{ round }}</td>
-        {% for _, _, points in user_scores %}
-            <td align="center" valign="middle"> {{ points }}</td>
-        {% endfor %}
-    </tr>
-  {% endfor %}
-{% endfor %}
+    <h2>Moje rezultaty w toczacych sie turniejach</h2>
 
-</table>
+    {% for tournament_name, rounds in points_per_user.items %}
+      <h3>"{{ tournament_name }}"</h3>
 
-<br>
-<h2>Wyniki pojedynczych zakladow w trwajacych turniejach</h2>
-
-
-<table style="width: 100%;">
-    <tr>
-        <th>Tournament</th>
-        <th>User</th>
-        <th>Match</th>
-        <th>Date</th>
-        <th>Round</th>
-        <th>Expected_result</th>
-        <th>Final_result</th>
-        <th>Score</th>
-    </tr>
-    {% for item in finished_bets %}
-    <tr>
-        <td>{{ item.bet.match.tournament }}</td>
-        <td>{{ item.bet.user }}</td>
-        <td><img src={{ item.bet.match.home_team.flag }}> {{ item.bet.match.home_team.name }} - {{ item.bet.match.away_team.name }} <img src={{ item.bet.match.away_team.flag }}></td>
-        <td>{{ item.bet.match.match_date|date:"D d M Y" }}</td>
-        <td>{{ item.bet.match.round }}</td>
-        <td align="center" valign="middle">{{ item.bet.expected_result_to_str }}</td>
-        <td align="center" valign="middle">{{ item.bet.match.final_result_to_str }}</td>
-        <td align="center" valign="middle">{{ item.score }}</td>
-    </tr>
+    <table>
+        <tr>
+            <th>Round</th>
+            <th>Score</th>
+        </tr>
+      {% for round, user_scores in rounds.items %}
+        <tr>
+            <td align="center" valign="middle">{{ round }}</td>
+            {% for _, _, points in user_scores %}
+                <td align="center" valign="middle"> {{ points }}</td>
+            {% endfor %}
+        </tr>
+      {% endfor %}
     {% endfor %}
-</table>
+
+    </table>
+
+
+    <br>
+    <h2>Wyniki pojedynczych zakladow w trwajacych turniejach</h2>
+
+
+    <table style="width: 100%;">
+        <tr>
+            <th>Tournament</th>
+            <th>User</th>
+            <th>Match</th>
+            <th>Date</th>
+            <th>Round</th>
+            <th>Expected_result</th>
+            <th>Final_result</th>
+            <th>Score</th>
+        </tr>
+        {% for item in finished_bets %}
+        <tr>
+            <td>{{ item.bet.match.tournament }}</td>
+            <td>{{ item.bet.user }}</td>
+            <td><img src={{ item.bet.match.home_team.flag }}> {{ item.bet.match.home_team.name }} - {{ item.bet.match.away_team.name }} <img src={{ item.bet.match.away_team.flag }}></td>
+            <td>{{ item.bet.match.match_date|date:"D d M Y" }}</td>
+            <td>{{ item.bet.match.round }}</td>
+            <td align="center" valign="middle">{{ item.bet.expected_result_to_str }}</td>
+            <td align="center" valign="middle">{{ item.bet.match.final_result_to_str }}</td>
+            <td align="center" valign="middle">{{ item.score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% else %}
+    <h2> Na chwile obecna brak punktacji w toczacyc sie turniejach - zaden mecz sie jeszcze nie zakonczyl </h2>
+{% endif %}
+
+
 {% endblock %}
