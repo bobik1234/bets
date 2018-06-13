@@ -1,2 +1,2 @@
-django-registration
+django-registration==2.2
 django-countries

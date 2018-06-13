@@ -3,6 +3,9 @@ from tournament.db_handler import bet_list, match_list
 import operator
 
 
+TIME_TO_BET = timezone.localtime() + timezone.timedelta(hours=1)
+
+
 def vote_context(user):
     """
     Doprecyzujmy co znaczy:
@@ -14,7 +17,6 @@ def vote_context(user):
     :param user:
     :return:
     """
-
 
     matches_to_bet, too_late_to_bet = get_matches_to_bet(user)
 
@@ -93,14 +95,13 @@ def get_matches_to_bet(user):
     for bet in bet_list(user):
         user_bets.append(bet)
 
-    now = timezone.now()
     matches_to_bet = []
     too_late_to_bet = []
     matches_already_bet = [m.match for m in user_bets]
 
     for match in match_list():
         if match not in matches_already_bet:
-            if now > match.match_date:
+            if TIME_TO_BET > match.match_date:
                 too_late_to_bet.append(match)
             else:
                 matches_to_bet.append(match)
@@ -119,7 +120,6 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
 
     finished_bets = []
     user_bet_list = bet_list(user)
-    now = timezone.now()
 
     for bet in user_bet_list:
 
@@ -133,7 +133,7 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
         if not (round == 'All'):
             if not (round == bet.match.round):
                 continue
-        if (now > bet.match.match_date):
+        if (TIME_TO_BET > bet.match.match_date):
             finished_bets.append({'bet': bet, 'score': _calculate_score(bet, bet.match)})
 
     return finished_bets
@@ -148,7 +148,6 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
 
     ongoing_bets = []
     user_bet_list = bet_list(user)
-    now = timezone.now()
 
     for bet in user_bet_list:
 
@@ -165,7 +164,7 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
         if (bet.match.home_goals is not None) or (bet.match.away_goals is not None):
             continue
 
-        if (now < bet.match.match_date):
+        if (TIME_TO_BET < bet.match.match_date):
             ongoing_bets.append(bet)
 
     return ongoing_bets
