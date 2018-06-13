@@ -6,6 +6,13 @@ from tournament.forms import Vote, ChooseUser
 from tournament.models import Bet, Match
 from tournament.db_handler import get_user
 
+
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
+
+
 #TODO: dopisac ladna strone do zmiany hasla... po zmianie nie wraca do aplikacji, trzeba recznie wrocic...
 
 @login_required(login_url='/accounts/login/')
@@ -122,3 +129,25 @@ def other_results(request):
         return render(request, 'tournament/other_results.html', context)
 
     return render(request, 'tournament/other_results.html',context, RequestContext(request))
+
+@login_required(login_url='/accounts/login/')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            #messages.success(request, 'Your password was successfully updated!')
+            return render(request, 'registration/change_password_done.html')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'registration/change_password_form.html', {
+        'form': form
+    })
+
+
+@login_required(login_url='/accounts/login/')
+def change_password_done(request):
+    return render(request, 'registration/change_password_done.html')

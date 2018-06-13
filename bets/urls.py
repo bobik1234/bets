@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^tournament/', include('tournament.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/password/change/done/$', views.change_password_done, name='change_password_done'),
+    url(r'^accounts/password/change/$', views.change_password, name='change_password'),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
 ]
