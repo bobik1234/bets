@@ -30,8 +30,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -56,7 +56,8 @@ ROOT_URLCONF = 'bets.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/tournament/templates/tournament/',],
+        'DIRS': [BASE_DIR + '/tournament/templates/tournament/',
+                 BASE_DIR + '/tournament/templates/registration/',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,10 +124,22 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/admin/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+"""
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'rapi1978@gmail.com'
 EMAIL_HOST_PASSWORD = '!aaaaaa' #TODO: jak to zakodowac zeby nie bylo prawdziwego hasla??
 EMAIL_PORT = 587
 EMAIL_USE_TLS   = True
+"""
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

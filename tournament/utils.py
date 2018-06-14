@@ -3,7 +3,7 @@ from tournament.db_handler import bet_list, match_list
 import operator
 
 
-TIME_TO_BET = timezone.localtime() + timezone.timedelta(hours=1)
+TIME_TO_BET = timezone.localtime(timezone.now()) + timezone.timedelta(hours=1)
 
 
 def vote_context(user):

@@ -130,6 +130,8 @@ def other_results(request):
 
     return render(request, 'tournament/other_results.html',context, RequestContext(request))
 
+#TODO: Mozna by lepiej rozkminic autentykacje i obyc sie bez ponizszych view do zmiany hasla. IMPROVEMENT
+
 @login_required(login_url='/accounts/login/')
 def change_password(request):
     if request.method == 'POST':
@@ -151,3 +153,4 @@ def change_password(request):
 @login_required(login_url='/accounts/login/')
 def change_password_done(request):
     return render(request, 'registration/change_password_done.html')
+
