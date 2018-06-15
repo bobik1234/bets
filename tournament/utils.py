@@ -3,9 +3,6 @@ from tournament.db_handler import bet_list, match_list
 import operator
 
 
-TIME_TO_BET = timezone.localtime(timezone.now()) + timezone.timedelta(hours=1)
-
-
 def vote_context(user):
     """
     Doprecyzujmy co znaczy:
@@ -91,6 +88,7 @@ def get_matches_to_bet(user):
     :return:
     """
     user_bets = []
+    Time_To_Bet = timezone.localtime(timezone.now()) + timezone.timedelta(hours=1)
 
     for bet in bet_list(user):
         user_bets.append(bet)
@@ -101,7 +99,7 @@ def get_matches_to_bet(user):
 
     for match in match_list():
         if match not in matches_already_bet:
-            if TIME_TO_BET > match.match_date:
+            if Time_To_Bet > match.match_date:
                 too_late_to_bet.append(match)
             else:
                 matches_to_bet.append(match)
@@ -120,6 +118,7 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
 
     finished_bets = []
     user_bet_list = bet_list(user)
+    Time_To_Bet = timezone.localtime(timezone.now()) + timezone.timedelta(hours=1)
 
     for bet in user_bet_list:
 
@@ -133,7 +132,7 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
         if not (round == 'All'):
             if not (round == bet.match.round):
                 continue
-        if (TIME_TO_BET > bet.match.match_date):
+        if (Time_To_Bet > bet.match.match_date):
             finished_bets.append({'bet': bet, 'score': _calculate_score(bet, bet.match)})
 
     return finished_bets
@@ -148,6 +147,7 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
 
     ongoing_bets = []
     user_bet_list = bet_list(user)
+    Time_To_Bet = timezone.localtime(timezone.now()) + timezone.timedelta(hours=1)
 
     for bet in user_bet_list:
 
@@ -164,7 +164,7 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
         if (bet.match.home_goals is not None) or (bet.match.away_goals is not None):
             continue
 
-        if (TIME_TO_BET < bet.match.match_date):
+        if (Time_To_Bet < bet.match.match_date):
             ongoing_bets.append(bet)
 
     return ongoing_bets
