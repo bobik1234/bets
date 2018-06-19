@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context, get_matches_to_bet
 from django.template import RequestContext
-from tournament.forms import Vote, ChooseUser
+from tournament.forms import Vote, ChooseUser, ChooseMatch
 from tournament.models import Bet, Match
-from tournament.db_handler import get_user
+from tournament.db_handler import get_user, bet_list, get_match
 
 
 from django.contrib import messages
@@ -47,6 +47,7 @@ def tournament(request, tournament_name):
     return render(request, 'tournament/tournament.html', context)
 
 
+#TODO: to juz chyba nie uzywane, usunac...
 @login_required(login_url='/accounts/login/')
 def vote_overview(request):
 
@@ -73,9 +74,7 @@ def vote_form(request):
                     expected_away_goals = form.cleaned_data["{}_{}".format(match.away_team.name, match.id)])
             m.save()
 
-        user = request.user
-        context = vote_context(user)
-        return render(request, 'tournament/vote_overview.html', context)
+        return render(request, 'tournament/vote_done.html')
     context = {'matches_to_bet' : matches_to_bet,
                'form': form}
     return render(request, 'tournament/vote_form.html', context,  RequestContext(request))
@@ -95,9 +94,7 @@ def vote_change_form(request):
                 expected_home_goals = form.cleaned_data["{}_{}".format(bet.match.home_team.name, bet.match.id)],
                 expected_away_goals = form.cleaned_data["{}_{}".format(bet.match.away_team.name, bet.match.id)])
 
-        user = request.user
-        context = vote_context(user)
-        return render(request, 'tournament/vote_overview.html', context)
+        return render(request, 'tournament/vote_change_done.html')
     context = {'ongoing_bets' : ongoing_bets,
                'form': form}
     return render(request, 'tournament/vote_change_form.html', context,  RequestContext(request))
@@ -129,6 +126,52 @@ def other_results(request):
         return render(request, 'tournament/other_results.html', context)
 
     return render(request, 'tournament/other_results.html',context, RequestContext(request))
+
+
+@login_required(login_url='/accounts/login/')
+def match_bets(request):
+
+
+    form = ChooseMatch(request.POST or None)
+
+    context = {'form': form}
+
+    if form.is_valid():
+        match_id = form.cleaned_data["choose_match_field"]
+        match = get_match(match_id)
+
+        bets = bet_list(match = match)
+
+        context = {'form': form,
+                   'match': match,
+                   'bets': bets}
+
+        return render(request, 'tournament/match_bets.html', context)
+    """
+        finished_bets = get_finished_bets(user = user, tournament_name = tournament_name, active_tournaments = True, round = round_name)
+        ongoing_bets = get_ongoing_bets(user = user, tournament_name = tournament_name, round = round_name)
+
+        context = {'form'          : form,
+                   'finished_bets' : finished_bets,
+                   'ongoing_bets'  : ongoing_bets}
+
+        return render(request, 'tournament/other_results.html', context)
+
+    return render(request, 'tournament/other_results.html',context, RequestContext(request))
+    """
+
+    return render(request, 'tournament/match_bets.html', context)
+
+@login_required(login_url='/accounts/login/')
+def too_late_to_bet(request):
+
+    user = request.user
+    _, too_late = get_matches_to_bet(user)
+
+    context = {'too_late': too_late}
+
+    return render(request, 'tournament/too_late_to_bet.html', context)
+
 
 #TODO: Mozna by lepiej rozkminic autentykacje i obyc sie bez ponizszych view do zmiany hasla. IMPROVEMENT
 

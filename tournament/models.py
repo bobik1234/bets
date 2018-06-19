@@ -24,6 +24,9 @@ class Match(models.Model):
     def final_result_to_str(self):
         return "{hg}:{ag}".format(hg=self.home_goals, ag=self.away_goals)
 
+    def teams_to_string(self):
+        return "{ht}:{at}".format(ht=self.home_team.name, at=self.away_team.name)
+
     def __str__(self):
         return '{} - {} {} Reslut: {} : {}'.format(self.home_team.name,
                                                    self.away_team.name,

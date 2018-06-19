@@ -1,6 +1,6 @@
 from django import forms
 from tournament.models import Bet, Tournament, ROUND
-from tournament.db_handler import get_user
+from tournament.db_handler import get_user, match_list
 
 class Vote(forms.Form):
 
@@ -43,14 +43,28 @@ class ChooseUser(forms.Form):
             if (str(user) == "admin") or not user.is_active:
                 continue
 
-            users.append((user,str(user)))
+            #users.append((user,str(user)))
+            users.append((user, user))
 
         #TODO: lista turnieji dostepna jest w context_processors dla kazej sesji - zamiast robic od nowa sciagnac z tamtad zmienna
         tournaments = []
         for tournament in list(Tournament.objects.all()):
             if tournament.active:
-                tournaments.append((tournament, str(tournament)))
+                tournaments.append((tournament, tournament))
 
         self.fields["choose_user_field"] = forms.ChoiceField(choices=users, widget=forms.Select(), required=True)
         self.fields["choose_tournament"] = forms.ChoiceField(choices=tournaments, widget=forms.Select(), required=True)
         self.fields["choose_round"] = forms.ChoiceField(choices=ROUND, widget=forms.Select(), required=True)
+
+class ChooseMatch(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+
+        # TODO: w zakladam ze tylko z aktywnych turnieji
+        super(ChooseMatch, self).__init__(*args, **kwargs)
+
+        m_list = []
+        for match in match_list():
+            m_list.append((match.id, match.teams_to_string()))
+
+        self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list, widget=forms.Select(), required=True)

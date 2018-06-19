@@ -1,0 +1,24 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+
+<h3 style="color:blue">Spozniles sie z obstawianiem meczy:</h3>
+
+{% if too_late  %}
+
+    {% for match in too_late %}
+        <h4>
+            {{match.tournament}} ---->
+            <img src={{ match.home_team.flag }}>
+            {{ match.home_team.name }} - {{ match.away_team.name }}
+            <img src={{ match.away_team.flag }}>
+            ----> Match date: {{match.match_date }}
+        </h4>
+    {% endfor %}
+
+{% else %}
+    Tak trzymac. Wszystkie mecze obstawione na czas.
+{% endif %}
+
+
+{% endblock %}

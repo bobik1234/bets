@@ -12,8 +12,11 @@
 </head>
 <body>
 
+Jestes zalogowany jako: {{request.user.username}}
+<br><br>
+
 <ol>
-    <li><a href="#">Turnieje</a>
+    <li><a href="#">Klasyfikacja</a>
       <ul>
           {% for tournament in tournaments %}
             <li><a href="{% url 'tournament' tournament_name=tournament.name %}"> {{ tournament.name }} </a></li>
@@ -21,33 +24,38 @@
       </ul>
     </li>
 
-    <li><a href="#">Trwajace turnieje</a>
+    <li><a href="#">Typowanie</a>
       <ul>
         <li><a href="{% url 'my_results' %}">Moje wyniki</a></li>
-        <li><a href="{% url 'other_results' %}">Wyniki innych graczy</a></li>
-        <li><a href="{% url 'vote_overview' %}">Typowanie</a></li>
+        <!-- <li><a href="{% url 'vote_overview' %}">Obstaw</a></li>-->
+        <li><a href="{% url 'vote_form' %}">Obstaw</a></li>
+        <li><a href="{% url 'vote_change_form' %}">Zmień</a></li>
+        <li><a href="{% url 'too_late_to_bet' %}">Spóźnione</a></li>
         <li><a href="{% url 'simulation' %}">Symulacja</a></li>
       </ul>
     </li>
 
-     <li><a href="#">Zakonczone turnieje</a>
+    <li><a href="#">Podgląd</a>
       <ul>
-        <li><a href="#">Moje wyniki</a></li>
-        <li><a href="#">Wyniki inych graczy</a></li>
+        <li><a href="{% url 'other_results' %}">Gracz</a></li>
+        <li><a href="{% url 'match_bets' %}">Mecz</a></li>
       </ul>
     </li>
 
-    <li><a href="{% url 'info' %}">Info</a></li>
-
-    <li><a href="#">Uzytkownik {{request.user.username}} </a>
+     <li><a href="#">Inne</a>
       <ul>
-        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+        <li><a href="{% url 'info' %}">Info</a></li>
+        <li><a href="#">Historia</a></li>
         <!-- <li><a href="{% url 'auth_password_change' %}">Change password</a></li>-->
         <li><a href="{% url 'change_password' %}">Change password</a></li>
+        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+
       </ul>
     </li>
+
   </ol>
 
+<br>
 
 {% block content %}{% endblock %}
 

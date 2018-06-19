@@ -80,6 +80,14 @@ def get_points_per_user(finished_bets):
 
     return sorted_rounds_results_with_place
 
+def get_bets_for_match(match):
+    """
+    Zwraca wszystkie obstawienia dla konkretnego meczu
+    :param match:
+    :return:
+    """
+
+
 def get_matches_to_bet(user):
     """
     Zwraca mecze do obstawienia przez usera oraz informuje ktore sa juz za pozno do obstawienia

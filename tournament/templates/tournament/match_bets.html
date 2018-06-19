@@ -1,0 +1,50 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+
+
+<p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
+<form method="POST" action=".">
+    {% csrf_token %}
+    <p>Choose match       {{form.choose_match_field}} </p>
+
+    <input type=submit value="Send Request">
+</form>
+
+
+{% if bets  %}
+
+    <h2>Zaklady dla meczu:  {{ match.teams_to_string }}</h2>
+    <p>Turniej: {{ match.tournament }}</p>
+    <p>Runda: {{ match.round }}</p>
+    <p>Data meczu: {{match.match_date|date:"D d M Y"}}</p>
+
+    {% if match.home_goals is not None  %}
+        <p>Koncowy wynik meczu: {{ match.final_result_to_str }}</p>
+    {% else %}
+        <p>Nie ma jeszcze wyniku koncowego</p>
+    {% endif %}
+
+    <table style="width: 100%;">
+    <tr>
+        <th>User</th>
+        <th>Expected_result</th>
+    </tr>
+    {% for bet in bets %}
+    <tr>
+        <td>{{ bet.user }}</td>
+        <td align="center" valign="middle">{{ bet.expected_result_to_str }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+{% else %}
+    <p>Nikt nie obstawil tego meczu</p>
+{% endif %}
+
+
+
+{% endblock %}

@@ -1,15 +1,19 @@
 from tournament.models import Bet, Match, Tournament
 from django.contrib.auth.models import User
 
-def bet_list(user = None):
+def bet_list(user = None, match = None):
     """
     Zwraca liste zakladow z tablicy Bet - jesli podamy usera to dla danego usera
     :param user:
     :return:
     """
 
-    if user is not None:
+    if (user is not None) and (match is None):
         return list(Bet.objects.filter(user=user))
+    elif (user is not None) and (match is not None):
+        return list(Bet.objects.filter(user=user, match=match))
+    elif (user is None) and (match is not None):
+        return list(Bet.objects.filter(match=match))
     else:
         return list(Bet.objects.all())
 
@@ -43,3 +47,5 @@ def get_user(user_name = None):
     else:
         return  User.objects.get(username=user_name)
 
+def get_match(mach_id):
+    return Match.objects.get(id=mach_id)
