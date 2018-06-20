@@ -6,7 +6,7 @@
 
 {% if matches_to_bet  %}
 
-    <p>Matches to vote</p>
+    <h4>Mecze do obstawienia: </h4>
     <form method="POST" action=".">
         {% csrf_token %}
         {% for match in matches_to_bet %}
@@ -22,6 +22,7 @@
                     {{ field }} {{ field.label|team_name }} <img src={{ match.away_team.flag }}> {{ field.errors }}
                 {% endif %}
             {% endfor %}
+            ----> {{match.match_date }}
         <br>
         {% endfor %}
 
@@ -29,7 +30,7 @@
     </form>
 
 {% else %}
-    <p>Na chwile obecna nie ma meczy do obstawiania</p>
+    <h4>Na chwile obecna nie ma meczy do obstawiania</h4>
 {% endif %}
 
 {% endblock %}

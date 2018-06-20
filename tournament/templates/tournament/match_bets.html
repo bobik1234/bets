@@ -28,15 +28,17 @@
         <p>Nie ma jeszcze wyniku koncowego</p>
     {% endif %}
 
-    <table style="width: 100%;">
+    <table>
     <tr>
         <th>User</th>
-        <th>Expected_result</th>
+        <th>{{ match.home_team.name }}</th>
+        <th>{{ match.away_team.name }}</th>
     </tr>
     {% for bet in bets %}
     <tr>
         <td>{{ bet.user }}</td>
-        <td align="center" valign="middle">{{ bet.expected_result_to_str }}</td>
+        <td align="center" valign="middle">{{ bet.expected_home_goals }}</td>
+        <td align="center" valign="middle">{{ bet.expected_away_goals }}</td>
     </tr>
     {% endfor %}
     </table>

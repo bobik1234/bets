@@ -25,11 +25,15 @@ def team_name(value):
     :param value: uzywany glownie przy glosowaniu (vote_form.html) - value (w formularzu field label)
      ma wartosc nazwa kraju i nr meczu. Problemem jest jak nazwa kraju jest kilku czlonowa - kolejne czlony pisane
      sa malymi literami podczas gdy w bazie match.name wszyskie kolejne wyraz sa duzymi literami, Stad uzycie funkcji
-        title()
+        title().
+        Drugi problem to niektore kraje maja slowko "and" ktore musi byc z malej stad replace. Slowka sa problematyczne.
     :return:
     """
 
+    #TODO: moze by tak zmienic mechanizm nazywania pol i pozniejszego porownywania ich w templatach????
+
     value = value.title()
+    value = value.replace('And','and').replace('Mcdonald','McDonald').replace('Of','of').replace('The','the')
     field_label = value.split(" ")
     field_label.pop()
     return " ".join(field_label)
