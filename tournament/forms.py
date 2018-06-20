@@ -68,3 +68,11 @@ class ChooseMatch(forms.Form):
             m_list.append((match.id, match.teams_to_string()))
 
         self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list, widget=forms.Select(), required=True)
+
+class ChooseMatchResult(ChooseMatch):
+    def __init__(self, *args, **kwargs):
+
+        super(ChooseMatchResult, self).__init__(*args, **kwargs)
+
+        self.fields["ht_goals"] = forms.DecimalField(max_digits=2, decimal_places=0)
+        self.fields["at_goals"] = forms.DecimalField(max_digits=2, decimal_places=0)

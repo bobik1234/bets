@@ -116,12 +116,14 @@ def get_matches_to_bet(user):
     return matches_to_bet, too_late_to_bet
 
 
-def get_finished_bets(user = None, tournament_name = None, active_tournaments = True, round = 'All'):
+def get_finished_bets(user = None, tournament_name = None, active_tournaments = True, round = 'All', simulated_match = None):
     """
     Wyniki z zakonczonych meczy, mozna po uzytkowniku i po statusie turnieju, zwraca liste slownikow
     {bet:..., score=...}
 
     Ustawienie tournament_name ignoruje ustawienie  active_tournaments
+
+    simulated_match - dla symulowania wyniku meczu
     """
 
     finished_bets = []
@@ -140,7 +142,12 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
         if not (round == 'All'):
             if not (round == bet.match.round):
                 continue
-        if (Time_To_Bet > bet.match.match_date):
+
+        if (simulated_match is not None) and (bet.match == simulated_match):
+            finished_bets.append({'bet': bet, 'score': _calculate_score(bet, simulated_match)})
+            continue
+
+        if (Time_To_Bet > bet.match.match_date): #TODO: chyba time_to_bed nie jest potrzebne, mozna by bylo zrobic ze wynik meczu nie jest None, spr..
             finished_bets.append({'bet': bet, 'score': _calculate_score(bet, bet.match)})
 
     return finished_bets

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context, get_matches_to_bet
 from django.template import RequestContext
-from tournament.forms import Vote, ChooseUser, ChooseMatch
+from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.models import Bet, Match
 from tournament.db_handler import get_user, bet_list, get_match
 
@@ -131,9 +131,7 @@ def other_results(request):
 @login_required(login_url='/accounts/login/')
 def match_bets(request):
 
-
     form = ChooseMatch(request.POST or None)
-
     context = {'form': form}
 
     if form.is_valid():
@@ -147,18 +145,6 @@ def match_bets(request):
                    'bets': bets}
 
         return render(request, 'tournament/match_bets.html', context)
-    """
-        finished_bets = get_finished_bets(user = user, tournament_name = tournament_name, active_tournaments = True, round = round_name)
-        ongoing_bets = get_ongoing_bets(user = user, tournament_name = tournament_name, round = round_name)
-
-        context = {'form'          : form,
-                   'finished_bets' : finished_bets,
-                   'ongoing_bets'  : ongoing_bets}
-
-        return render(request, 'tournament/other_results.html', context)
-
-    return render(request, 'tournament/other_results.html',context, RequestContext(request))
-    """
 
     return render(request, 'tournament/match_bets.html', context)
 
@@ -171,6 +157,34 @@ def too_late_to_bet(request):
     context = {'too_late': too_late}
 
     return render(request, 'tournament/too_late_to_bet.html', context)
+
+@login_required(login_url='/accounts/login/')
+def simulation(request):
+
+    form = ChooseMatchResult(request.POST or None)
+    context = {'form': form}
+
+    if form.is_valid():
+
+        match_id = form.cleaned_data["choose_match_field"]
+        match = get_match(match_id)
+        match.home_goals = form.cleaned_data["ht_goals"]
+        match.away_goals = form.cleaned_data["at_goals"]
+
+        finished_bets = get_finished_bets(tournament_name=match.tournament.name, simulated_match=match)
+
+        points_per_user = get_points_per_user(finished_bets)
+
+        context = {'form': form,
+                   'tournament_name': match.tournament.name,
+                   'points_per_user': points_per_user,
+                   'finished_bets': finished_bets}
+
+        return render(request, 'tournament/simulation.html', context)
+
+    return render(request, 'tournament/simulation.html', context)
+
+
 
 
 #TODO: Mozna by lepiej rozkminic autentykacje i obyc sie bez ponizszych view do zmiany hasla. IMPROVEMENT
