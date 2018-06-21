@@ -3,14 +3,12 @@ from django.contrib.auth.decorators import login_required
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context, get_matches_to_bet
 from django.template import RequestContext
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
-from tournament.models import Bet, Match
-from tournament.db_handler import get_user, bet_list, get_match
+from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
 
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
 
 
 #TODO: dopisac ladna strone do zmiany hasla... po zmianie nie wraca do aplikacji, trzeba recznie wrocic...
@@ -66,17 +64,14 @@ def vote_form(request):
     form = Vote(request.POST or None, matches_to_bet=matches_to_bet, user=user)
     if form.is_valid():
         for match in matches_to_bet:
-            print(form.cleaned_data["{}_{}".format(match.home_team.name,match.id)])
-            #TODO: przerzucic handlowanie bazy db_handlera
-            m = Bet(user=request.user,
-                    match = match,
-                    expected_home_goals = form.cleaned_data["{}_{}".format(match.home_team.name, match.id)],
-                    expected_away_goals = form.cleaned_data["{}_{}".format(match.away_team.name, match.id)])
-            m.save()
-
+            expected_home_goals = form.cleaned_data["{}_{}".format(match.home_team.name, match.id)]
+            expected_away_goals = form.cleaned_data["{}_{}".format(match.away_team.name, match.id)]
+            add_bet(user, match, expected_home_goals, expected_away_goals)
         return render(request, 'tournament/vote_done.html')
+
     context = {'matches_to_bet' : matches_to_bet,
                'form': form}
+
     return render(request, 'tournament/vote_form.html', context,  RequestContext(request))
 
 @login_required(login_url='/accounts/login/')
@@ -88,13 +83,11 @@ def vote_change_form(request):
     form = Vote(request.POST or None, ongoing_bets=ongoing_bets, user=user)
     if form.is_valid():
         for bet in ongoing_bets:
-            print(form.cleaned_data["{}_{}".format(bet.match.home_team.name,bet.match.id)]) #TODO: usunac - albo dac w trybie debug,
-            # TODO: przerzucic handlowanie bazy db_handlera
-            Bet.objects.filter(id=bet.id).update(
-                expected_home_goals = form.cleaned_data["{}_{}".format(bet.match.home_team.name, bet.match.id)],
-                expected_away_goals = form.cleaned_data["{}_{}".format(bet.match.away_team.name, bet.match.id)])
-
+            expected_home_goals = form.cleaned_data["{}_{}".format(bet.match.home_team.name, bet.match.id)]
+            expected_away_goals = form.cleaned_data["{}_{}".format(bet.match.away_team.name, bet.match.id)]
+            update_bet(bet.id, expected_home_goals, expected_away_goals)
         return render(request, 'tournament/vote_change_done.html')
+
     context = {'ongoing_bets' : ongoing_bets,
                'form': form}
     return render(request, 'tournament/vote_change_form.html', context,  RequestContext(request))

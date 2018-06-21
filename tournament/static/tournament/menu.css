@@ -23,7 +23,8 @@
       /* wygląd elementów - li - wszystkich dzieci elementu - ol */
       ol > li {
         float:left;
-        width:250px;
+        /* width:250px; */
+        width:20%;
         margin-left:1px;
         background-color:#FDD700;
         height:2em;

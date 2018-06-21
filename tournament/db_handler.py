@@ -49,3 +49,12 @@ def get_user(user_name = None):
 
 def get_match(mach_id):
     return Match.objects.get(id=mach_id)
+
+def add_bet(user, match, expected_home_goals, expected_away_goals):
+
+    m = Bet(user=user, match=match, expected_home_goals=expected_home_goals, expected_away_goals=expected_away_goals)
+    m.save()
+
+def update_bet(bet_id, expected_home_goals, expected_away_goals):
+
+    Bet.objects.filter(id=bet_id).update(expected_home_goals = expected_home_goals, expected_away_goals = expected_away_goals)
