@@ -175,7 +175,7 @@ def too_late_to_bet(request):
 @login_required(login_url='/accounts/login/')
 def simulation(request):
 
-    form = ChooseMatchResult(request.POST or None)
+    form = ChooseMatchResult(request.POST or None, ongoing_matches=True)
     context = {'form': form}
 
     if form.is_valid():
