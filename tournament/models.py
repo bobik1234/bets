@@ -2,8 +2,8 @@ from django.db import models
 from django.conf import settings
 from django_countries.fields import CountryField
 
-ROUND = (('1','one'), ('2','two'), ('3','three'),
-             ('QF', "Quarterfinal"), ('SF', "Semifinal"), ('F', "Final"), ('All', "All"))
+#ROUND = (('1','one'), ('2','two'), ('3','three'), ('QF', "Quarterfinal"), ('SF', "Semifinal"), ('F', "Final"), ('All', "All"))
+ROUND = (('1','one'), ('2','two'), ('3','three'), ('CP', "Faza Pucharowa"), ('All', "All"))
 
 class Tournament(models.Model):
     name = models.CharField(max_length=50)

@@ -20,7 +20,7 @@
     <h2>Zaklady dla meczu:  {{ match.teams_to_string }}</h2>
     <p>Turniej: {{ match.tournament }}</p>
     <p>Runda: {{ match.round }}</p>
-    <p>Data meczu: {{match.match_date|date:"D d M Y"}}</p>
+    <p>Data meczu: {{match.match_date|date:"P D d M Y"}}</p>
 
     {% if match.home_goals is not None  %}
         <p>Koncowy wynik meczu: {{ match.final_result_to_str }}</p>
