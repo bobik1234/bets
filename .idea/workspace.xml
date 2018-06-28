@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9e35a6ff-05d2-4a77-b850-dd7706a0eac7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/base.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/static/tournament/menu.css" afterPath="$PROJECT_DIR$/tournament/static/tournament/menu.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -48,21 +48,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+            <state relative-caret-position="221">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="menu.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="menu.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tournament/static/tournament/menu.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="19" lean-forward="true" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+            <state relative-caret-position="323">
+              <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -191,15 +191,15 @@
         <option value="$PROJECT_DIR$/tournament/templates/tournament/finished_match_bets.html" />
         <option value="$PROJECT_DIR$/tournament/views.py" />
         <option value="$PROJECT_DIR$/tournament/urls.py" />
-        <option value="$PROJECT_DIR$/tournament/static/tournament/menu.css" />
         <option value="$PROJECT_DIR$/tournament/templates/tournament/base.html" />
+        <option value="$PROJECT_DIR$/tournament/static/tournament/menu.css" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="355" />
     <option name="y" value="63" />
-    <option name="width" value="1565" />
+    <option name="width" value="1561" />
     <option name="height" value="916" />
   </component>
   <component name="ProjectView">
@@ -646,14 +646,21 @@
       <option name="project" value="LOCAL" />
       <updated>1530180444116</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="merge">
+      <created>1530182146774</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1530182146774</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="355" y="63" width="1565" height="916" extended-state="0" />
+    <frame x="355" y="63" width="1561" height="916" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18721756" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18770227" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32713756" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1039,18 +1046,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/static/tournament/menu.css">
+    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="19" lean-forward="true" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+        <state relative-caret-position="221">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/base.html">
+    <entry file="file://$PROJECT_DIR$/tournament/static/tournament/menu.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+        <state relative-caret-position="323">
+          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
           <folding />
         </state>
       </provider>
