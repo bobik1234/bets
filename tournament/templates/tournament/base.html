@@ -6,7 +6,7 @@
 
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0">
     <title>Zaklady bukmacherskie</title>
     <h1>Zaklady bukmacherskie "u Henia"</h1>
 </head>
@@ -38,7 +38,8 @@ Jestes zalogowany jako: {{request.user.username}}
     <li><a href="#">Podgląd</a>
       <ul>
         <li><a href="{% url 'other_results' %}">Gracz</a></li>
-        <li><a href="{% url 'match_bets' %}">Mecz</a></li>
+        <li><a href="{% url 'ongoing_match_bets' %}">Mecze nierozegrane</a></li>
+        <li><a href="{% url 'finished_match_bets' %}">Mecze zakonczone</a></li>
       </ul>
     </li>
 

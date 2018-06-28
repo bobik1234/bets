@@ -59,13 +59,20 @@ class ChooseUser(forms.Form):
 class ChooseMatch(forms.Form):
 
     def __init__(self, *args, **kwargs):
+        if 'ongoing_matches' in kwargs.keys():
+            ongoing_matches = kwargs.pop('ongoing_matches')
 
         # TODO: w zakladam ze tylko z aktywnych turnieji
         super(ChooseMatch, self).__init__(*args, **kwargs)
 
         m_list = []
         for match in match_list():
-            m_list.append((match.id, match.teams_to_string()))
+            if ongoing_matches:
+                if (match.home_goals is None) or (match.away_goals is None):
+                    m_list.append((match.id, match.teams_to_string()))
+            else:
+                if (match.home_goals is not None) or (match.away_goals is not None):
+                    m_list.append((match.id, match.teams_to_string()))
 
         self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list, widget=forms.Select(), required=True)
 

@@ -122,9 +122,9 @@ def other_results(request):
 
 
 @login_required(login_url='/accounts/login/')
-def match_bets(request):
+def ongoing_match_bets(request):
 
-    form = ChooseMatch(request.POST or None)
+    form = ChooseMatch(request.POST or None, ongoing_matches = True)
     context = {'form': form}
 
     if form.is_valid():
@@ -132,6 +132,27 @@ def match_bets(request):
         match = get_match(match_id)
 
         bets = bet_list(match = match)
+
+        context = {'form': form,
+                   'match': match,
+                   'bets': bets}
+
+        return render(request, 'tournament/match_bets.html', context)
+
+    return render(request, 'tournament/match_bets.html', context)
+
+#TODO: zrobic bardziej generic funkcje ongoing_match_bets i finished_match_bets
+
+@login_required(login_url='/accounts/login/')
+def finished_match_bets(request):
+    form = ChooseMatch(request.POST or None, ongoing_matches=False)
+    context = {'form': form}
+
+    if form.is_valid():
+        match_id = form.cleaned_data["choose_match_field"]
+        match = get_match(match_id)
+
+        bets = bet_list(match=match)
 
         context = {'form': form,
                    'match': match,

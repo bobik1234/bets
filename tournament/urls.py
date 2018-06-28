@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^vote_change_form/$', views.vote_change_form, name='vote_change_form'),
     url(r'^other_results/$', views.other_results, name='other_results'),
     url(r'^too_late_to_bet/$', views.too_late_to_bet, name='too_late_to_bet'),
-    url(r'^match_bets/$', views.match_bets, name='match_bets'),
+    url(r'^ongoing_match_bets/$', views.ongoing_match_bets, name='ongoing_match_bets'),
+    url(r'^finished_match_bets/$', views.finished_match_bets, name='finished_match_bets'),
     url(r'^simulation/$', views.simulation, name='simulation'),
 ]
