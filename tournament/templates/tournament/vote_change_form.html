@@ -6,7 +6,7 @@
 
 {% if ongoing_bets  %}
     <p>You can change your bets</p>
-    <form method="POST" action=".">
+    <form method="POST">
         {% csrf_token %}
         {% for bet in ongoing_bets %}
             {% for field in form %}

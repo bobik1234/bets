@@ -4,7 +4,8 @@ from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing
 from django.template import RequestContext
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
-
+from django.views.generic import TemplateView, FormView
+from django.utils.decorators import method_decorator
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -13,36 +14,52 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 #TODO: dopisac ladna strone do zmiany hasla... po zmianie nie wraca do aplikacji, trzeba recznie wrocic...
 
-@login_required(login_url='/accounts/login/')
-def index(request):
-    return render(request, 'tournament/index.html')
 
-@login_required(login_url='/accounts/login/')
-def info(request):
-    return render(request, 'tournament/info.html')
+@method_decorator(login_required, name='dispatch')
+class Index(TemplateView):
+    template_name = 'tournament/index.html'
 
-@login_required(login_url='/accounts/login/')
-def simulation(request):
-    return render(request, 'tournament/simulation.html')
+@method_decorator(login_required, name='dispatch')
+class Info(TemplateView):
+    template_name = 'tournament/info.html'
 
-@login_required(login_url='/accounts/login/')
-def my_results(request):
-    finished_bets = get_finished_bets(user=request.user)
-    points_per_user = get_points_per_user(finished_bets)
-    context = {'finished_bets': finished_bets,
-               'points_per_user': points_per_user}
-    return render(request, 'tournament/my_results.html', context)
+@method_decorator(login_required, name='dispatch')
+class VoteDone(TemplateView):
+    template_name = 'tournament/vote_done.html'
 
-@login_required(login_url='/accounts/login/')
-def tournament(request, tournament_name):
-    finished_bets = get_finished_bets(tournament_name=tournament_name)
-    points_per_user = get_points_per_user(finished_bets)
+@method_decorator(login_required, name='dispatch')
+class VoteChangeDone(TemplateView):
+    template_name = 'tournament/vote_change_done.html'
 
-    context = {'tournament_name' : tournament_name,
-               'points_per_user': points_per_user,
-               'finished_bets' : finished_bets}
 
-    return render(request, 'tournament/tournament.html', context)
+@method_decorator(login_required, name='dispatch')
+class MyResults(TemplateView):
+
+    template_name = 'tournament/my_results.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        finished_bets = get_finished_bets(user=self.request.user)
+        points_per_user = get_points_per_user(finished_bets)
+        context['finished_bets'] = finished_bets
+        context['points_per_user'] = points_per_user
+        return context
+
+#TODO: ponizsza klase mozna by bylo zrobic z DetailView i zastosowac w modelu slug'a
+@method_decorator(login_required, name='dispatch')
+class Tournament(TemplateView):
+
+    template_name = 'tournament/tournament.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        finished_bets = get_finished_bets(tournament_name=self.kwargs['tournament_name'])
+        points_per_user = get_points_per_user(finished_bets)
+        context['tournament_name'] = self.kwargs['tournament_name']
+        context['finished_bets'] = finished_bets
+        context['points_per_user'] = points_per_user
+        return context
+
 
 
 #TODO: to juz chyba nie uzywane, usunac...
@@ -54,132 +71,137 @@ def vote_overview(request):
 
     return render(request, 'tournament/vote_overview.html', context)
 
+#TODO: Czy da sie przerobic FormView na CreateView i obstawiac pojedynczo??
+class VoteForm(FormView):
 
-@login_required(login_url='/accounts/login/')
-def vote_form(request):
+    template_name = 'tournament/vote_form.html'
+    form_class = Vote
+    success_url = '/tournament/vote_done'
 
-    user = request.user
-    matches_to_bet, _ = get_matches_to_bet(user)
+    def get_form(self):
+        return self.form_class(self.request.POST or None, matches_to_bet=self.matches_to_bet, user=self.request.user)
 
-    form = Vote(request.POST or None, matches_to_bet=matches_to_bet, user=user)
-    if form.is_valid():
-        for match in matches_to_bet:
+    def form_valid(self, form):
+        for match in self.matches_to_bet:
             expected_home_goals = form.cleaned_data["{}_{}".format(match.home_team.name, match.id)]
             expected_away_goals = form.cleaned_data["{}_{}".format(match.away_team.name, match.id)]
-            add_bet(user, match, expected_home_goals, expected_away_goals)
-        return render(request, 'tournament/vote_done.html')
+            add_bet(self.request.user, match, expected_home_goals, expected_away_goals)
+        return super(VoteForm, self).form_valid(form)
 
-    context = {'matches_to_bet' : matches_to_bet,
-               'form': form}
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.matches_to_bet, _ = get_matches_to_bet(self.request.user)
+        return super(VoteForm, self).dispatch(request, *args, **kwargs)
 
-    return render(request, 'tournament/vote_form.html', context,  RequestContext(request))
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['matches_to_bet'] = self.matches_to_bet
+        return context
 
-@login_required(login_url='/accounts/login/')
-def vote_change_form(request):
+#TODO: Czy VoteChangeForm nie jest taki sam jak VoteForm tylko wypelniony initial data?? Mamy metody initial w generic..
+class VoteChangeForm(FormView):
 
-    user = request.user
-    ongoing_bets = get_ongoing_bets(user=user)
+    template_name = 'tournament/vote_change_form.html'
+    form_class = Vote
+    success_url = '/tournament/vote_change_done'
 
-    form = Vote(request.POST or None, ongoing_bets=ongoing_bets, user=user)
-    if form.is_valid():
-        for bet in ongoing_bets:
+    def get_form(self):
+        return self.form_class(self.request.POST or None, ongoing_bets=self.ongoing_bets, user=self.request.user)
+
+    def form_valid(self, form):
+        for bet in self.ongoing_bets:
             expected_home_goals = form.cleaned_data["{}_{}".format(bet.match.home_team.name, bet.match.id)]
             expected_away_goals = form.cleaned_data["{}_{}".format(bet.match.away_team.name, bet.match.id)]
             update_bet(bet.id, expected_home_goals, expected_away_goals)
-        return render(request, 'tournament/vote_change_done.html')
+        return super(VoteChangeForm, self).form_valid(form)
 
-    context = {'ongoing_bets' : ongoing_bets,
-               'form': form}
-    return render(request, 'tournament/vote_change_form.html', context,  RequestContext(request))
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.ongoing_bets = get_ongoing_bets(user=self.request.user)
+        return super(VoteChangeForm, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ongoing_bets'] = self.ongoing_bets
+        return context
 
 
-@login_required(login_url='/accounts/login/')
-def other_results(request):
+#TODO: w ponizszej klasie tym return render obchodzimy troche success_url - moze trzeba to poprawic??
+@method_decorator(login_required, name='dispatch')
+class OtherResultForm(FormView):
 
-    #TODO: get_finished_bets - tu by trzeba bylo dodac runde, z defaltu na All i dodac funckje get_ongoing_bets
-    #TODO: other_result.html ma duzo wspolnego z my_results.html - moze jakos ujednolicic...
+    template_name = 'tournament/other_results.html'
+    form_class = ChooseUser
 
-    form = ChooseUser(request.POST or None)
-
-    context = {'form': form}
-
-    if form.is_valid():
+    def form_valid(self, form):
         user_name = form.cleaned_data["choose_user_field"]
         tournament_name = form.cleaned_data["choose_tournament"]
         round_name = form.cleaned_data["choose_round"]
-        user = get_user(user_name = user_name)
+        user = get_user(user_name=user_name)
+        self.finished_bets = get_finished_bets(user=user, tournament_name=tournament_name, active_tournaments=True,
+                                          round=round_name)
+        self.ongoing_bets = get_ongoing_bets(user=user, tournament_name=tournament_name, round=round_name)
 
-        finished_bets = get_finished_bets(user = user, tournament_name = tournament_name, active_tournaments = True, round = round_name)
-        ongoing_bets = get_ongoing_bets(user = user, tournament_name = tournament_name, round = round_name)
+        context = self.get_context_data()
+        context['finished_bets'] = self.finished_bets
+        context['ongoing_bets'] = self.ongoing_bets
 
-        context = {'form'          : form,
-                   'finished_bets' : finished_bets,
-                   'ongoing_bets'  : ongoing_bets}
-
-        return render(request, 'tournament/other_results.html', context)
-
-    return render(request, 'tournament/other_results.html',context, RequestContext(request))
+        return render(self.request, 'tournament/other_results.html', context)
 
 
-@login_required(login_url='/accounts/login/')
-def ongoing_match_bets(request):
+class SeeMatchBets(FormView):
+    """
+    Klasa pomocnicza do ongoing i finished MatchBets
+    """
+    template_name = 'tournament/match_bets.html'
+    form_class = ChooseMatch
 
-    form = ChooseMatch(request.POST or None, ongoing_matches = True)
-    context = {'form': form}
-
-    if form.is_valid():
+    def form_valid(self, form):
         match_id = form.cleaned_data["choose_match_field"]
         match = get_match(match_id)
-
-        bets = bet_list(match = match)
-
-        context = {'form': form,
-                   'match': match,
-                   'bets': bets}
-
-        return render(request, 'tournament/match_bets.html', context)
-
-    return render(request, 'tournament/match_bets.html', context)
-
-#TODO: zrobic bardziej generic funkcje ongoing_match_bets i finished_match_bets
-
-@login_required(login_url='/accounts/login/')
-def finished_match_bets(request):
-    form = ChooseMatch(request.POST or None, ongoing_matches=False)
-    context = {'form': form}
-
-    if form.is_valid():
-        match_id = form.cleaned_data["choose_match_field"]
-        match = get_match(match_id)
-
         bets = bet_list(match=match)
 
-        context = {'form': form,
-                   'match': match,
-                   'bets': bets}
+        context = self.get_context_data()
+        context['match'] = match
+        context['bets'] = bets
 
-        return render(request, 'tournament/match_bets.html', context)
+        return render(self.request, 'tournament/match_bets.html', context)
 
-    return render(request, 'tournament/match_bets.html', context)
+@method_decorator(login_required, name='dispatch')
+class SeeOngoingMatchBets(SeeMatchBets):
 
-@login_required(login_url='/accounts/login/')
-def too_late_to_bet(request):
+    def get_form(self):
+        return self.form_class(self.request.POST or None, ongoing_matches = True)
 
-    user = request.user
-    _, too_late = get_matches_to_bet(user)
+@method_decorator(login_required, name='dispatch')
+class SeeFinishedMatchBets(SeeMatchBets):
 
-    context = {'too_late': too_late}
+    def get_form(self):
+        return self.form_class(self.request.POST or None, ongoing_matches = False)
 
-    return render(request, 'tournament/too_late_to_bet.html', context)
 
-@login_required(login_url='/accounts/login/')
-def simulation(request):
+@method_decorator(login_required, name='dispatch')
+class TooLateToBet(TemplateView):
 
-    form = ChooseMatchResult(request.POST or None, ongoing_matches=True)
-    context = {'form': form}
+    template_name = 'tournament/too_late_to_bet.html'
 
-    if form.is_valid():
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        _, too_late = get_matches_to_bet(self.request.user)
+        context['too_late'] = too_late
+        return context
 
+
+class SimulationForm(FormView):
+
+    template_name = 'tournament/simulation.html'
+    form_class = ChooseMatchResult
+
+
+    def get_form(self):
+        return self.form_class(self.request.POST or None, ongoing_matches=True)
+
+    def form_valid(self, form):
         match_id = form.cleaned_data["choose_match_field"]
         match = get_match(match_id)
         match.home_goals = form.cleaned_data["ht_goals"]
@@ -189,16 +211,12 @@ def simulation(request):
 
         points_per_user = get_points_per_user(finished_bets)
 
-        context = {'form': form,
-                   'tournament_name': match.tournament.name,
-                   'points_per_user': points_per_user,
-                   'finished_bets': finished_bets}
+        context = self.get_context_data()
+        context['tournament_name'] = match.tournament.name
+        context['points_per_user'] = points_per_user
+        context['finished_bets'] = finished_bets
 
-        return render(request, 'tournament/simulation.html', context)
-
-    return render(request, 'tournament/simulation.html', context)
-
-
+        return render(self.request, 'tournament/simulation.html', context)
 
 
 #TODO: Mozna by lepiej rozkminic autentykacje i obyc sie bez ponizszych view do zmiany hasla. IMPROVEMENT

@@ -7,7 +7,7 @@
 {% if matches_to_bet  %}
 
     <h4>Mecze do obstawienia: </h4>
-    <form method="POST" action=".">
+    <form method="POST">
         {% csrf_token %}
         {% for match in matches_to_bet %}
             {% for field in form %}
