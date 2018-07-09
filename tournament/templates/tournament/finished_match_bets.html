@@ -4,7 +4,7 @@
 
 {% load staticfiles %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'tournament/table1.css' %}" />
 
 <p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
 <form method="POST" action=".">
@@ -34,7 +34,7 @@
     {% for user, expected_home_goals, expected_away_goals, score  in results %}
         {% if score == 3 %}  <tr bgcolor="lightgreen">
         {% elif score == 1 %} <tr bgcolor="wheat">
-        {% else %} bgcolor = <tr bgcolor="#FAFAFA">
+        {% else %} <tr bgcolor="#FAFAFA">
         {% endif %}
 
             <td>{{ user }}</td>
