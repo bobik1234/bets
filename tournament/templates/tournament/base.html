@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width">
+    <title>Zaklady bukmacherskie</title>
+</head>
+
+<body>
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'tournament/menu.css' %}" />
 
-
-<head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=0.3">
-    <title>Zaklady bukmacherskie</title>
-    <h1>Zaklady bukmacherskie "u Henia"</h1>
-</head>
-<body>
-
-Jestes zalogowany jako: {{request.user.username}}
-<br><br>
+<h1>Zaklady bukmacherskie "u Henia"</h1>
+<p>Jestes zalogowany jako: {{request.user.username}} </p>
 
 <ol>
     <li><a href="#">Klasyfikacja</a>

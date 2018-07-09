@@ -1,0 +1,54 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+
+<p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
+<form method="POST" action=".">
+    {% csrf_token %}
+    <p>Choose match       {{form.choose_match_field}} </p>
+
+    <input type=submit value="Send Request">
+</form>
+
+
+{% if results  %}
+
+    <h2>Zaklady dla meczu  {{ match.teams_to_string }}</h2>
+    <p>Turniej: {{ match.tournament }}</p>
+    <p>Runda: {{ match.round }}</p>
+    <p>Data meczu: {{match.match_date|date:"P D d M Y"}}</p>
+    <p>Koncowy wynik meczu: {{ match.final_result_to_str }}</p>
+
+    <table>
+        <tr>
+            <th>User</th>
+            <th>{{ match.home_team.name }}</th>
+            <th>{{ match.away_team.name }}</th>
+            <th>Score</th>
+        </tr>
+
+    {% for user, expected_home_goals, expected_away_goals, score  in results %}
+        {% if score == 3 %}  <tr bgcolor="lightgreen">
+        {% elif score == 1 %} <tr bgcolor="wheat">
+        {% else %} bgcolor = <tr bgcolor="#FAFAFA">
+        {% endif %}
+
+            <td>{{ user }}</td>
+            <td>{{ expected_home_goals  }}</td>
+            <td>{{ expected_away_goals }}</td>
+            <td>{{ score }}</td>
+         </tr>
+     {% endfor %}
+    </table>
+
+{% else %}
+    <p>Nikt nie obstawil tego meczu</p>
+{% endif %}
+
+
+
+{% endblock %}

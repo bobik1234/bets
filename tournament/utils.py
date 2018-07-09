@@ -144,11 +144,11 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
                 continue
 
         if (simulated_match is not None) and (bet.match == simulated_match):
-            finished_bets.append({'bet': bet, 'score': _calculate_score(bet, simulated_match)})
+            finished_bets.append({'bet': bet, 'score': calculate_score(bet, simulated_match)})
             continue
 
         if (Time_To_Bet > bet.match.match_date): #TODO: chyba time_to_bed nie jest potrzebne, mozna by bylo zrobic ze wynik meczu nie jest None, spr..
-            finished_bets.append({'bet': bet, 'score': _calculate_score(bet, bet.match)})
+            finished_bets.append({'bet': bet, 'score': calculate_score(bet, bet.match)})
 
     return finished_bets
 
@@ -184,7 +184,7 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
 
     return ongoing_bets
 
-def _calculate_score(bet, match):
+def calculate_score(bet, match):
     """
     Sprawdza ile punktow zwrocic za zaklad (bet) i zwraca ta ilosc
     """

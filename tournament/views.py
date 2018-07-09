@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context, get_matches_to_bet
-from django.template import RequestContext
+from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context, get_matches_to_bet, calculate_score
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
 from django.views.generic import TemplateView, FormView
@@ -149,12 +148,14 @@ class OtherResultForm(FormView):
         return render(self.request, 'tournament/other_results.html', context)
 
 
-class SeeMatchBets(FormView):
-    """
-    Klasa pomocnicza do ongoing i finished MatchBets
-    """
-    template_name = 'tournament/match_bets.html'
+@method_decorator(login_required, name='dispatch')
+class SeeOngoingMatchBets(FormView):
+
     form_class = ChooseMatch
+    template_name = 'tournament/ongoing_match_bets.html'
+
+    def get_form(self):
+        return self.form_class(self.request.POST or None, ongoing_matches = True)
 
     def form_valid(self, form):
         match_id = form.cleaned_data["choose_match_field"]
@@ -165,19 +166,33 @@ class SeeMatchBets(FormView):
         context['match'] = match
         context['bets'] = bets
 
-        return render(self.request, 'tournament/match_bets.html', context)
+        return render(self.request, self.template_name, context)
 
 @method_decorator(login_required, name='dispatch')
-class SeeOngoingMatchBets(SeeMatchBets):
+class SeeFinishedMatchBets(FormView):
 
-    def get_form(self):
-        return self.form_class(self.request.POST or None, ongoing_matches = True)
-
-@method_decorator(login_required, name='dispatch')
-class SeeFinishedMatchBets(SeeMatchBets):
+    form_class = ChooseMatch
+    template_name = 'tournament/finished_match_bets.html'
 
     def get_form(self):
         return self.form_class(self.request.POST or None, ongoing_matches = False)
+
+    def form_valid(self, form):
+        match_id = form.cleaned_data["choose_match_field"]
+        match = get_match(match_id)
+        bets = bet_list(match=match)
+
+        results = []
+
+        for bet in bets:
+            score = calculate_score(bet, match)
+            results.append((str(bet.user), bet.expected_home_goals, bet.expected_away_goals, score))
+
+        context = self.get_context_data()
+        context['match'] = match
+        context['results'] = results
+
+        return render(self.request, self.template_name, context)
 
 
 @method_decorator(login_required, name='dispatch')
