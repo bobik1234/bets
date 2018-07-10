@@ -64,16 +64,19 @@
         <th>Score</th>
     </tr>
     {% for item in finished_bets %}
-    <tr>
-        <td>{{ item.bet.match.tournament }}</td>
-        <td>{{ item.bet.user }}</td>
-        <td><img src={{ item.bet.match.home_team.flag }}> {{ item.bet.match.home_team.name }} - {{ item.bet.match.away_team.name }} <img src={{ item.bet.match.away_team.flag }}></td>
-        <td>{{ item.bet.match.match_date|date:"D d M Y" }}</td>
-        <td>{{ item.bet.match.round }}</td>
-        <td align="center" valign="middle">{{ item.bet.expected_result_to_str }}</td>
-        <td align="center" valign="middle">{{ item.bet.match.final_result_to_str }}</td>
-        <td align="center" valign="middle">{{ item.score }}</td>
-    </tr>
+        {% if item.score == 3 %}  <tr bgcolor="lightgreen">
+        {% elif item.score == 1 %} <tr bgcolor="wheat">
+        {% else %} <tr bgcolor="#FAFAFA">
+        {% endif %}
+            <td>{{ item.bet.match.tournament }}</td>
+            <td>{{ item.bet.user }}</td>
+            <td><img src={{ item.bet.match.home_team.flag }}> {{ item.bet.match.home_team.name }} - {{ item.bet.match.away_team.name }} <img src={{ item.bet.match.away_team.flag }}></td>
+            <td>{{ item.bet.match.match_date|date:"D d M Y" }}</td>
+            <td>{{ item.bet.match.round }}</td>
+            <td align="center" valign="middle">{{ item.bet.expected_result_to_str }}</td>
+            <td align="center" valign="middle">{{ item.bet.match.final_result_to_str }}</td>
+            <td align="center" valign="middle">{{ item.score }}</td>
+        </tr>
     {% endfor %}
     </table>
 
