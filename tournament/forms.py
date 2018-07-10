@@ -74,7 +74,7 @@ class ChooseMatch(forms.Form):
                 if (match.home_goals is not None) or (match.away_goals is not None):
                     m_list.append((match.id, match.teams_to_string()))
 
-        self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list, widget=forms.Select(), required=True)
+        self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list, widget=forms.Select(attrs={"onChange":'submit()'}), required=True)
 
 class ChooseMatchResult(ChooseMatch):
     def __init__(self, *args, **kwargs):
