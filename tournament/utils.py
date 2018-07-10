@@ -232,16 +232,19 @@ def _set_place(sorted_rounds_results):
 
             list = []
             previous_score = None
+            previous_place = None
 
             for i, user_and_score in enumerate(round_data, start=1):
                 user, score = user_and_score
 
                 if score == previous_score:
-                    list.append(("-", user, score))
+                    #list.append(("-", user, score))
+                    list.append((previous_place, user, score))
                 else:
                     list.append((i, user, score))
 
                 previous_score = score
+                previous_place = i
 
             rounds_dict.update({round_name : list})
 

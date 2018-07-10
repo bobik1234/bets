@@ -1,4 +1,5 @@
 {% if points_per_user %}
+    {% load staticfiles %}
 
     {% for tournament_name, rounds in points_per_user.items %}
       {% for round, user_scores in rounds.items %}
@@ -13,12 +14,16 @@
                         <th>Score</th>
                     </tr>
             {% for place, user, points in user_scores %}
-
-                    <tr>
+                {% if place == 1 %} <tr bgcolor="gold">
+                {% elif place == 2 %} <tr bgcolor="silver">
+                {% elif place == 3 %} <tr bgcolor="peru">
+                {% else %} <tr bgcolor="#FAFAFA">
+                {% endif %}
                         <td align="center" valign="middle">{{ place }}</td>
-                        <td align="center" valign="middle">{{ user }}</td>
+                        <td align="center" valign="middle">{{ user }} </td>
                         <td align="center" valign="middle"> {{ points }}</td>
                     </tr>
+
             {% endfor %}
             </table>
       {% endfor %}
