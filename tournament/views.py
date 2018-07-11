@@ -167,6 +167,11 @@ class SeeOngoingMatchBets(FormView):
 
         return render(self.request, self.template_name, context)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bets'] = None
+        return context
+
 @method_decorator(login_required, name='dispatch')
 class SeeFinishedMatchBets(FormView):
 
@@ -192,6 +197,11 @@ class SeeFinishedMatchBets(FormView):
         context['results'] = results
 
         return render(self.request, self.template_name, context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['results'] = None
+        return context
 
 
 @method_decorator(login_required, name='dispatch')

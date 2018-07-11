@@ -77,8 +77,9 @@ class ChooseMatch(forms.Form):
                     m_list.append((match.id, match.teams_to_string()))
 
         self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list,
-                                                              #widget=forms.Select(attrs={"onChange":'submit()'}),
-                                                              widget=MySelect(disabled_choices=default_choice, selected_choices = default_choice ,attrs={"onChange": 'submit()'}),
+                                                              widget=MySelect(disabled_choices=default_choice,
+                                                                              selected_choices = default_choice,
+                                                                              attrs={"onChange": 'submit()'}),
                                                               required=True)
 
 class ChooseMatchResult(ChooseMatch):

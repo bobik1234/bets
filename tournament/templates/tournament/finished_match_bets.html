@@ -14,7 +14,8 @@
 </form>
 
 
-{% if results  %}
+{% if results == None  %}
+{% elif results %}
 
     <h2>Zaklady dla meczu  {{ match.teams_to_string }}</h2>
     <p>Turniej: {{ match.tournament }}</p>
