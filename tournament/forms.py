@@ -82,7 +82,7 @@ class ChooseMatch(forms.Form):
                                                                               attrs={"onChange": 'submit()'}),
                                                               required=True)
 
-class ChooseMatchResult(ChooseMatch):
+class ChooseMatchResult(forms.Form):
     def __init__(self, *args, **kwargs):
 
         super(ChooseMatchResult, self).__init__(*args, **kwargs)

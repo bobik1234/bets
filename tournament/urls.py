@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^too_late_to_bet/$', views.TooLateToBet.as_view(), name='too_late_to_bet'),
     url(r'^ongoing_match_bets/$', views.SeeOngoingMatchBets.as_view(), name='ongoing_match_bets'),
     url(r'^finished_match_bets/$', views.SeeFinishedMatchBets.as_view(), name='finished_match_bets'),
-    url(r'^simulation/$', views.SimulationForm.as_view(), name='simulation'),
+    url(r'^simulation/$', views.SimulationChooseMatchForm.as_view(), name='simulation'),
+    url(r'^simulation_choose_result/$', views.SimulationChooseResultForm.as_view(), name='simulation_choose_result'),
 ]

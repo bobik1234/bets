@@ -1,5 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context, get_matches_to_bet, calculate_score
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
@@ -215,11 +218,11 @@ class TooLateToBet(TemplateView):
         context['too_late'] = too_late
         return context
 
+@method_decorator(login_required, name='dispatch')
+class SimulationChooseMatchForm(FormView):
 
-class SimulationForm(FormView):
-
-    template_name = 'tournament/simulation.html'
-    form_class = ChooseMatchResult
+    template_name = 'tournament/simulation_choose_match.html'
+    form_class = ChooseMatch
 
 
     def get_form(self):
@@ -228,11 +231,26 @@ class SimulationForm(FormView):
     def form_valid(self, form):
         match_id = form.cleaned_data["choose_match_field"]
         match = get_match(match_id)
+        self.request.session['match_id'] = match_id
+        self.request.session['home_team'] = match.home_team.name
+        self.request.session['away_team'] = match.away_team.name
+        return HttpResponseRedirect(reverse('simulation_choose_result'))
+
+
+@method_decorator(login_required, name='dispatch')
+class SimulationChooseResultForm(FormView):
+
+    template_name = 'tournament/simulation_choose_result.html'
+    form_class = ChooseMatchResult
+
+
+    def form_valid(self, form):
+        match_id = self.request.session['match_id']
+        match = get_match(match_id)
         match.home_goals = form.cleaned_data["ht_goals"]
         match.away_goals = form.cleaned_data["at_goals"]
 
         finished_bets = get_finished_bets(tournament_name=match.tournament.name, simulated_match=match)
-
         points_per_user = get_points_per_user(finished_bets)
 
         context = self.get_context_data()
@@ -240,7 +258,7 @@ class SimulationForm(FormView):
         context['points_per_user'] = points_per_user
         context['finished_bets'] = finished_bets
 
-        return render(self.request, 'tournament/simulation.html', context)
+        return render(self.request, self.template_name, context)
 
 
 #TODO: Mozna by lepiej rozkminic autentykacje i obyc sie bez ponizszych view do zmiany hasla. IMPROVEMENT

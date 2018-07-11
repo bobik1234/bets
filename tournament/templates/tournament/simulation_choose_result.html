@@ -6,12 +6,11 @@
 <link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
 
 
-<p>Symuluj wynik meczu i sprawdz jak zmieni sie klasyfikacja</p>
 <form method="POST" action=".">
     {% csrf_token %}
-    <p>Wybierz mecz       {{form.choose_match_field}} </p>
-    <p>I wytypuj wynik.    Gospodarze         {{form.ht_goals}}    Goscie             {{form.at_goals}} </p>
-    <input type=submit value="Send Request">
+    <h3>Wytypuj wynik meczu </h3>
+    <h3> {{ request.session.home_team }} {{form.ht_goals}} : {{form.at_goals}} {{ request.session.away_team }}</h3>
+    <input type=submit value="Symuluj">
 </form>
 
 {% if points_per_user %}
@@ -20,5 +19,6 @@
   {% include "classification_table.html" %}
 
 {% endif %}
+
 
 {% endblock %}
