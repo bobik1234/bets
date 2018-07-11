@@ -147,7 +147,6 @@ class OtherResultForm(FormView):
 
         return render(self.request, 'tournament/other_results.html', context)
 
-
 @method_decorator(login_required, name='dispatch')
 class SeeOngoingMatchBets(FormView):
 

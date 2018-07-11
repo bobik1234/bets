@@ -1,4 +1,5 @@
 from django import forms
+
 from tournament.models import Bet, Tournament, ROUND
 from tournament.db_handler import get_user, match_list
 
@@ -65,7 +66,8 @@ class ChooseMatch(forms.Form):
         # TODO: w zakladam ze tylko z aktywnych turnieji
         super(ChooseMatch, self).__init__(*args, **kwargs)
 
-        m_list = []
+        default_choice = ('D', 'Wybierz mecz')
+        m_list = [default_choice]
         for match in match_list():
             if ongoing_matches:
                 if (match.home_goals is None) or (match.away_goals is None):
@@ -74,7 +76,10 @@ class ChooseMatch(forms.Form):
                 if (match.home_goals is not None) or (match.away_goals is not None):
                     m_list.append((match.id, match.teams_to_string()))
 
-        self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list, widget=forms.Select(attrs={"onChange":'submit()'}), required=True)
+        self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list,
+                                                              #widget=forms.Select(attrs={"onChange":'submit()'}),
+                                                              widget=MySelect(disabled_choices=default_choice, selected_choices = default_choice ,attrs={"onChange": 'submit()'}),
+                                                              required=True)
 
 class ChooseMatchResult(ChooseMatch):
     def __init__(self, *args, **kwargs):
@@ -83,3 +88,22 @@ class ChooseMatchResult(ChooseMatch):
 
         self.fields["ht_goals"] = forms.DecimalField(max_digits=2, decimal_places=0)
         self.fields["at_goals"] = forms.DecimalField(max_digits=2, decimal_places=0)
+
+
+
+class MySelect(forms.Select):
+
+    def __init__(self, attrs=None, choices=(), disabled_choices=(), selected_choices=()):
+        super(forms.Select, self).__init__(attrs, choices=choices)
+        # disabled_choices is a list of disabled values
+        self.disabled_choices = disabled_choices
+        # selected_choices is a list of selected values
+        self.selected_choices = selected_choices
+
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super(forms.Select, self).create_option(name, value, label, selected, index, subindex, attrs)
+        if value in self.disabled_choices:
+           option['attrs']['disabled'] = True
+        if value in self.selected_choices:
+           option['attrs']['selected'] = True
+        return option
