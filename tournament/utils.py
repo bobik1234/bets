@@ -258,3 +258,39 @@ def _set_place(sorted_rounds_results):
 
     return sorted_rounds_results_with_place
 
+@receiver(pre_save, sender=Match)
+@receiver(post_delete, sender=Match)
+def calculate_classification(sender, **kwargs):
+    """
+    Kazda zmiana w tabeli Match generuje na nowo plik w formacie JSON w ktorym trzymamy klasyfikacje
+    Tylko dla aktywnych turnieji
+    """
+
+    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+    my_file = os.path.join(THIS_FOLDER, classification_file_name)
+
+    finished_bets = get_finished_bets()
+    points_per_user = get_points_per_user(finished_bets)
+
+    with open(my_file, 'w') as fp:
+        json.dump(points_per_user, fp)
+
+def get_classification(tournament_name = None):
+    """
+    """
+    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+    my_file = os.path.join(THIS_FOLDER, classification_file_name)
+    try:
+        with open(my_file) as data_file:
+            classification = json.load(data_file)
+    except EnvironmentError:
+        return {}
+
+    #TODO: przerobic - bez sensu zeby wpisywac tournament_name
+    if tournament_name is not None:
+        if tournament_name in classification.keys():
+            return {tournament_name : classification[tournament_name]}
+        else:
+            return {} #turniej zakonczony albo nie istnieje
+    else:
+        return classification
