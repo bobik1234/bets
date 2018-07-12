@@ -58,7 +58,6 @@ class Tournament(TemplateView):
         finished_bets = get_finished_bets(tournament_name=self.kwargs['tournament_name'])
         points_per_user = get_points_per_user(finished_bets)
         context['tournament_name'] = self.kwargs['tournament_name']
-        context['finished_bets'] = finished_bets
         context['points_per_user'] = points_per_user
         return context
 
