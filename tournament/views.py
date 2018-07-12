@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context,\
-    get_matches_to_bet, calculate_score, get_classification
+    get_matches_to_bet, calculate_score #, get_classification
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
 from django.views.generic import TemplateView, FormView
@@ -47,7 +47,7 @@ class MyResults(TemplateView):
         context['finished_bets'] = finished_bets
         context['points_per_user'] = points_per_user
         return context
-
+"""
 #TODO: ponizsza klase mozna by bylo zrobic z DetailView i zastosowac w modelu slug'a.
 @method_decorator(login_required, name='dispatch')
 class Tournament(TemplateView):
@@ -60,7 +60,20 @@ class Tournament(TemplateView):
         context['points_per_user'] = get_classification(tournament_name=self.kwargs['tournament_name'])
         return context
 
+"""
 
+@method_decorator(login_required, name='dispatch')
+class Tournament(TemplateView):
+
+    template_name = 'tournament/tournament.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        finished_bets = get_finished_bets(tournament_name=self.kwargs['tournament_name'])
+        points_per_user = get_points_per_user(finished_bets)
+        context['tournament_name'] = self.kwargs['tournament_name']
+        context['points_per_user'] = points_per_user
+        return context
 
 #TODO: to juz chyba nie uzywane, usunac...
 @login_required(login_url='/accounts/login/')
