@@ -47,7 +47,7 @@ class MyResults(TemplateView):
         context['points_per_user'] = points_per_user
         return context
 
-#TODO: ponizsza klase mozna by bylo zrobic z DetailView i zastosowac w modelu slug'a
+#TODO: ponizsza klase mozna by bylo zrobic z DetailView i zastosowac w modelu slug'a.
 @method_decorator(login_required, name='dispatch')
 class Tournament(TemplateView):
 
