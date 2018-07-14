@@ -248,9 +248,9 @@ def _set_place(sorted_rounds_results):
                     list.append((previous_place, user, score))
                 else:
                     list.append((i, user, score))
+                    previous_place = i
+                    previous_score = score
 
-                previous_score = score
-                previous_place = i
 
             rounds_dict.update({round_name : list})
 
