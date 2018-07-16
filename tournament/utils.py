@@ -6,8 +6,7 @@ from django.dispatch import receiver
 import os, json
 from tournament.models import Match
 
-
-classification_file_name = 'classification_file.json'
+classification_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'classification_file.json')
 
 def vote_context(user):
     """
@@ -42,12 +41,12 @@ def get_points_per_user(finished_bets):
                            'General Classification' : {user : score},
                                                        {user : score}}
 
-        Po sortowaniu i finalnie mamy:
+        Po sortowaniu:
                 {tournament : {'round' : [(user, score), (user, score)... ]...
                                'General_Classification' : [(user, score), (user, score)... ]}
 
 
-
+    Potem dodajemy jeszcze miejsce w klasyfikacji --> zobacz funkcje
     """
 
     scores = {}
@@ -221,8 +220,13 @@ def _set_place(sorted_rounds_results):
     """
     Ustawia miejsce na posortowanych slownikach - ktore miejsce ma uzytkownik w danej rundzie
 
+    Wejscie:
     {tournament : {'round' : [(user, score), (user, score)... ]...
                                'summary' : [(user, score), (user, score)... ]}
+
+    Wyjscie:
+    {tournament : {'round' : [(place,user, score), (place,user, score)... ]...
+                               'summary' : [(place, user, score), (place, user, score)... ]}
 
     :param sorted_rounds_results:
     :return:
@@ -266,22 +270,18 @@ def calculate_classification(sender, **kwargs):
     Tylko dla aktywnych turnieji
     """
 
-    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-    my_file = os.path.join(THIS_FOLDER, classification_file_name)
-
     finished_bets = get_finished_bets()
     points_per_user = get_points_per_user(finished_bets)
 
-    with open(my_file, 'w') as fp:
+    with open(classification_file_name, 'w') as fp:
         json.dump(points_per_user, fp)
 
-def get_classification(tournament_name = None):
+def get_classification(tournament_name = None, user = None):
     """
     """
-    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-    my_file = os.path.join(THIS_FOLDER, classification_file_name)
+
     try:
-        with open(my_file) as data_file:
+        with open(classification_file_name) as data_file:
             classification = json.load(data_file)
     except EnvironmentError:
         return {}

@@ -66,21 +66,30 @@ class ChooseMatch(forms.Form):
         # TODO: w zakladam ze tylko z aktywnych turnieji
         super(ChooseMatch, self).__init__(*args, **kwargs)
 
-        default_choice = ('D', 'Wybierz mecz')
-        m_list = [default_choice]
+        #default_choice = ('D', 'Wybierz mecz')
+        #m_list = [default_choice]
+
+        list = []
         for match in match_list():
             if ongoing_matches:
                 if (match.home_goals is None) or (match.away_goals is None):
-                    m_list.append((match.id, match.teams_to_string()))
+                    list.append((match.id, match.teams_to_string()))
             else:
                 if (match.home_goals is not None) or (match.away_goals is not None):
-                    m_list.append((match.id, match.teams_to_string()))
+                    list.append((match.id, match.teams_to_string()))
 
-        self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list,
-                                                              widget=MySelect(disabled_choices=default_choice,
-                                                                              selected_choices = default_choice,
-                                                                              attrs={"onChange": 'submit()'}),
-                                                              required=True)
+        if list:
+            default_choice = ('D', 'Wybierz mecz')
+            m_list = [default_choice]
+            m_list.extend(list)
+
+            self.fields["choose_match_field"] = forms.ChoiceField(choices=m_list,
+                                                                  widget=MySelect(disabled_choices=default_choice,
+                                                                                  selected_choices = default_choice,
+                                                                                  attrs={"onChange": 'submit()'}),
+                                                                  required=True)
+        else:
+            self.no_matches = True
 
 class ChooseMatchResult(forms.Form):
     def __init__(self, *args, **kwargs):

@@ -60,21 +60,6 @@ class Tournament(TemplateView):
         context['points_per_user'] = get_classification(tournament_name=self.kwargs['tournament_name'])
         return context
 
-"""
-
-@method_decorator(login_required, name='dispatch')
-class Tournament(TemplateView):
-
-    template_name = 'tournament/tournament.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        finished_bets = get_finished_bets(tournament_name=self.kwargs['tournament_name'])
-        points_per_user = get_points_per_user(finished_bets)
-        context['tournament_name'] = self.kwargs['tournament_name']
-        context['points_per_user'] = points_per_user
-        return context
-"""
 
 #TODO: to juz chyba nie uzywane, usunac...
 @login_required(login_url='/accounts/login/')
