@@ -6,12 +6,16 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
 
-<p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
-<form method="POST" action=".">
-    {% csrf_token %}
-    <p>Choose match       {{form.choose_match_field}} </p>
+{% if form.no_matches %}
+    <p> Żaden mecz sie jeszcze nie zakończył</p>
+{% else %}
 
-</form>
+    <p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
+    <form method="POST" action=".">
+        {% csrf_token %}
+        <p>Choose match       {{form.choose_match_field}} </p>
+    </form>
+{% endif %}
 
 
 {% if results == None  %}
