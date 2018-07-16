@@ -5,14 +5,15 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
 
-if form.no_matches:
+{% if form.no_matches %}
     <p> Wszystkie mecze zostały rozegrane </p>
-else:
+{% else %}
     <p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
     <form method="POST" action=".">
         {% csrf_token %}
         <p>Choose match       {{form.choose_match_field}} </p>
     </form>
+{% endif %}
 
 {% if bets == None  %}
 {% elif bets %}
