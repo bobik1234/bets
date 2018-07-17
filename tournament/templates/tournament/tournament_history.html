@@ -1,0 +1,12 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+
+<h2>Wyniki turnieju "{{ tournament_name }}"</h2>
+
+{% include "classification_table.html" %}
+
+{% endblock %}

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context,\
-    get_matches_to_bet, calculate_score, get_classification
+    get_matches_to_bet, calculate_score, get_classification, get_historical_classification
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
 from django.views.generic import TemplateView, FormView
@@ -34,6 +34,19 @@ class VoteDone(TemplateView):
 class VoteChangeDone(TemplateView):
     template_name = 'tournament/vote_change_done.html'
 
+@method_decorator(login_required, name='dispatch')
+class History(TemplateView):
+    template_name = 'tournament/history.html'
+
+@method_decorator(login_required, name='dispatch')
+class TournamentHistory(TemplateView):
+    template_name = 'tournament/tournament_history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tournament_name'] = self.kwargs['tournament_name']
+        context['points_per_user'] = get_historical_classification(tournament_name=self.kwargs['tournament_name'])
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class MyResults(TemplateView):

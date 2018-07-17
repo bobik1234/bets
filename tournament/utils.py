@@ -38,7 +38,7 @@ def get_points_per_user(finished_bets):
         Zmienna scores ma strukture:
             {tournament : {'round' : {user : score,
                                       user : score)}...
-                           'General Classification' : {user : score},
+                           'GeneralClassification' : {user : score},
                                                        {user : score}}
 
         Po sortowaniu:
@@ -54,7 +54,7 @@ def get_points_per_user(finished_bets):
     for finished_bet in finished_bets:
         tournament_name = finished_bet['bet'].match.tournament.name
         if not (tournament_name in scores.keys()):
-            scores[tournament_name] = {'General Classification' : {}}
+            scores[tournament_name] = {'GeneralClassification' : {}}
         round = finished_bet['bet'].match.round
         if not (round in scores[tournament_name].keys()):
             scores[tournament_name][round] = {}
@@ -65,10 +65,10 @@ def get_points_per_user(finished_bets):
         else:
             scores[tournament_name][round][user] = finished_bet['score']
 
-        if user in scores[tournament_name]['General Classification'].keys():
-            scores[tournament_name]['General Classification'][user] += finished_bet['score']
+        if user in scores[tournament_name]['GeneralClassification'].keys():
+            scores[tournament_name]['GeneralClassification'][user] += finished_bet['score']
         else:
-            scores[tournament_name]['General Classification'][user] = finished_bet['score']
+            scores[tournament_name]['GeneralClassification'][user] = finished_bet['score']
 
 
     #sortujemy slowniki
@@ -276,7 +276,7 @@ def calculate_classification(sender, **kwargs):
     with open(classification_file_name, 'w') as fp:
         json.dump(points_per_user, fp)
 
-def get_classification(tournament_name = None, user = None):
+def get_classification(tournament_name = None):
     """
     """
 
@@ -294,3 +294,20 @@ def get_classification(tournament_name = None, user = None):
             return {} #turniej zakonczony albo nie istnieje
     else:
         return classification
+
+def get_historical_classification(tournament_name):
+    """
+
+    :param tournament_name:
+    :return:
+    """
+
+    dir_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'history')
+    file_name =  os.path.join(dir_name, tournament_name + ".json")
+    print(file_name)
+    try:
+        with open(file_name) as data_file:
+            return json.load(data_file)
+            #return classification
+    except EnvironmentError:
+        return {}
