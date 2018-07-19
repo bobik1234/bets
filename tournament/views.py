@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context,\
-    get_matches_to_bet, calculate_score, get_classification, get_historical_classification
+    get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
 from django.views.generic import TemplateView, FormView
@@ -260,13 +260,15 @@ class SimulationChooseResultForm(FormView):
         match.home_goals = form.cleaned_data["ht_goals"]
         match.away_goals = form.cleaned_data["at_goals"]
 
-        finished_bets = get_finished_bets(tournament_name=match.tournament.name, simulated_match=match)
-        points_per_user = get_points_per_user(finished_bets)
+        points_per_user = simulate_classification(match)
+
+        #to jest stary kod przelicza cala baze i klasyfikacje od zera - ciagle dziala. Zastapiony przez funkcje simulate_classification
+        #finished_bets = get_finished_bets(tournament_name=match.tournament.name, simulated_match=match)
+        #points_per_user = get_points_per_user(finished_bets)
 
         context = self.get_context_data()
         context['tournament_name'] = match.tournament.name
         context['points_per_user'] = points_per_user
-        context['finished_bets'] = finished_bets
 
         return render(self.request, self.template_name, context)
 

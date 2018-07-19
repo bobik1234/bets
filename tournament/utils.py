@@ -43,7 +43,7 @@ def get_points_per_user(finished_bets):
 
         Po sortowaniu:
                 {tournament : {'round' : [(user, score), (user, score)... ]...
-                               'General_Classification' : [(user, score), (user, score)... ]}
+                               'GeneralClassification' : [(user, score), (user, score)... ]}
 
 
     Potem dodajemy jeszcze miejsce w klasyfikacji --> zobacz funkcje
@@ -71,19 +71,29 @@ def get_points_per_user(finished_bets):
             scores[tournament_name]['GeneralClassification'][user] = finished_bet['score']
 
 
-    #sortujemy slowniki
+    sorted_rounds_results = _sort_dict(scores)
+
+    #TODO: _set_place nie dziala dla my_results --> jak mamy tylko jednego usera z finished bets to miejsce zawsze bedzie pierwsze, mozna to usprawnic
+    sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
+
+    return sorted_rounds_results_with_place
+
+def _sort_dict(dictionary):
+    """
+    sortujemy ponizszy slownik wedlug punktow (score)
+    {tournament : {'round' : [(user, score), (user, score)... ]...
+                               'GeneralClassification' : [(user, score), (user, score)... ]}
+    """
 
     sorted_rounds_results = {}
-    for tournament_name, round_scores in scores.items():
+    for tournament_name, round_scores in dictionary.items():
         for round_name, results in round_scores.items():
             if not (tournament_name in sorted_rounds_results.keys()):
                 sorted_rounds_results[tournament_name] = {}
             sorted_rounds_results[tournament_name][round_name] = sorted(results.items(), key=operator.itemgetter(1),
                                                                         reverse=True)
-    #TODO: _set_place nie dziala dla my_results --> jak mamy tylko jednego usera z finished bets to miejsce zawsze bedzie pierwsze, mozna to usprawnic
-    sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
 
-    return sorted_rounds_results_with_place
+    return sorted_rounds_results
 
 def get_bets_for_match(match):
     """
@@ -311,3 +321,86 @@ def get_historical_classification(tournament_name):
             #return classification
     except EnvironmentError:
         return {}
+
+
+def simulate_classification(match):
+    """
+    Updejtuj klasyfikacje o mecz
+
+    Algorytm:
+        1. konwertujemy slowniki - zobacz funkcje _convert_dict
+        2. sprawdzamy kto obastawial symulowany mecz - zmienna bets
+        3. updejtujemy slownik o nowo zdobyte punkty
+        4. sortujemy po zdobytych punktach
+        5. ustawimy miejsce w rankingu
+
+    """
+
+    try:
+        with open(classification_file_name) as data_file:
+            classification = json.load(data_file)
+    except EnvironmentError:
+        return {}
+
+    simulated_classification = _convert_dict(classification, match.tournament.name)
+
+    #moze to byc pierwszy mecz w turnieju wiec turnieju jeszcze ie ma w kluczach
+    if not (match.tournament.name in simulated_classification.keys()):
+        simulated_classification[match.tournament.name].update({'GeneralClassification' : {}})
+
+    #moze to byc pierwszy mecz w rundzie wiec rundyjeszcze ie ma w kluczach
+    if not (match.round in simulated_classification[match.tournament.name].keys()):
+        simulated_classification[match.tournament.name].update({match.round : {}})
+
+    bets = bet_list(match=match)
+
+    for tournament_name, rounds in simulated_classification.items():
+        if (tournament_name == match.tournament.name):
+            for round, user_scores in rounds.items():
+                for bet in bets:
+                    user_name = str(bet.user)
+                    if (round == match.round) or (round == 'GeneralClassification'):
+                        if user_name in simulated_classification[tournament_name][round].keys():
+                            simulated_classification[tournament_name][round][user_name] += calculate_score(bet, match)
+                        else:
+                            simulated_classification[tournament_name][round][user_name] = calculate_score(bet, match)
+
+    sorted_rounds_results = _sort_dict(simulated_classification)
+    sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
+
+    return sorted_rounds_results_with_place
+
+def _convert_dict(classification_dict, tournament):
+    """
+    Z formatu jaki mamy w pliku classification_file.json:
+
+    {tournament : {'round' : [(place,user, score), (place,user, score)... ]...
+                               'summary' : [(place, user, score), (place, user, score)... ]}
+
+    na taka (taka sama jest tworzona w funkcji get_points_per_user):
+
+    {tournament: {'round': {user: score, user: score)}...
+                'GeneralClassification': {user: score}, {user: score}...}
+
+    I zwracamy dla wybranego turnieju
+
+    """
+    #TODO: parametr tournament moze byc opcjonalny
+
+    converted_dict = {}
+
+    for tournament_name, rounds in classification_dict.items():
+        if tournament != tournament_name:
+            continue
+
+        if not (tournament_name in converted_dict.keys()):
+            converted_dict[tournament_name] = {'GeneralClassification' : {}}
+
+        for round, user_scores in rounds.items():
+            if not (round in converted_dict[tournament_name].keys()):
+                converted_dict[tournament_name][round] = {}
+
+            for place, user, points in user_scores:
+                converted_dict[tournament_name][round][user] = points
+
+    return converted_dict
