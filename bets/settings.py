@@ -134,12 +134,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS   = True
 """
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_USER = 'bobik1234'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
