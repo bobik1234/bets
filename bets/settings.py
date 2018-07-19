@@ -127,6 +127,7 @@ LOGIN_REDIRECT_URL = '/admin/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
 """
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'rapi1978@gmail.com'
@@ -137,7 +138,7 @@ EMAIL_USE_TLS   = True
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = 'bobik1234'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
