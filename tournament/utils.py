@@ -1,7 +1,7 @@
 from django.utils import timezone
 from tournament.db_handler import bet_list, match_list
 import operator
-from django.db.models.signals import pre_save, post_delete
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 import os, json
 from tournament.models import Match
@@ -272,7 +272,7 @@ def _set_place(sorted_rounds_results):
 
     return sorted_rounds_results_with_place
 
-@receiver(pre_save, sender=Match)
+@receiver(post_save, sender=Match)
 @receiver(post_delete, sender=Match)
 def calculate_classification(sender, **kwargs):
     """
