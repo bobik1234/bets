@@ -125,8 +125,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = "/home/bobik1234/bobik1234.pythonanywhere.com/static"
 LOGIN_REDIRECT_URL = '/admin/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 
 """
 EMAIL_HOST = 'smtp.gmail.com'
@@ -136,9 +134,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS   = True
 """
 
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
+
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = 'bobik1234'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
