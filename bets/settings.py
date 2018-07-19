@@ -134,7 +134,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS   = True
 """
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 
 
 EMAIL_HOST = 'smtp.sendgrid.net'

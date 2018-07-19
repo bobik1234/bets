@@ -54,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/bets/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="452">
-              <caret line="136" column="91" lean-forward="true" selection-start-line="136" selection-start-column="91" selection-end-line="136" selection-end-column="91" />
+              <caret line="136" column="1" lean-forward="false" selection-start-line="136" selection-start-column="1" selection-end-line="136" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -500,13 +500,6 @@
       <option name="presentableId" value="Default" />
       <updated>1502268086462</updated>
     </task>
-    <task id="LOCAL-00008" summary="merge">
-      <created>1527685278593</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1527685278593</updated>
-    </task>
     <task id="LOCAL-00009" summary="merge">
       <created>1528811216475</created>
       <option name="number" value="00009" />
@@ -843,7 +836,14 @@
       <option name="project" value="LOCAL" />
       <updated>1532005285355</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="merge">
+      <created>1532010553752</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1532010553752</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1204,7 +1204,7 @@
     <entry file="file://$PROJECT_DIR$/bets/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
-          <caret line="136" column="91" lean-forward="true" selection-start-line="136" selection-start-column="91" selection-end-line="136" selection-end-column="91" />
+          <caret line="136" column="1" lean-forward="false" selection-start-line="136" selection-start-column="1" selection-end-line="136" selection-end-column="1" />
           <folding />
         </state>
       </provider>
