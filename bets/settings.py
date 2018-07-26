@@ -24,8 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0l1wbi^@kyw215%prizl-3#$%-%p%m590-r60fc@52k-*h2cv3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = config('DEBUG', cast=bool)
-DEBUG = False
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -128,22 +127,12 @@ STATIC_ROOT = "/home/bobik1234/bobik1234.pythonanywhere.com/static"
 LOGIN_REDIRECT_URL = '/admin/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
 
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'teamhenio@gmail.com'
-EMAIL_HOST_PASSWORD = '!Stokrotka1' #TODO: jak to zakodowac zeby nie bylo prawdziwego hasla??
-EMAIL_PORT = 587
-EMAIL_USE_TLS   = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-"""
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-"""
