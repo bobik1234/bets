@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0l1wbi^@kyw215%prizl-3#$%-%p%m590-r60fc@52k-*h2cv3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = config('DEBUG', cast=bool)
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,23 +128,22 @@ STATIC_ROOT = "/home/bobik1234/bobik1234.pythonanywhere.com/static"
 LOGIN_REDIRECT_URL = '/admin/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
 
-"""
+
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'rapi1978@gmail.com'
-EMAIL_HOST_PASSWORD = '!aaaaaa' #TODO: jak to zakodowac zeby nie bylo prawdziwego hasla??
+EMAIL_HOST_USER = 'teamhenio@gmail.com'
+EMAIL_HOST_PASSWORD = '!Stokrotka1' #TODO: jak to zakodowac zeby nie bylo prawdziwego hasla??
 EMAIL_PORT = 587
 EMAIL_USE_TLS   = True
-"""
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'bobik1234'
-EMAIL_HOST_PASSWORD = 'ccc'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-
-
+"""
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+"""
