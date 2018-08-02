@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from registration.forms import RegistrationFormUniqueEmail
+from registration.backends.hmac.views import RegistrationView
+
 from tournament import views
 from django.contrib.auth import views as auth_views
 
@@ -35,5 +38,10 @@ urlpatterns = [
         auth_views.password_reset_confirm, {'template_name': 'registration/reset_password_confirm.html'}, name='password_reset_confirm'),
     url(r'^accounts/password/reset/complete/$', auth_views.password_reset_complete,
             {'template_name': 'registration/reset_password_complete.html'}, name='password_reset_complete'),
+
+    url(r'^accounts/register/$',RegistrationView.as_view(form_class=RegistrationFormUniqueEmail),
+        name='registration_register'),
+    #url(r'^accounts/', include('registration.backends.default.urls')),
+
     url(r'^accounts/', include('registration.backends.hmac.urls')),
 ]
