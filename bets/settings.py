@@ -127,7 +127,7 @@ STATIC_ROOT = "/home/bobik1234/bobik1234.pythonanywhere.com/static"
 LOGIN_REDIRECT_URL = '/admin/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #  During development only
 EMAIL_BACKEND = config('EMAIL_BACKEND')
 
 EMAIL_HOST = config('EMAIL_HOST')
