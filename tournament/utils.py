@@ -174,7 +174,6 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
     [bet1,bet2,...]
 
     """
-
     ongoing_bets = []
     user_bet_list = bet_list(user)
     Time_To_Bet = timezone.localtime(timezone.now()) + timezone.timedelta(hours=1)
@@ -404,3 +403,20 @@ def _convert_dict(classification_dict, tournament):
                 converted_dict[tournament_name][round][user] = points
 
     return converted_dict
+
+def player_results(user):
+    """
+    Potrzebne do zakladki moje wyniki - tak zebysmy widzieli swoje punkty i miejsce w klasyfikacji
+    """
+
+    results = {}
+    for tournament_name, rounds in get_classification().items():
+        for round, user_scores in rounds.items():
+            for user_result in user_scores:
+                place, user_name, score = user_result
+                if (user_name == user.__str__()):
+                    if not (tournament_name in results.keys()):
+                        results[tournament_name] = {}
+                    results[tournament_name].update({round : [user_result]}) #TODO: ta lista jest slaba - zmienic
+
+    return results

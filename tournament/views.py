@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context,\
-    get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification
+    get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification, \
+    player_results
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
 from django.views.generic import TemplateView, FormView
@@ -56,7 +57,8 @@ class MyResults(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         finished_bets = get_finished_bets(user=self.request.user)
-        points_per_user = get_points_per_user(finished_bets)
+        points_per_user = player_results(self.request.user)
+        #points_per_user = get_points_per_user(finished_bets)
         context['finished_bets'] = finished_bets
         context['points_per_user'] = points_per_user
         return context
