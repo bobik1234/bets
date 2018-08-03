@@ -97,7 +97,8 @@ class VoteForm(FormView):
         for match in self.matches_to_bet:
             expected_home_goals = form.cleaned_data["{}_{}".format(match.home_team.name, match.id)]
             expected_away_goals = form.cleaned_data["{}_{}".format(match.away_team.name, match.id)]
-            add_bet(self.request.user, match, expected_home_goals, expected_away_goals)
+            if (expected_away_goals is not None) and (expected_home_goals is not None):
+                add_bet(self.request.user, match, expected_home_goals, expected_away_goals)
         return super(VoteForm, self).form_valid(form)
 
     @method_decorator(login_required)

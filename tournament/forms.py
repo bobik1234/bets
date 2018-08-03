@@ -20,8 +20,8 @@ class Vote(forms.Form):
 
         if ongoing_bets is None:
             for i, match in enumerate(matches):
-                self.fields["{}_{}".format(match.home_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0)
-                self.fields["{}_{}".format(match.away_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0)
+                self.fields["{}_{}".format(match.home_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, required=False)
+                self.fields["{}_{}".format(match.away_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, required=False)
         else:
             for i, match in enumerate(matches):
                 bet = Bet.objects.get(match=match, user=user)
