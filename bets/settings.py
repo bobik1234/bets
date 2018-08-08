@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from decouple import config
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -137,3 +138,10 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+#django-countries specific settings
+#wiecej o customizacji pluginu : https://github.com/SmileyChris/django-countries#customize-the-country-list
+COUNTRIES_OVERRIDE = {
+    'England': _('England'),
+    'Scotland': _('Scotland'),
+    'Wales': _('Wales')
+}
