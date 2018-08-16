@@ -1,23 +1,33 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from registration.forms import User
 
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context,\
     get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification, \
     player_results
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
-from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet
+from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet, does_user_exist, create_user
 from django.views.generic import TemplateView, FormView
 from django.utils.decorators import method_decorator
 
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib.auth.forms import PasswordChangeForm
 
 
 #TODO: dopisac ladna strone do zmiany hasla... po zmianie nie wraca do aplikacji, trzeba recznie wrocic...
 
+class LoginAsGuest(TemplateView):
+    template_name = 'tournament/index.html'
+
+    def dispatch(self, request, *args, **kwargs): #TODO: user_name i passwd przerzucic do settings albo .env
+        if not does_user_exist(user_name="guest"):
+            create_user("guest", "ball1234")
+        user = authenticate(username="guest", password="ball1234")
+        login(request, user)
+        return super(LoginAsGuest, self).dispatch(request, *args, **kwargs)
 
 @method_decorator(login_required, name='dispatch')
 class Index(TemplateView):
@@ -26,6 +36,10 @@ class Index(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class Info(TemplateView):
     template_name = 'tournament/info.html'
+
+@method_decorator(login_required, name='dispatch')
+class NotAllowed(TemplateView):
+    template_name = 'tournament/not_allowed.html'
 
 @method_decorator(login_required, name='dispatch')
 class VoteDone(TemplateView):
@@ -75,16 +89,6 @@ class Tournament(TemplateView):
         context['points_per_user'] = get_classification(tournament_name=self.kwargs['tournament_name'])
         return context
 
-
-#TODO: to juz chyba nie uzywane, usunac...
-@login_required(login_url='/accounts/login/')
-def vote_overview(request):
-
-    user = request.user
-    context = vote_context(user)
-
-    return render(request, 'tournament/vote_overview.html', context)
-
 #TODO: Czy da sie przerobic FormView na CreateView i obstawiac pojedynczo??
 class VoteForm(FormView):
 
@@ -105,6 +109,8 @@ class VoteForm(FormView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.has_perm('tournament.add_bet'):
+            return redirect('/tournament/not_allowed')
         self.matches_to_bet, _ = get_matches_to_bet(self.request.user)
         return super(VoteForm, self).dispatch(request, *args, **kwargs)
 
@@ -132,6 +138,8 @@ class VoteChangeForm(FormView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.has_perm('tournament.change_bet'):
+            return redirect('/tournament/not_allowed')
         self.ongoing_bets = get_ongoing_bets(user=self.request.user)
         return super(VoteChangeForm, self).dispatch(request, *args, **kwargs)
 
@@ -220,10 +228,15 @@ class SeeFinishedMatchBets(FormView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
 class TooLateToBet(TemplateView):
 
     template_name = 'tournament/too_late_to_bet.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.has_perm('tournament.add_bet'): #TODO: permission
+            return redirect('/tournament/not_allowed')
+        return super(TooLateToBet, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -280,6 +293,8 @@ class SimulationChooseResultForm(FormView):
 
 @login_required(login_url='/accounts/login/')
 def change_password(request):
+    if not request.user.has_perm('tournament.add_bet'): #TODO: z tym can add bet troche slabo do zmiany hasla - przemyslec
+        return redirect('/tournament/not_allowed')
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():

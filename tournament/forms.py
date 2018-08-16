@@ -41,7 +41,7 @@ class ChooseUser(forms.Form):
 
         users = []
         for user in get_user():
-            if (str(user) == "admin") or not user.is_active:
+            if (str(user) == "admin") or (str(user) == "guest") or not user.is_active:
                 continue
 
             #users.append((user,str(user)))

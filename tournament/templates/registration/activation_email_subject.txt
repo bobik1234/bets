@@ -1,1 +1,1 @@
-Activate your djangoproject.com account - you have {{ expiration_days }} days!
+Activate your "Zaklady u Henia" account - you have {{ expiration_days }} days!

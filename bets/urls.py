@@ -24,7 +24,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     #url(r'^$', views.index, name='index'),
-    url(r'^$', views.Index.as_view(), name='index'),
+    url(r'^$', views.Index.as_view(), name=''),
     url(r'^tournament/', include('tournament.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/password/reset/done/$', auth_views.password_reset_done,

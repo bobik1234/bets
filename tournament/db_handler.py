@@ -47,6 +47,15 @@ def get_user(user_name = None):
     else:
         return  User.objects.get(username=user_name)
 
+def does_user_exist(user_name):
+    return User.objects.filter(username=user_name).exists()
+
+def create_user(username, password, email=None):
+    if email is None:
+        User.objects.create_user(username=username, password=password)
+    else:
+        User.objects.create_user(username=username, password=password, email=email)
+
 def get_match(mach_id):
     return Match.objects.get(id=mach_id)
 

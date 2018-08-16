@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User, Permission
 from django.utils import timezone
+
+from bets import settings
 from tournament.db_handler import bet_list, match_list
 import operator
 from django.db.models.signals import post_save, post_delete
@@ -420,3 +423,16 @@ def player_results(user):
                     results[tournament_name].update({round : [user_result]}) #TODO: ta lista jest slaba - zmienic
 
     return results
+
+@receiver(post_save, sender=User)
+def apply_permissions_to_new_user(sender, instance, created, **kwargs):
+    """
+    Create a Profile instance for all newly created User instances. We only
+    run on user creation to avoid having to check for existence on each call
+    to User.save.
+    """
+
+    if created and (str(instance) != "guest"):
+        permission1 = Permission.objects.get(name='Can add bet')
+        permission2 = Permission.objects.get(name='Can change bet')
+        instance.user_permissions.add(permission1,permission2)
