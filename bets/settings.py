@@ -141,7 +141,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #django-countries specific settings
 #wiecej o customizacji pluginu : https://github.com/SmileyChris/django-countries#customize-the-country-list
 COUNTRIES_OVERRIDE = {
-    'England': _('England'),
-    'Scotland': _('Scotland'),
-    'Wales': _('Wales')
+    'EN': _('England'),
+    'SX': _('Scotland'),
+    'WA': _('Wales')
 }
