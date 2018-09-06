@@ -3,26 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9e35a6ff-05d2-4a77-b850-dd7706a0eac7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/base.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/classification_table.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/classification_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/finished_match_bets.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/finished_match_bets.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/history.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/history.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/index.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/info.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/info.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/my_results.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/my_results.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/not_allowed.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/not_allowed.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/ongoing_match_bets.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/ongoing_match_bets.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/other_results.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/other_results.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/simulation_choose_match.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/simulation_choose_match.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/simulation_choose_result.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/simulation_choose_result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/too_late_to_bet.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/too_late_to_bet.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/tournament.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/tournament.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/tournament_history.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/tournament_history.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/user_results.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/user_results.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/vote_change_done.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/vote_change_done.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/vote_done.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/vote_done.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/vote_form.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/vote_form.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -556,13 +536,6 @@
       <option name="presentableId" value="Default" />
       <updated>1502268086462</updated>
     </task>
-    <task id="LOCAL-00025" summary="merge">
-      <created>1530188310387</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1530188310387</updated>
-    </task>
     <task id="LOCAL-00026" summary="merge">
       <created>1530190428408</created>
       <option name="number" value="00026" />
@@ -899,7 +872,14 @@
       <option name="project" value="LOCAL" />
       <updated>1534425780099</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="merge">
+      <created>1536261261820</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1536261261820</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1132,6 +1112,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1146,6 +1127,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1153,6 +1135,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1160,6 +1143,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="25" lean-forward="false" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1167,6 +1151,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="14" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="9" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1174,6 +1159,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="20" column="19" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1181,6 +1167,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
           <caret line="86" column="56" lean-forward="false" selection-start-line="86" selection-start-column="39" selection-end-line="86" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
