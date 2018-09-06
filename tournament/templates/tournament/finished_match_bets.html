@@ -2,57 +2,67 @@
 
 {% block content %}
 
-{% load staticfiles %}
+<div class="container">
 
-<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+    {% if form.no_matches %}
+        <div class="alert alert-warning">
+            Żaden mecz się jeszcze nie zakończył
+        </div>
+    {% else %}
 
-{% if form.no_matches %}
-    <p> Żaden mecz sie jeszcze nie zakończył</p>
-{% else %}
+        <div class="alert alert-info">
+            Wybierz mecz dla którego chcesz zobaczyć zakłady
+        </div>
 
-    <p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
-    <form method="POST" action=".">
-        {% csrf_token %}
-        <p>Choose match       {{form.choose_match_field}} </p>
-    </form>
-{% endif %}
-
-
-{% if results == None  %}
-{% elif results %}
-
-    <h2>Zaklady dla meczu  {{ match.teams_to_string }}</h2>
-    <p>Turniej: {{ match.tournament }}</p>
-    <p>Runda: {{ match.round }}</p>
-    <p>Data meczu: {{match.match_date|date:"P D d M Y"}}</p>
-    <p>Koncowy wynik meczu: {{ match.final_result_to_str }}</p>
-
-    <table>
-        <tr>
-            <th>User</th>
-            <th>{{ match.home_team.name }}</th>
-            <th>{{ match.away_team.name }}</th>
-            <th>Score</th>
-        </tr>
-
-    {% for user, expected_home_goals, expected_away_goals, score  in results %}
-        {% if score == 3 %}  <tr bgcolor="lightgreen">
-        {% elif score == 1 %} <tr bgcolor="wheat">
-        {% else %} <tr bgcolor="#FAFAFA">
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <p>Wybierz mecz       {{form.choose_match_field}} </p>
+        </form>
         {% endif %}
 
-            <td>{{ user }}</td>
-            <td>{{ expected_home_goals  }}</td>
-            <td>{{ expected_away_goals }}</td>
-            <td>{{ score }}</td>
-         </tr>
-     {% endfor %}
-    </table>
+    {% if results == None  %}
+    {% elif results %}
+         <div class="alert alert-success">
+            Zakłady dla meczu  <strong>{{ match.teams_to_string }}</strong>
+        </div>
 
-{% else %}
-    <p>Nikt nie obstawil tego meczu</p>
-{% endif %}
+        <p>Turniej: {{ match.tournament }}</p>
+        <p>Runda: {{ match.round }}</p>
+        <p>Data meczu: {{match.match_date|date:"P D d M Y"}}</p>
+        <p>Koncowy wynik meczu: {{ match.final_result_to_str }}</p>
 
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Gracz</th>
+                        <th>{{ match.home_team.name }}</th>
+                        <th>{{ match.away_team.name }}</th>
+                        <th>Punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user, expected_home_goals, expected_away_goals, score  in results %}
+                    {% if score == 3 %}  <tr bgcolor="lightgreen">
+                    {% elif score == 1 %} <tr bgcolor="wheat">
+                    {% else %} <tr bgcolor="#FAFAFA">
+                    {% endif %}
 
+                        <td>{{ user }}</td>
+                        <td>{{ expected_home_goals  }}</td>
+                        <td>{{ expected_away_goals }}</td>
+                        <td>{{ score }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
+    {% else %}
+        <div class="alert alert-danger">
+            Nikt nie obstawił meczu <strong>{{ match.teams_to_string }}</strong>
+        </div>
+    {% endif %}
+
+</div>
 {% endblock %}

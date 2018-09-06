@@ -2,23 +2,24 @@
 
 {% block content %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+<div class="container">
 
+    <div class="alert alert-info">
+      Wytypuj wynik meczu
+    </div>
 
-<form method="POST" action=".">
-    {% csrf_token %}
-    <h3>Wytypuj wynik meczu </h3>
-    <h3> {{ request.session.home_team }} {{form.ht_goals}} : {{form.at_goals}} {{ request.session.away_team }}</h3>
-    <input type=submit value="Symuluj">
-</form>
+    <form method="POST" action=".">
+        {% csrf_token %}
+        <h4> {{ request.session.home_team }} {{form.ht_goals}} : {{form.at_goals}} {{ request.session.away_team }}</h4>
+        <input type=submit value="Symuluj">
+    </form>
+    <br>
+    {% if points_per_user %}
+        <div class="alert alert-danger">
+            Symulacja klasyfikacji turnieju {{ tournament_name }}
+        </div>
+        {% include "classification_table.html" %}
+    {% endif %}
 
-{% if points_per_user %}
-
-  <h4>Symulacja klasyfikacji turnieju {{ tournament_name }}</h4>
-  {% include "classification_table.html" %}
-
-{% endif %}
-
-
+</div>
 {% endblock %}

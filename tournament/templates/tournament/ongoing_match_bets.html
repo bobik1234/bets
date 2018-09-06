@@ -2,52 +2,59 @@
 
 {% block content %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+<div class="container">
 
-{% if form.no_matches %}
-    <p> Wszystkie mecze zostały rozegrane </p>
-{% else %}
-    <p>Wybierz mecz dla ktorego chesz zobaczyc zaklady</p>
-    <form method="POST" action=".">
-        {% csrf_token %}
-        <p>Choose match       {{form.choose_match_field}} </p>
-    </form>
-{% endif %}
-
-{% if bets == None  %}
-{% elif bets %}
-
-    <h2>Zaklady dla meczu:  {{ match.teams_to_string }}</h2>
-    <p>Turniej: {{ match.tournament }}</p>
-    <p>Runda: {{ match.round }}</p>
-    <p>Data meczu: {{match.match_date|date:"P D d M Y"}}</p>
-
-    {% if match.home_goals is not None  %}
-        <p>Koncowy wynik meczu: {{ match.final_result_to_str }}</p>
+    {% if form.no_matches %}
+        <div class="alert alert-warning">
+            Wszystkie mecze zostały rozegrane.
+        </div>
     {% else %}
-        <p>Nie ma jeszcze wyniku koncowego</p>
+        <div class="alert alert-info">
+            Wybierz mecz dla którego chesz zobaczyć zakłady
+        </div>
+
+        <form method="POST" action=".">
+            {% csrf_token %}
+            <p>Wybierz mecz       {{form.choose_match_field}} </p>
+        </form>
     {% endif %}
 
-    <table>
-    <tr>
-        <th>User</th>
-        <th>{{ match.home_team.name }}</th>
-        <th>{{ match.away_team.name }}</th>
-    </tr>
-    {% for bet in bets %}
-    <tr>
-        <td>{{ bet.user }}</td>
-        <td align="center" valign="middle">{{ bet.expected_home_goals }}</td>
-        <td align="center" valign="middle">{{ bet.expected_away_goals }}</td>
-    </tr>
-    {% endfor %}
-    </table>
+    {% if bets == None  %}
+    {% elif bets %}
+        <div class="alert alert-success">
+            Zakłady dla meczu  <strong>{{ match.teams_to_string }}</strong>
+        </div>
 
-{% else %}
-    <p>Nikt nie obstawil tego meczu</p>
-{% endif %}
+        <p>Turniej: {{ match.tournament }}</p>
+        <p>Runda: {{ match.round }}</p>
+        <p>Data meczu: {{match.match_date|date:"P D d M Y"}}</p>
 
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Gracz</th>
+                    <th>{{ match.home_team.name }}</th>
+                    <th>{{ match.away_team.name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bet in bets %}
+                    <tr>
+                        <td>{{ bet.user }}</td>
+                        <td>{{ bet.expected_home_goals }}</td>
+                        <td>{{ bet.expected_away_goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
+    {% else %}
+        <div class="alert alert-danger">
+            Nikt nie obstawił meczu <strong>{{ match.teams_to_string }}</strong>
+        </div>
+    {% endif %}
 
+</div>
 {% endblock %}

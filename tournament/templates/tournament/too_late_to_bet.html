@@ -2,21 +2,45 @@
 
 {% block content %}
 
-{% if too_late  %}
-    <h3 style="color:blue">Spozniles sie z obstawianiem meczy:</h3>
-    {% for match in too_late %}
-        <h4>
-            {{match.tournament}} ---->
-            <img src={{ match.home_team.flag }}>
-            {{ match.home_team.name }} - {{ match.away_team.name }}
-            <img src={{ match.away_team.flag }}>
-            ----> {{match.match_date }}
-        </h4>
-    {% endfor %}
+<div class="container">
 
-{% else %}
-    Tak trzymac. Wszystkie mecze obstawione na czas.
+    {% if too_late  %}
+        <div class="alert alert-danger">
+            Spoźniłeś się z obstawieniem następujących meczy: </a>
+        </div>
+
+    <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                 <th>Turniej</th>
+                  <th>Mecz</th>
+                  <th>Data meczu </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for match in too_late %}
+                <tr>
+                    <td>{{match.tournament}}</td>
+                    <td> <img src={{ match.home_team.flag }}>
+                        {{ match.home_team.name }} - {{ match.away_team.name }}
+                        <img src={{ match.away_team.flag }}> </td>
+                    <td> {{match.match_date }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+
+
+    {% else %}
+
+        <div class="alert alert-success">
+            <strong>Success!</strong> Tak trzymać. Wszystkie mecze obstawione na czas.
+        </div>
+
 {% endif %}
 
-
+</div>
 {% endblock %}

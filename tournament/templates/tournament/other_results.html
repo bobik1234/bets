@@ -2,86 +2,113 @@
 
 {% block content %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+<div class="container">
+
+    <div class="alert alert-info">
+        Tutaj możesz zobaczyć jak obstawiali inni gracze
+    </div>
+
+    <form method="POST" action=".">
+        {% csrf_token %}
+        <p>Wybierz gracza       {{form.choose_user_field}} </p>
+        <p>Wybierz turniej      {{form.choose_tournament}} </p>
+        <p>Wybierz runde        {{form.choose_round}} </p>
+
+        <input type=submit value="Send Request">
+    </form>
+
+    <br>
+
+    {% if ongoing_bets  %}
+        <div class="alert alert-warning">
+            Poniżej aktywne zakłady. Aktywne tzn. takie dla których nie ma jeszcze wyniku meczu.
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Turniej</th>
+                        <th>Gracz</th>
+                        <th>Mecz</th>
+                        <th>Data Meczu</th>
+                        <th>Runda</th>
+                        <th>Typowany wynik</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bet in ongoing_bets %}
+                        <tr>
+                            <td>{{ bet.match.tournament }}</td>
+                            <td>{{ bet.user }}</td>
+                            <td><img src={{ bet.match.home_team.flag }}> {{ bet.match.home_team.name }} - {{ bet.match.away_team.name }} <img src={{ bet.match.away_team.flag }}></td>
+                            <td>{{ bet.match.match_date|date:"D d M Y" }}</td>
+                            <td>{{ bet.match.round }}</td>
+                            <td>{{ bet.expected_result_to_str }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-danger">
+            Brak aktywnych zakładów. Aktywnych tzn. takich dla których nie ma jeszcze wyniku meczu.
+        </div>
+    {% endif %}
 
 
-<p>You can see others bets in ongoing tournaments</p>
-<form method="POST" action=".">
-    {% csrf_token %}
-    <p>Choose user       {{form.choose_user_field}} </p>
-    <p>Choose tournament {{form.choose_tournament}} </p>
-    <p>Choose round      {{form.choose_round}} </p>
+    {% if finished_bets  %}
+        <div class="alert alert-warning">
+            Poniżej wyniki zakończonych zakładów w trwajacych turniejach.
+        </div>
 
-    <input type=submit value="Send Request">
-</form>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Turniej</th>
+                        <th>Gracz</th>
+                        <th>Mecz</th>
+                        <th>Data</th>
+                        <th>Runda</th>
+                        <th>Typowany wynik</th>
+                        <th>Wynik końcowy</th>
+                        <th>Punkty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in finished_bets %}
+                        {% if item.score == 3 %}  <tr bgcolor="lightgreen">
+                        {% elif item.score == 1 %} <tr bgcolor="wheat">
+                        {% else %} <tr bgcolor="#FAFAFA">
+                        {% endif %}
 
-{% if ongoing_bets  %}
+                        <td>{{ item.bet.match.tournament }}</td>
+                        <td>{{ item.bet.user }}</td>
+                        <td><img src={{ item.bet.match.home_team.flag }}> {{ item.bet.match.home_team.name }} - {{ item.bet.match.away_team.name }} <img src={{ item.bet.match.away_team.flag }}></td>
+                        <td>{{ item.bet.match.match_date|date:"D d M Y" }}</td>
+                        <td>{{ item.bet.match.round }}</td>
+                        <td align="center" valign="middle">{{ item.bet.expected_result_to_str }}</td>
+                        <td align="center" valign="middle">{{ item.bet.match.final_result_to_str }}</td>
+                        <td align="center" valign="middle">{{ item.score }}</td>
+                        </tr>
+                    {% endfor %}
 
-    <h2>Aktywne zaklady</h2>
+                </tbody>
+            </table>
+        </div>
 
-
-    <table style="width: 100%;">
-    <tr>
-        <th>Tournament</th>
-        <th>User</th>
-        <th>Match</th>
-        <th>Date</th>
-        <th>Round</th>
-        <th>Expected_result</th>
-    </tr>
-    {% for bet in ongoing_bets %}
-    <tr>
-        <td>{{ bet.match.tournament }}</td>
-        <td>{{ bet.user }}</td>
-        <td><img src={{ bet.match.home_team.flag }}> {{ bet.match.home_team.name }} - {{ bet.match.away_team.name }} <img src={{ bet.match.away_team.flag }}></td>
-        <td>{{ bet.match.match_date|date:"D d M Y" }}</td>
-        <td>{{ bet.match.round }}</td>
-        <td align="center" valign="middle">{{ bet.expected_result_to_str }}</td>
-    </tr>
-    {% endfor %}
-    </table>
 
 {% else %}
-    <p>Brak aktywnych zakladow</p>
+    <br>
+    <div class="alert alert-danger">
+       Brak zakończonych zakładow w trwajacych turniejach
+    </div>
+
 {% endif %}
-
-
-{% if finished_bets  %}
-
-    <h2>Wyniki zakonczonych zakladow w trwajacych turniejach</h2>
-
-
-    <table style="width: 100%;">
-    <tr>
-        <th>Tournament</th>
-        <th>User</th>
-        <th>Match</th>
-        <th>Date</th>
-        <th>Round</th>
-        <th>Expected_result</th>
-        <th>Final_result</th>
-        <th>Score</th>
-    </tr>
-    {% for item in finished_bets %}
-        {% if item.score == 3 %}  <tr bgcolor="lightgreen">
-        {% elif item.score == 1 %} <tr bgcolor="wheat">
-        {% else %} <tr bgcolor="#FAFAFA">
-        {% endif %}
-            <td>{{ item.bet.match.tournament }}</td>
-            <td>{{ item.bet.user }}</td>
-            <td><img src={{ item.bet.match.home_team.flag }}> {{ item.bet.match.home_team.name }} - {{ item.bet.match.away_team.name }} <img src={{ item.bet.match.away_team.flag }}></td>
-            <td>{{ item.bet.match.match_date|date:"D d M Y" }}</td>
-            <td>{{ item.bet.match.round }}</td>
-            <td align="center" valign="middle">{{ item.bet.expected_result_to_str }}</td>
-            <td align="center" valign="middle">{{ item.bet.match.final_result_to_str }}</td>
-            <td align="center" valign="middle">{{ item.score }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-
-{% else %}
-    <p>Brak zakonczonych zakladow w trwajacych turniejach</p>
-{% endif %}
-
+</div>
 {% endblock %}

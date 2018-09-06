@@ -2,21 +2,21 @@
 
 {% block content %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'tournament/table.css' %}" />
+<div class="container">
 
-<h2>Wyniki turnieju "{{ tournament_name }}"</h2>
+    <h3>Wyniki turnieju "{{ tournament_name }}"</h3>
 
-{% for tournament in tournaments %}
-    {% if tournament.name == tournament_name%}
-        {% if tournament.active %}
-            <p> Status: Turniej jest wciaz aktywny</p>
-        {% else %}
-            <p> Status: Turniej zakonczony - klasyfikacja koncowa</p>
+    {% for tournament in tournaments %}
+        {% if tournament.name == tournament_name%}
+            {% if tournament.active %}
+                <p> Status: Turniej jest wciaz aktywny</p>
+            {% else %}
+                <p> Status: Turniej zakonczony - klasyfikacja końcowa</p>
+            {% endif %}
         {% endif %}
-    {% endif %}
-{% endfor %}
+    {% endfor %}
 
-{% include "classification_table.html" %}
+    {% include "classification_table.html" %}
+</div>
 
 {% endblock %}

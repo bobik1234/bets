@@ -1,12 +1,15 @@
 {% extends "tournament/base.html" %}
 
 {% block content %}
+<div class="container">
+    {% load filters %}
 
-{% load filters %}
+    {% if matches_to_bet  %}
 
-{% if matches_to_bet  %}
+    <div class="alert alert-info">
+        Mecze do obstawienia:
+    </div>
 
-    <h4>Mecze do obstawienia: </h4>
     <form method="POST">
         {% csrf_token %}
         {% for match in matches_to_bet %}
@@ -30,7 +33,12 @@
     </form>
 
 {% else %}
-    <h4>Na chwile obecna nie ma meczy do obstawiania</h4>
+    <div class="alert alert-info">
+        <strong>Info!</strong> Brak meczy do obstawienia.
+    </div>
+
 {% endif %}
 
+</div>
 {% endblock %}
+

@@ -1,16 +1,16 @@
 {% extends "tournament/base.html" %}
 
 {% block content %}
-  <p> Witamy u najlepszego bukmachera w miescie - "u Henia" </p>
-  <br><br>
-
-  <p>Jestes zalogowany jako: {{request.user.username}} </p>
-
-  <p> Wszelkie komentarze mile widziane. Mozna je przesylac na adres mailowy: TeamHenio@gmail.com </p>
-  <p> Prosze zglaszac:
-    <br>- Bledy (zle dziala, nie dziala)
-    <br>- Usprawnienia (dana funkcjonalnosc moglaby wyglac lepiej itp.)
-    <br>- Pomysly na nowe funkcjonalnosci
+<div class="container">
+  <div class="jumbotron">
+    <h2>Witamy u najlepszego bukmachera w miescie - "u Henia"</h2>
+    <p>Jestes zalogowany jako: {{request.user.username}}</p>
+  </div>
+  <p> Wszelkie komentarze mile widziane. Można je przesyłać na adres mailowy: TeamHenio@gmail.com </p>
+  <p> Proszę zgłaszać:
+    <br>- Błędy (źle działa, nie działa)
+    <br>- Usprawnienia (dana funkcjonalność mogłaby wyglądać lepiej itp.)
+    <br>- Pomysły na nowe funkcjonalnosci
   </p>
-
+</div>
 {% endblock %}

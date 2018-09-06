@@ -1,9 +1,10 @@
 {% extends "tournament/base.html" %}
 
 {% block content %}
-
-<h2>Zobacz klasyfikacje końcową zakończonych turnieji:</h2>
-
-<li><a href="{% url 'tournament_history' tournament_name='ms2018' %}"> Mistrzostwa Świata 2018 </a></li>
-
+<div class="container">
+    <div class="alert alert-info">
+            Zobacz klasyfikację końcową zakończonych turniei
+    </div>
+    <li><a href="{% url 'tournament_history' tournament_name='ms2018' %}"> Mistrzostwa Świata 2018 </a></li>
+</div>
 {% endblock %}

@@ -1,57 +1,69 @@
+
 {% if points_per_user %}
-    {% load staticfiles %}
 
     {% for tournament_name, rounds in points_per_user.items %}
 
         <h4> Klasyfikacja Generalna</h4>
-
-            <table>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th>Place</th>
-                        <th>User</th>
-                        <th>Score</th>
+                        <th>Miejsce</th>
+                        <th>Gracz</th>
+                        <th>Punkty</th>
                     </tr>
-            {% for place, user, points in rounds.GeneralClassification  %}
-                {% if place == 1 %} <tr bgcolor="gold">
-                {% elif place == 2 %} <tr bgcolor="silver">
-                {% elif place == 3 %} <tr bgcolor="peru">
-                {% else %} <tr bgcolor="#FAFAFA">
-                {% endif %}
-                        <td align="center" valign="middle">{{ place }}</td>
-                        <td align="center" valign="middle">{{ user }} </td>
-                        <td align="center" valign="middle"> {{ points }}</td>
-                    </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for place, user, points in rounds.GeneralClassification  %}
+                        {% if place == 1 %} <tr bgcolor="gold">
+                        {% elif place == 2 %} <tr bgcolor="silver">
+                        {% elif place == 3 %} <tr bgcolor="peru">
+                        {% else %} <tr bgcolor="#FAFAFA">
+                        {% endif %}
+                        <td>{{ place }}</td>
+                        <td>{{ user }} </td>
+                        <td> {{ points }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
-
+        </div>
       {% for round, user_scores in rounds.items %}
             {% if round != "GeneralClassification" %}
                 {% if round == "CP" %} <h4> Faza Pucharowa </h4>
                 {% else %} <h4>Runda {{ round }}</h4>
                 {% endif %}
-                    <table>
-                        <tr>
-                            <th>Place</th>
-                            <th>User</th>
-                            <th>Score</th>
-                        </tr>
-                {% for place, user, points in user_scores %}
-                    {% if place == 1 %} <tr bgcolor="gold">
-                    {% elif place == 2 %} <tr bgcolor="silver">
-                    {% elif place == 3 %} <tr bgcolor="peru">
-                    {% else %} <tr bgcolor="#FAFAFA">
-                    {% endif %}
-                            <td align="center" valign="middle">{{ place }}</td>
-                            <td align="center" valign="middle">{{ user }} </td>
-                            <td align="center" valign="middle"> {{ points }}</td>
-                        </tr>
 
-                {% endfor %}
-                </table>
+                 <div class="table-responsive">
+                    <table class="table">
+                     <thead>
+                        <tr>
+                            <th>Miejsce</th>
+                            <th>Gracz</th>
+                            <th>Punkty</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for place, user, points in user_scores %}
+                            {% if place == 1 %} <tr bgcolor="gold">
+                            {% elif place == 2 %} <tr bgcolor="silver">
+                            {% elif place == 3 %} <tr bgcolor="peru">
+                            {% else %} <tr bgcolor="#FAFAFA">
+                            {% endif %}
+                            <td>{{ place }}</td>
+                            <td>{{ user }} </td>
+                            <td> {{ points }}</td>
+                            </tr>
+                        {% endfor %}
+                     </tbody>
+                    </table>
+                </div>
             {% endif %}
       {% endfor %}
     {% endfor %}
 
 {% else %}
-    <p> Zaden mecz sie jeszcze nie zakonczyl - brak klasyfikacji </p>
+    <div class="alert alert-info">
+    <strong>Info!</strong> Żaden mecz się jeszcze nie zakończył - brak klasyfikacji.
+    </div>
 {% endif %}
