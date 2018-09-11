@@ -19,7 +19,8 @@
 
     <br>
 
-    {% if ongoing_bets  %}
+    {% if ongoing_bets is None %}
+    {% elif ongoing_bets  %}
         <div class="alert alert-warning">
             Poniżej aktywne zakłady. Aktywne tzn. takie dla których nie ma jeszcze wyniku meczu.
         </div>
@@ -57,7 +58,8 @@
     {% endif %}
 
 
-    {% if finished_bets  %}
+    {% if finished_bets is None %}
+    {% elif finished_bets  %}
         <div class="alert alert-warning">
             Poniżej wyniki zakończonych zakładów w trwajacych turniejach.
         </div>

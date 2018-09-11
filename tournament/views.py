@@ -171,6 +171,14 @@ class OtherResultForm(FormView):
 
         return render(self.request, 'tournament/other_results.html', context)
 
+    # ustawiam finished_bets i ongoing_bets tylko dlatego zeby rozróznić w html'u warosc None
+    # Funkcje get_finished_bets i  get_ongoing_bets jak sa wywolywane i nic nie znajda zwracja pusty slownik
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['finished_bets'] = None
+        context['ongoing_bets'] = None
+        return context
+
 @method_decorator(login_required, name='dispatch')
 class SeeOngoingMatchBets(FormView):
 
@@ -287,6 +295,7 @@ class SimulationChooseResultForm(FormView):
         context['points_per_user'] = points_per_user
 
         return render(self.request, self.template_name, context)
+
     #ustawiam points_per_user tylko dlatego zeby rozróznić w html'u (simulated_choose_result.html)
     #warosc None zwracaną przez simulate_classification() a pustym sownikiem generowanym na poczatku strony
     def get_context_data(self, **kwargs):

@@ -339,7 +339,7 @@ def simulate_classification(match):
     """
 
     try:
-        with open(classification_file_name) as data_file: #TODO: Co zrobimy jak nie ma jeszcze pliku - żaden mecz sie nie zakonczyl???
+        with open(classification_file_name) as data_file:
             classification = json.load(data_file)
     except EnvironmentError:
         return None
