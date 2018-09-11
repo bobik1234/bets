@@ -1,16 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-      input.required, error {
-        border: 2px solid red;
-      }
-    </style>
-    <title>{% block title %}Tagging Exploration{% endblock %}</title>
+  <title>Zakłady "u Henia"</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+<div class="container">
+    <div class="page-header">
+         <h1>Zakłady bukmacherskie "u Henia"</h1>
+    </div>
     <div id="sidebar">
         {% block sidebar %}{% endblock %}
     </div>
@@ -20,5 +23,6 @@
         {% block main_content %}{% endblock %}
         {% block content-related %}{% endblock %}
     </div>
+</div>
 </body>
 </html>

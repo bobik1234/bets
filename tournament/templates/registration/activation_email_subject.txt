@@ -1,1 +1,1 @@
-Activate your "Zaklady u Henia" account - you have {{ expiration_days }} days!
+Aktywuj konto na portalu "Zakłady u Henia" - masz {{ expiration_days }} dni!

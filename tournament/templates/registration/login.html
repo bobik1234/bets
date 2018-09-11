@@ -4,35 +4,43 @@
 
 {% block content %}
 
-<h1>Log in</h1>
+<div class="content">
+<div class="container">
 
-{% if form.errors %}
-<p class="error">Please correct the errors below:</p>
-{% endif %}
+    {% if form.errors %}
+            <div class="alert alert-danger">
+                <p><strong>Błąd logowania! </strong> Podaj poprawną nazwę gracza oraz hasło. Paniętaj, że małe i duże litery mają znaczenie.</p>
+            </div>
+    {% endif %}
+    <br><br><br>
+ <div class="col-md-offset-4 col-md-3">
+      <form class="form-signin" action="{% url 'auth_login' %}" method="post" id="login-form">{% csrf_token %}
+        <!-- <label for="id_username" class="sr-only">User Name</label> -->
+        <input type="text" name="username" id="id_username" class="form-control" placeholder="User Name" required autofocus>
+          <br>
+        <!-- <label for="id_password" class="sr-only">Password</label> -->
+        <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+          <br>
+        <input class="btn btn-primary btn-md" type="submit" value="Log in" />
+          <br><br>
+      </form>
+ </div>
+</div> <!-- /container -->
+</div>
 
-<form method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
-<dl>
-<dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.username }}</dd>
-<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
-<dd>{{ form.password }}</dd>
-<dt><input type="submit" value="Log in" /></dt>
-</dl>
-</form>
+
 {% endblock %}
 
 
 {% block content-related %}
+<div class="container">
+    <div class="col-md-offset-4 col-md-4">
+        <div class="btn-group">
+        <a href="/password_reset/" class="btn btn-info" role="button">Reset hasła</a>
+        <a href="/accounts/register/" class="btn btn-success" role="button">Załóż konto</a>
+        <a href="/tournament/login_as_guest/" class="btn btn-danger" role="button">Zaloguj jako gość</a>
+        </div>
+    </div></div>
 
-<p> If you don't remember the password, you can <a href="/password_reset/">reset it here</a>. </p>
 
-<p>If you don't have an account, you can <a href="/accounts/register/">sign up</a> for one. </p>
-
-<p> You can login as a guest <a href="/tournament/login_as_guest/">here</a> to see how does application look like</p>
-
-<!--<p> If you don't remember the password, you can <a href="/password_reset/">reset it here</a>.//-->
-
-<!--<p>If you don't have an account, you can <a href="/accounts/register/">sign
-up</a> for one.//-->
-<!-- -->
 {% endblock %}

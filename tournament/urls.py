@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^info/$', views.Info.as_view(), name='info'),
+    url(r'^index/$', views.Index.as_view(), name='index'),
     url(r'^not_allowed/$', views.NotAllowed.as_view(), name='not_allowed'),
     url(r'^my_results/$', views.MyResults.as_view(), name='my_results'),
     url(r'^tournament/(?P<tournament_name>.+)/$', views.Tournament.as_view(), name='tournament'),
