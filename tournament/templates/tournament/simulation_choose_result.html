@@ -14,7 +14,12 @@
         <input type=submit value="Symuluj">
     </form>
     <br>
-    {% if points_per_user %}
+    {% if points_per_user == None %}
+        <div class="alert alert-danger">
+            <strong>Nie można przeprowadzić symulacji</strong> Jest to pierwszy mecz turnieju "{{ tournament_name }}" i jeszcze NIKT nie typował wyniku
+        </div>
+
+    {% elif points_per_user %}
         <div class="alert alert-danger">
             Symulacja klasyfikacji turnieju {{ tournament_name }}
         </div>

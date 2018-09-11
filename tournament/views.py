@@ -287,6 +287,12 @@ class SimulationChooseResultForm(FormView):
         context['points_per_user'] = points_per_user
 
         return render(self.request, self.template_name, context)
+    #ustawiam points_per_user tylko dlatego zeby rozróznić w html'u (simulated_choose_result.html)
+    #warosc None zwracaną przez simulate_classification() a pustym sownikiem generowanym na poczatku strony
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['points_per_user'] = {}
+        return context
 
 
 #TODO: Mozna by lepiej rozkminic autentykacje i obyc sie bez ponizszych view do zmiany hasla. IMPROVEMENT

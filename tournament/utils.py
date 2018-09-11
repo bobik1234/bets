@@ -339,22 +339,27 @@ def simulate_classification(match):
     """
 
     try:
-        with open(classification_file_name) as data_file:
+        with open(classification_file_name) as data_file: #TODO: Co zrobimy jak nie ma jeszcze pliku - żaden mecz sie nie zakonczyl???
             classification = json.load(data_file)
     except EnvironmentError:
-        return {}
+        return None
 
     simulated_classification = _convert_dict(classification, match.tournament.name)
 
-    #moze to byc pierwszy mecz w turnieju wiec turnieju jeszcze ie ma w kluczach
+    #moze to byc pierwszy mecz w turnieju wiec turnieju jeszcze nie ma w kluczach
     if not (match.tournament.name in simulated_classification.keys()):
+        simulated_classification.update({match.tournament.name : {}})
         simulated_classification[match.tournament.name].update({'GeneralClassification' : {}})
 
-    #moze to byc pierwszy mecz w rundzie wiec rundyjeszcze ie ma w kluczach
+    #moze to byc pierwszy mecz w rundzie wiec rundy jeszcze nie ma w kluczach
     if not (match.round in simulated_classification[match.tournament.name].keys()):
         simulated_classification[match.tournament.name].update({match.round : {}})
 
     bets = bet_list(match=match)
+
+    #pierwszy mecz w turnieju, ktorego nikt jeszcze nie obstawił - nie ma co symulowac
+    if not bets and not simulated_classification[match.tournament.name]['GeneralClassification']:
+        return None
 
     for tournament_name, rounds in simulated_classification.items():
         if (tournament_name == match.tournament.name):

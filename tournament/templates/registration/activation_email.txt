@@ -4,7 +4,7 @@ Heja.
 
 Ktoś, prawdopodobnie Ty, zapisał sie na portal {{ site.name }} uzywając tego adresu email. Jeśli to byłeś Ty i chcesz aktywować i używać swojego konta, wejdź na poniższy link lub kopiuj/wklej do przeglądarki:
 
-{{ protocol }}://{{ site.domain }}{% url 'registration_activate' activation_key %}
+https://{{ site.domain }}{% url 'registration_activate' activation_key %}
 
 Jeśli nie rejstowałeś się na stronie, nie musisz robić nic; nie otrzymasz od nas więcej emaili, a konto wygaśnie automatycznie za {{ expiration_days|apnumber }} dni.
 
