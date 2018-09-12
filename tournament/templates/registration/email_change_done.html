@@ -1,0 +1,12 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+<div class="container">
+
+  <div class="alert alert-success">
+    <strong>Success!</strong> Twój email został zmieniony na <strong> {{request.user.email}} </strong>
+  </div>
+
+</div>
+
+{% endblock %}

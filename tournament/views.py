@@ -7,7 +7,7 @@ from registration.forms import User
 from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context,\
     get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification, \
     player_results
-from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult
+from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet, does_user_exist, create_user
 from django.views.generic import TemplateView, FormView
 from django.utils.decorators import method_decorator
@@ -52,6 +52,10 @@ class VoteChangeDone(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class History(TemplateView):
     template_name = 'tournament/history.html'
+
+@method_decorator(login_required, name='dispatch')
+class EmailChangeDone(TemplateView):
+    template_name = 'registration/email_change_done.html'
 
 @method_decorator(login_required, name='dispatch')
 class TournamentHistory(TemplateView):
@@ -330,3 +334,23 @@ def change_password(request):
 def change_password_done(request):
     return render(request, 'registration/change_password_done.html')
 
+
+class EmailChange(FormView):
+    """
+    https://stackoverflow.com/questions/13734890/django-email-change-form-setup
+    """
+    template_name = 'registration/email_change.html'
+    form_class = EmailChangeForm
+
+    def get_form(self):
+        return self.form_class(self.request.user, self.request.POST or None)
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(reverse('change_email_done'))
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.has_perm('tournament.add_bet'): #TODO: permission
+            return redirect('/tournament/not_allowed')
+        return super(EmailChange, self).dispatch(request, *args, **kwargs)
