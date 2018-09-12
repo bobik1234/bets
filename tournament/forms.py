@@ -1,7 +1,7 @@
 from django import forms
 
 from tournament.models import Bet, Tournament, ROUND
-from tournament.db_handler import get_user, match_list
+from tournament.db_handler import get_user, match_list, get_users_email
 from django.utils.translation import ugettext_lazy as _
 
 class Vote(forms.Form):
@@ -127,6 +127,7 @@ class EmailChangeForm(forms.Form):
     error_messages = {
         'email_mismatch': _("The two email addresses fields didn't match."),
         'not_changed': _("The email address is the same as the one already defined."),
+        'already_exists': _("The email address already exists for another user."),
     }
 
     new_email1 = forms.EmailField(
@@ -152,6 +153,12 @@ class EmailChangeForm(forms.Form):
                     self.error_messages['not_changed'],
                     code='not_changed',
                 )
+        if new_email1 in get_users_email():
+                raise forms.ValidationError(
+                    self.error_messages['already_exists'],
+                    code='already_exists',
+                )
+
         return new_email1
 
     def clean_new_email2(self):

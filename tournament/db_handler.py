@@ -47,6 +47,14 @@ def get_user(user_name = None):
     else:
         return  User.objects.get(username=user_name)
 
+def get_users_email():
+
+    emails = []
+    for user in User.objects.all():
+        emails.append(user.email)
+
+    return emails
+
 def does_user_exist(user_name):
     return User.objects.filter(username=user_name).exists()
 
