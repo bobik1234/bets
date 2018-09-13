@@ -12,13 +12,28 @@
 
     <form method="post">{% csrf_token %}
         <fieldset class="module aligned">
-            <div class="form-row field-email">
-                {{ form.as_p }}
+            <div class="form-row field-email" >
+                {% if form.new_email1.errors or form.new_email2.errors  %}
+                    <div class="alert alert-danger">
+                        {{ form.new_email1.errors }} {{ form.new_email2.errors }}
+                    </div>
+                {% endif %}
+                <div class="row align-items-center">
+                    <div class="col-sm-2">Nowy email</div>
+                    <div class="col-sm-2">{{ form.new_email1 }}</div>
+                </div>
+                <br>
+                <div class="row align-items-center">
+                    <div class="col-sm-2">Potwierdź email</div>
+                    <div class="col-sm-2">{{ form.new_email2 }}</div>
+                </div>
             </div>
+
           <br>
              <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
         </fieldset>
         </form>
+
 </div>
 
 {% endblock %}
