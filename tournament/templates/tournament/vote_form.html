@@ -11,26 +11,36 @@
     </div>
 
     <form method="POST">
-        {% csrf_token %}
+        <fieldset class="module aligned">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="alert alert-danger"><strong>Zakłady nie zostały przyjęte! Popraw poniższe błędy:</strong>{{ form.errors }}</div>
+            {% endif %}
+
         {% for match in matches_to_bet %}
-            {% for field in form %}
-                {% if match.home_team.name == field.label|team_name and match.id == field.label|match_id|add:0 %}
-                    <p>{{ field.errors }}<img src={{ match.home_team.flag }}>
-                    {{ field.label|team_name }} {{ field }}
-                {% endif %}
-            {% endfor %}
-            :
-            {% for field in form %}
-                {% if match.away_team.name ==  field.label|team_name and match.id == field.label|match_id|add:0 %}
-                    {{ field }} {{ field.label|team_name }} <img src={{ match.away_team.flag }}> {{ field.errors }}
-                {% endif %}
-            {% endfor %}
-            ----> {{match.match_date }}
-        <br>
+            <div class="alert alert-warning">
+                {% for field in form %}
+                    {% if match.home_team.name == field.label|team_name and match.id == field.label|match_id|add:0 %}
+                        <img src={{ match.home_team.flag }}> {{ field.label|team_name }} {{ field }}&nbsp;&nbsp;:&nbsp;&nbsp;
+                    {% endif %}
+                {% endfor %}
+
+                {% for field in form %}
+                    {% if match.away_team.name ==  field.label|team_name and match.id == field.label|match_id|add:0 %}
+                        {{ field }}&nbsp;&nbsp;&nbsp;{{ field.label|team_name }} <img src={{ match.away_team.flag }}>
+                        &nbsp;&nbsp;<strong>Data meczu:</strong> {{ match.match_date |date:"d M, Y, G:i" }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
         {% endfor %}
 
-    <input type=submit value="Accept">
-    </form>
+         <br>
+             <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
+        </fieldset>
+        </form>
+        <br><br>
 
 {% else %}
     <div class="alert alert-info">

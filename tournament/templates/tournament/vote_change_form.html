@@ -20,24 +20,15 @@
         {% for bet in ongoing_bets %}
             <div class="alert alert-warning">
                 {% for field in form %}
-
                     {% if bet.match.home_team.name == field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
-
                         <img src={{ bet.match.home_team.flag }}> {{ field.label|team_name }} {{ field }}&nbsp;&nbsp;:&nbsp;&nbsp;
-
-
                     {% endif %}
                 {% endfor %}
 
                 {% for field in form %}
-
-
                     {% if bet.match.away_team.name ==  field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
-
                         {{ field }}&nbsp;&nbsp;&nbsp;{{ field.label|team_name }} <img src={{ bet.match.away_team.flag }}>
-
-                &nbsp;&nbsp;<strong>Data meczu:</strong> {{ bet.match.match_date |date:"d M, Y, G:i" }}
-
+                        &nbsp;&nbsp;<strong>Data meczu:</strong> {{ bet.match.match_date |date:"d M, Y, G:i" }}
                     {% endif %}
                 {% endfor %}
             </div>

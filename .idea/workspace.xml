@@ -4,6 +4,7 @@
     <list default="true" id="9e35a6ff-05d2-4a77-b850-dd7706a0eac7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tournament/templates/tournament/vote_form.html" afterPath="$PROJECT_DIR$/tournament/templates/tournament/vote_form.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,12 +41,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vote_form.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="vote_form.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/vote_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
-              <folding />
+            <state relative-caret-position="595">
+              <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding>
+                <element signature="e#851#857#0" expanded="true" />
+                <element signature="e#857#863#0" expanded="true" />
+                <element signature="e#864#870#0" expanded="true" />
+                <element signature="e#870#876#0" expanded="true" />
+                <element signature="e#1133#1139#0" expanded="true" />
+                <element signature="e#1139#1145#0" expanded="true" />
+                <element signature="e#1145#1151#0" expanded="true" />
+                <element signature="e#1240#1246#0" expanded="true" />
+                <element signature="e#1246#1252#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,19 +81,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vote_change_form.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="vote_change_form.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="38" column="56" lean-forward="false" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
+            <state relative-caret-position="561">
+              <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
               <folding>
-                <element signature="e#928#934#0" expanded="true" />
-                <element signature="e#934#940#0" expanded="true" />
-                <element signature="e#941#947#0" expanded="true" />
-                <element signature="e#947#953#0" expanded="true" />
-                <element signature="e#1223#1229#0" expanded="true" />
-                <element signature="e#1229#1235#0" expanded="true" />
-                <element signature="e#1235#1241#0" expanded="true" />
+                <element signature="e#926#932#0" expanded="true" />
+                <element signature="e#932#938#0" expanded="true" />
+                <element signature="e#939#945#0" expanded="true" />
+                <element signature="e#945#951#0" expanded="true" />
+                <element signature="e#1216#1222#0" expanded="true" />
+                <element signature="e#1222#1228#0" expanded="true" />
+                <element signature="e#1228#1234#0" expanded="true" />
                 <element signature="e#1327#1333#0" expanded="true" />
                 <element signature="e#1333#1339#0" expanded="true" />
               </folding>
@@ -233,9 +244,9 @@
         <option value="$PROJECT_DIR$/tournament/templates/registration/base.html" />
         <option value="$PROJECT_DIR$/tournament/templates/registration/email_change.html" />
         <option value="$PROJECT_DIR$/tournament/views.py" />
-        <option value="$PROJECT_DIR$/tournament/templates/tournament/vote_form.html" />
         <option value="$PROJECT_DIR$/tournament/forms.py" />
         <option value="$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html" />
+        <option value="$PROJECT_DIR$/tournament/templates/tournament/vote_form.html" />
       </list>
     </option>
   </component>
@@ -302,32 +313,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tournament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tournament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="registration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -522,13 +507,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1502268086462</updated>
-    </task>
-    <task id="LOCAL-00035" summary="merge">
-      <created>1531144007326</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1531144007326</updated>
     </task>
     <task id="LOCAL-00036" summary="merge">
       <created>1531206280528</created>
@@ -866,14 +844,21 @@
       <option name="project" value="LOCAL" />
       <updated>1536924049937</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="merge">
+      <created>1536926285062</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1536926285063</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="241" y="18" width="1577" height="973" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22869955" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22869955" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296433" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -1301,14 +1286,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/vote_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tournament/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -1321,18 +1298,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="38" column="56" lean-forward="false" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
+        <state relative-caret-position="561">
+          <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
           <folding>
-            <element signature="e#928#934#0" expanded="true" />
-            <element signature="e#934#940#0" expanded="true" />
-            <element signature="e#941#947#0" expanded="true" />
-            <element signature="e#947#953#0" expanded="true" />
-            <element signature="e#1223#1229#0" expanded="true" />
-            <element signature="e#1229#1235#0" expanded="true" />
-            <element signature="e#1235#1241#0" expanded="true" />
+            <element signature="e#926#932#0" expanded="true" />
+            <element signature="e#932#938#0" expanded="true" />
+            <element signature="e#939#945#0" expanded="true" />
+            <element signature="e#945#951#0" expanded="true" />
+            <element signature="e#1216#1222#0" expanded="true" />
+            <element signature="e#1222#1228#0" expanded="true" />
+            <element signature="e#1228#1234#0" expanded="true" />
             <element signature="e#1327#1333#0" expanded="true" />
             <element signature="e#1333#1339#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/vote_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#851#857#0" expanded="true" />
+            <element signature="e#857#863#0" expanded="true" />
+            <element signature="e#864#870#0" expanded="true" />
+            <element signature="e#870#876#0" expanded="true" />
+            <element signature="e#1133#1139#0" expanded="true" />
+            <element signature="e#1139#1145#0" expanded="true" />
+            <element signature="e#1145#1151#0" expanded="true" />
+            <element signature="e#1240#1246#0" expanded="true" />
+            <element signature="e#1246#1252#0" expanded="true" />
           </folding>
         </state>
       </provider>
