@@ -9,9 +9,13 @@
     </div>
 
     <form method="POST" action=".">
+        {% if form.errors %}
+            <div class="alert alert-danger"><strong>Popraw poniższe błędy:</strong>{{ form.errors }}</div>
+        {% endif %}
+
         {% csrf_token %}
         <h4> {{ request.session.home_team }} {{form.ht_goals}} : {{form.at_goals}} {{ request.session.away_team }}</h4>
-        <input type=submit value="Symuluj">
+        <input class="btn btn-primary btn-md" type="submit" value="Symuluj" />
     </form>
     <br>
     {% if points_per_user == None %}
