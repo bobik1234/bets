@@ -21,13 +21,17 @@ class Vote(forms.Form):
 
         if ongoing_bets is None:
             for i, match in enumerate(matches):
-                self.fields["{}_{}".format(match.home_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, required=False)
-                self.fields["{}_{}".format(match.away_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, required=False)
+                self.fields["{}_{}".format(match.home_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, required=False,
+                                                                                                 widget=forms.NumberInput(attrs={'style': "width: 4em;"}))
+                self.fields["{}_{}".format(match.away_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, required=False,
+                                                                                                 widget=forms.NumberInput(attrs={'style': "width: 4em;"}))
         else:
             for i, match in enumerate(matches):
                 bet = Bet.objects.get(match=match, user=user)
-                self.fields["{}_{}".format(match.home_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, initial= bet.expected_home_goals)
-                self.fields["{}_{}".format(match.away_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, initial= bet.expected_away_goals)
+                self.fields["{}_{}".format(match.home_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, initial= bet.expected_home_goals,
+                                                                                                 widget=forms.NumberInput(attrs={'style' : "width: 4em;"}))
+                self.fields["{}_{}".format(match.away_team.name, match.id)] = forms.DecimalField(max_digits=2, min_value=0, initial= bet.expected_away_goals,
+                                                                                                 widget=forms.NumberInput(attrs={'style': "width: 4em;"}))
 
     #def predicted_result(self):
     #    for name, value in self.cleaned_data.items():

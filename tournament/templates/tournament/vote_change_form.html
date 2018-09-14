@@ -8,28 +8,49 @@
         <div class="alert alert-info">
             Możesz jeszcze zmienić poniższe typowania:
         </div>
+
     <form method="POST">
-        {% csrf_token %}
+        <fieldset class="module aligned">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="alert alert-danger"><strong>Zakłady nie zostały zmienione! Popraw poniższe błędy:</strong>{{ form.errors }}</div>
+            {% endif %}
+
         {% for bet in ongoing_bets %}
-            {% for field in form %}
-                {% if bet.match.home_team.name == field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
-                    <p>{{ field.errors }}<img src={{ bet.match.home_team.flag }}>
-                    {{ field.label|team_name }}
-                    {{ field }}
-                {% endif %}
-            {% endfor %}
-            :
-            {% for field in form %}
-                {% if bet.match.away_team.name ==  field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
-                    {{ field }} {{ field.label|team_name }} <img src={{ bet.match.away_team.flag }}> {{ field.errors }}
-                {% endif %}
-            {% endfor %}
-            ----> {{bet.match.match_date }}
+            <div class="row align-items-center">
+                {% for field in form %}
+
+                    {% if bet.match.home_team.name == field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
+
+                        <div class="col-sm-2"><img src={{ bet.match.home_team.flag }}> {{ field.label|team_name }}</div>
+                        <div class="col-sm-1">{{ field }}</div>
+
+                    {% endif %}
+                {% endfor %}
+
+                {% for field in form %}
+
+
+                    {% if bet.match.away_team.name ==  field.label|team_name and bet.match.id == field.label|match_id|add:0 %}
+
+                        <div class="col-sm-1">{{ field }}</div>
+                        <div class="col-sm-2">
+                            <div class="text-right">{{ field.label|team_name }} <img src={{ bet.match.away_team.flag }}></div>
+                        </div>
+                        <div class="col-sm-2">{{ bet.match.match_date |date:"d M, Y, G:i" }}</div>
+
+                    {% endif %}
+                {% endfor %}
+            </div>
         <br>
         {% endfor %}
 
-    <input type=submit>
-    </form>
+         <br>
+             <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
+        </fieldset>
+        </form>
+        <br><br>
 
     {% else %}
         <div class="alert alert-info">
@@ -39,21 +60,3 @@
 
 </div>
 {% endblock %}
-
-
-
-
-
-
-
-
- {% for bet in ongoing_bets %}
-        <h4>
-            {{bet.match.tournament}} ---->
-            <img src={{ bet.match.home_team.flag }}>
-            {{ bet.match.home_team.name }}
-            {{ bet.expected_home_goals }} : {{ bet.expected_away_goals }}
-            {{ bet.match.away_team.name }}
-            <img src={{ bet.match.away_team.flag }}>
-        </h4>
-    {% endfor %}
