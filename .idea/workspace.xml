@@ -73,9 +73,19 @@
       <file leaf-file-name="vote_change_form.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="36" column="44" lean-forward="false" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
-              <folding />
+            <state relative-caret-position="442">
+              <caret line="38" column="56" lean-forward="false" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
+              <folding>
+                <element signature="e#928#934#0" expanded="true" />
+                <element signature="e#934#940#0" expanded="true" />
+                <element signature="e#941#947#0" expanded="true" />
+                <element signature="e#947#953#0" expanded="true" />
+                <element signature="e#1223#1229#0" expanded="true" />
+                <element signature="e#1229#1235#0" expanded="true" />
+                <element signature="e#1235#1241#0" expanded="true" />
+                <element signature="e#1327#1333#0" expanded="true" />
+                <element signature="e#1333#1339#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -513,13 +523,6 @@
       <option name="presentableId" value="Default" />
       <updated>1502268086462</updated>
     </task>
-    <task id="LOCAL-00034" summary="merge">
-      <created>1531143428481</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1531143428481</updated>
-    </task>
     <task id="LOCAL-00035" summary="merge">
       <created>1531144007326</created>
       <option name="number" value="00035" />
@@ -856,7 +859,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536922191319</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="merge">
+      <created>1536924049934</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1536924049937</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1311,9 +1321,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tournament/templates/tournament/vote_change_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="36" column="44" lean-forward="false" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
-          <folding />
+        <state relative-caret-position="442">
+          <caret line="38" column="56" lean-forward="false" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
+          <folding>
+            <element signature="e#928#934#0" expanded="true" />
+            <element signature="e#934#940#0" expanded="true" />
+            <element signature="e#941#947#0" expanded="true" />
+            <element signature="e#947#953#0" expanded="true" />
+            <element signature="e#1223#1229#0" expanded="true" />
+            <element signature="e#1229#1235#0" expanded="true" />
+            <element signature="e#1235#1241#0" expanded="true" />
+            <element signature="e#1327#1333#0" expanded="true" />
+            <element signature="e#1333#1339#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
