@@ -7,7 +7,7 @@ import operator
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 import os, json
-from tournament.models import Match
+from tournament.models import Match, Tournament
 
 classification_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'classification_file.json')
 
@@ -276,9 +276,11 @@ def _set_place(sorted_rounds_results):
 
 @receiver(post_save, sender=Match)
 @receiver(post_delete, sender=Match)
+@receiver(post_save, sender=Tournament)
+@receiver(post_delete, sender=Tournament) #TODO: Czy nie trzeba by dodac tego dla tabeli BET??
 def calculate_classification(sender, **kwargs):
     """
-    Kazda zmiana w tabeli Match generuje na nowo plik w formacie JSON w ktorym trzymamy klasyfikacje
+    Kazda zmiana w tabeli Match i Tournament generuje na nowo plik w formacie JSON w ktorym trzymamy klasyfikacje
     Tylko dla aktywnych turnieji
     """
 
