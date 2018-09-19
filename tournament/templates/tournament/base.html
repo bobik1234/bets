@@ -31,10 +31,10 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Typowanie <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'my_results' %}">Moje wyniki</a></li>
                 <li><a href="{% url 'vote_form' %}">Obstaw</a></li>
                  <li><a href="{% url 'vote_change_form' %}">Zmień</a></li>
                 <li><a href="{% url 'too_late_to_bet' %}">Spóźnione</a></li>
+                <li class="divider"></li>
                 <li><a href="{% url 'simulation' %}">Symulacja</a></li>
             </ul>
         </li>
@@ -42,7 +42,8 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Podgląd <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'other_results' %}">Gracz</a></li>
+                <li><a href="{% url 'my_results' %}">Moje wyniki</a></li>
+                <li><a href="{% url 'other_results' %}">Pozostali gracze</a></li>
                 <li class="divider"></li>
                 <li><a href="{% url 'ongoing_match_bets' %}">Mecze nierozegrane</a></li>
                 <li><a href="{% url 'finished_match_bets' %}">Mecze zakończone</a></li>

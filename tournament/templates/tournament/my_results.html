@@ -24,7 +24,11 @@
                 <tbody>
                     {% for round, user_scores in rounds.items %}
                         <tr>
-                            <td>{{ round }}</td>
+                            {% if round == 'CP'  %} <td>Faza Pucharowa</td>
+                            {% elif round == 'GeneralClassification' %}<td>Klasyfikacja Generalna</td>
+                            {% else %} <td>{{ round }}</td>
+                            {% endif %}
+
                             {% for place, _, points in user_scores %}
                                 <td> {{ points }}</td>
                                 <td> {{ place }}</td>

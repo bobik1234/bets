@@ -8,13 +8,20 @@
         Tutaj możesz zobaczyć jak obstawiali inni gracze
     </div>
 
-    <form method="POST" action=".">
-        {% csrf_token %}
-        <p>Wybierz gracza       {{form.choose_user_field}} </p>
-        <p>Wybierz turniej      {{form.choose_tournament}} </p>
-        <p>Wybierz runde        {{form.choose_round}} </p>
+    <form method="POST">
 
-        <input type=submit value="Send Request">
+        {% csrf_token %}
+        <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12 col-md-4 alert alert-warning"><strong>Wybierz gracza&nbsp;&nbsp;  </strong> {{form.choose_user_field}}</div>
+            <div class="col-12 col-md-4 alert alert-warning"><strong>Wybierz turniej&nbsp;&nbsp;  </strong> {{form.choose_tournament}}</div>
+            <div class="col-12 col-md-4 alert alert-warning"><strong>Wybierz runde&nbsp;&nbsp;  </strong>{{form.choose_round}} </div>
+        </div>
+
+          <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
+        </div>
+
     </form>
 
     <br>
@@ -68,10 +75,6 @@
             <table class="table">
                 <thead>
                     <tr>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
                         <th>Turniej</th>
                         <th>Gracz</th>
                         <th>Mecz</th>
@@ -103,6 +106,7 @@
                 </tbody>
             </table>
         </div>
+
 
 
 {% else %}
