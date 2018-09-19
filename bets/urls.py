@@ -21,7 +21,7 @@ from registration.backends.hmac.views import RegistrationView
 from tournament import views
 from django.contrib.auth import views as auth_views
 
-from tournament.views import EmailChange, EmailChangeDone
+from tournament.views import EmailChange, EmailChangeDone, PasswordChange, PasswordChangeDone
 
 urlpatterns = [
     #url(r'^$', views.index, name='index'),
@@ -33,8 +33,8 @@ urlpatterns = [
     url(r'^password_reset/$', auth_views.password_reset,
             {'template_name': 'registration/reset_password_form.html',
              'email_template_name' : 'registration/reset_password_email.html'}, name='password_reset'),
-    url(r'^accounts/password/change/done/$', views.change_password_done, name='change_password_done'),
-    url(r'^accounts/password/change/$', views.change_password, name='change_password'),
+    url(r'^accounts/password/change/done/$', PasswordChangeDone.as_view(), name='change_password_done'),
+    url(r'^accounts/password/change/$', PasswordChange.as_view(), name='change_password'),
     url(r'^accounts/email_change/$', EmailChange.as_view(), name='change_email'),
     url(r'^accounts/email_change_done/$', EmailChangeDone.as_view(), name='change_email_done'),
     url(r'^accounts/password/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',

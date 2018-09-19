@@ -54,6 +54,10 @@ class History(TemplateView):
     template_name = 'tournament/history.html'
 
 @method_decorator(login_required, name='dispatch')
+class PasswordChangeDone(TemplateView):
+    template_name = 'registration/change_password_done.html'
+
+@method_decorator(login_required, name='dispatch')
 class EmailChangeDone(TemplateView):
     template_name = 'registration/email_change_done.html'
 
@@ -308,36 +312,29 @@ class SimulationChooseResultForm(FormView):
         return context
 
 
-#TODO: Mozna by lepiej rozkminic autentykacje i obyc sie bez ponizszych view do zmiany hasla. IMPROVEMENT
+class PasswordChange(FormView):
+    """
+    """
+    template_name = 'registration/change_password_form.html'
+    form_class = PasswordChangeForm
 
-@login_required(login_url='/accounts/login/')
-def change_password(request):
-    if not request.user.has_perm('tournament.add_bet'): #TODO: z tym can add bet troche slabo do zmiany hasla - przemyslec
-        return redirect('/tournament/not_allowed')
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            #messages.success(request, 'Your password was successfully updated!')
-            return render(request, 'registration/change_password_done.html')
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'registration/change_password_form.html', {
-        'form': form
-    })
+    def get_form(self):
+        return self.form_class(self.request.user, self.request.POST or None)
 
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)
+        return HttpResponseRedirect(reverse('change_password_done'))
 
-@login_required(login_url='/accounts/login/')
-def change_password_done(request):
-    return render(request, 'registration/change_password_done.html')
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.has_perm('tournament.add_bet'): #TODO: permission
+            return redirect('/tournament/not_allowed')
+        return super(PasswordChange, self).dispatch(request, *args, **kwargs)
 
 
 class EmailChange(FormView):
     """
-    https://stackoverflow.com/questions/13734890/django-email-change-form-setup
     """
     template_name = 'registration/email_change.html'
     form_class = EmailChangeForm
