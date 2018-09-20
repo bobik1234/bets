@@ -13,9 +13,12 @@
         <fieldset class="module aligned">
             {% csrf_token %}
 
-            {% if form.errors %}
-            <div class="alert alert-danger"><strong>Zakłady nie zostały zmienione! Popraw poniższe błędy:</strong>{{ form.errors }}</div>
-            {% endif %}
+            {% for key,value in form.errors.items %}
+                <div class="alert alert-danger"><strong>Zakłady nie zostały zmienione! </strong>
+                    Błędne typownie dla <strong>{{ key|team_name_from_error }}</strong>
+                    <ul class="errorlist"><li> Upewnij się że nie wpisałeś więcej niż dwie cyfry.</li></ul>
+                </div>
+            {% endfor %}
 
         {% for bet in ongoing_bets %}
             <div class="alert alert-warning">

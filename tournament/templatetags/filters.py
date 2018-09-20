@@ -37,3 +37,18 @@ def team_name(value):
     field_label = value.split(" ")
     field_label.pop()
     return " ".join(field_label)
+
+@register.filter
+@stringfilter
+def team_name_from_error(value):
+    """
+
+    :param value: uzywany glownie przy glosowaniu (vote_form.html) lub zmianie glosowania
+    value (jest to key w form.errors.items) ma wartosc nazwa kraju, _ i nr meczu.
+    :return:
+    """
+
+    field_label = value.split("_")
+    field_label.pop()
+    "".join(field_label)
+    return field_label[0]
