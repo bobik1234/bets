@@ -28,7 +28,10 @@
                 </tbody>
             </table>
         </div>
-      {% for round, user_scores in rounds.items %}
+
+      {% if general_classification_only %}
+      {% else %}
+        {% for round, user_scores in rounds.items %}
             {% if round != "GeneralClassification" %}
                 {% if round == "CP" %} <h4> Faza Pucharowa </h4>
                 {% else %} <h4>Runda {{ round }}</h4>
@@ -59,7 +62,8 @@
                     </table>
                 </div>
             {% endif %}
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
     {% endfor %}
 
 {% else %}

@@ -8,6 +8,7 @@ ROUND = (('1','one'), ('2','two'), ('3','three'), ('CP', "Faza Pucharowa"), ('Al
 class Tournament(models.Model):
     name = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
+    general_classification_only = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

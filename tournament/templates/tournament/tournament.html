@@ -5,17 +5,7 @@
 <div class="container">
 
     <h3>Wyniki turnieju "{{ tournament_name }}"</h3>
-
-    {% for tournament in tournaments %}
-        {% if tournament.name == tournament_name%}
-            {% if tournament.active %}
-                <p> Status: Turniej jest wciaz aktywny</p>
-            {% else %}
-                <p> Status: Turniej zakonczony - klasyfikacja końcowa</p>
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-
+    <br>
     {% include "classification_table.html" %}
 </div>
 

@@ -8,7 +8,8 @@ from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing
     get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification, \
     player_results
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm
-from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet, does_user_exist, create_user
+from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet, does_user_exist, create_user, \
+    get_tournament
 from django.views.generic import TemplateView, FormView
 from django.utils.decorators import method_decorator
 
@@ -94,6 +95,7 @@ class Tournament(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tournament_name'] = self.kwargs['tournament_name']
+        context['general_classification_only'] = get_tournament(self.kwargs['tournament_name']).general_classification_only
         context['points_per_user'] = get_classification(tournament_name=self.kwargs['tournament_name'])
         return context
 

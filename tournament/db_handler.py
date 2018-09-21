@@ -39,6 +39,12 @@ def match_list(tournament_name=None, round='All'):
         else:
             return Match.objects.filter(round=round)
 
+def get_tournament(tournament_name = None):
+
+    if tournament_name is None:
+        return Tournament.objects.all()
+    else:
+        return  Tournament.objects.get(name=tournament_name)
 
 def get_user(user_name = None):
 
