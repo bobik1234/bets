@@ -10,9 +10,9 @@ class MatchAdmin(admin.ModelAdmin):
     #list_filter = ('home_team',)
     #search_fields = ('tournament__name',) #Problem jak filtrowac po home_team i away_team
 
-class TournamentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'active', 'general_classification_only')
+#class TournamentAdmin(admin.ModelAdmin):
+#    list_display = ('name', 'active', 'general_classification_only')
 
-admin.site.register(Tournament, TournamentAdmin)
+admin.site.register(Tournament)
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Bet)
