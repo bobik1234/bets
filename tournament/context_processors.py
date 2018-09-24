@@ -9,7 +9,8 @@ def menu(request):
     """
     tournaments = []
     for tournament in list(Tournament.objects.all()):
-        tournaments.append(tournament)
+        if tournament.active:
+            tournaments.append(tournament)
     return {
         'tournaments': tournaments,
     }
