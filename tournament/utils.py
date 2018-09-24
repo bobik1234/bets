@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Permission
 from django.utils import timezone
 
 from bets import settings
-from tournament.db_handler import bet_list, match_list
+from tournament.db_handler import bet_list, match_list, get_tournament
 import operator
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
@@ -422,12 +422,16 @@ def player_results(user):
     results = {}
     for tournament_name, rounds in get_classification().items():
         for round, user_scores in rounds.items():
-            for user_result in user_scores:
-                place, user_name, score = user_result
-                if (user_name == user.__str__()):
-                    if not (tournament_name in results.keys()):
-                        results[tournament_name] = {}
-                    results[tournament_name].update({round : [user_result]}) #TODO: ta lista jest slaba - zmienic
+            #nie pokazuje rundy w zakladce my result jesli turniej ma ustawione general_classification_only
+            if get_tournament(tournament_name=tournament_name).general_classification_only and round!="GeneralClassification":
+                pass
+            else:
+                for user_result in user_scores:
+                    place, user_name, score = user_result
+                    if (user_name == user.__str__()):
+                        if not (tournament_name in results.keys()):
+                            results[tournament_name] = {}
+                        results[tournament_name].update({round : [user_result]}) #TODO: ta lista jest slaba - zmienic
 
     return results
 
