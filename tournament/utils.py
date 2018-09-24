@@ -76,7 +76,6 @@ def get_points_per_user(finished_bets):
 
     sorted_rounds_results = _sort_dict(scores)
 
-    #TODO: _set_place nie dziala dla my_results --> jak mamy tylko jednego usera z finished bets to miejsce zawsze bedzie pierwsze, mozna to usprawnic
     sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
 
     return sorted_rounds_results_with_place

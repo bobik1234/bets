@@ -2,23 +2,34 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from registration.forms import User
 
-from tournament.utils import get_finished_bets, get_points_per_user, get_ongoing_bets, vote_context,\
-    get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification, \
-    player_results
+from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
+    get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification
+
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet, does_user_exist, create_user, \
     get_tournament
 from django.views.generic import TemplateView, FormView
 from django.utils.decorators import method_decorator
 
-from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib.auth.forms import PasswordChangeForm
 
 
-#TODO: dopisac ladna strone do zmiany hasla... po zmianie nie wraca do aplikacji, trzeba recznie wrocic...
+
+class LoginHandling:
+    """
+    Generalnie sprawdza ktora stona jest dosteppna dla Guset a ktora nie
+    """
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.has_perm('tournament.add_bet'):  # TODO: permission - moze ladniej jakos zrobiz zeby handlowac guest'a
+            return redirect('/tournament/not_allowed')
+        return super().dispatch(request, *args, **kwargs)
+
+    class Meta:
+        abstract = True
+
 
 class LoginAsGuest(TemplateView):
     template_name = 'tournament/index.html'
@@ -99,8 +110,8 @@ class Tournament(TemplateView):
         context['points_per_user'] = get_classification(tournament_name=self.kwargs['tournament_name'])
         return context
 
-#TODO: Czy da sie przerobic FormView na CreateView i obstawiac pojedynczo??
-class VoteForm(FormView):
+
+class VoteForm(LoginHandling, FormView):
 
     template_name = 'tournament/vote_form.html'
     form_class = Vote
@@ -117,10 +128,7 @@ class VoteForm(FormView):
                 add_bet(self.request.user, match, expected_home_goals, expected_away_goals)
         return super(VoteForm, self).form_valid(form)
 
-    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.has_perm('tournament.add_bet'):
-            return redirect('/tournament/not_allowed')
         self.matches_to_bet, _ = get_matches_to_bet(self.request.user)
         return super(VoteForm, self).dispatch(request, *args, **kwargs)
 
@@ -130,7 +138,7 @@ class VoteForm(FormView):
         return context
 
 #TODO: Czy VoteChangeForm nie jest taki sam jak VoteForm tylko wypelniony initial data?? Mamy metody initial w generic..
-class VoteChangeForm(FormView):
+class VoteChangeForm(LoginHandling, FormView):
 
     template_name = 'tournament/vote_change_form.html'
     form_class = Vote
@@ -146,10 +154,7 @@ class VoteChangeForm(FormView):
             update_bet(bet.id, expected_home_goals, expected_away_goals)
         return super(VoteChangeForm, self).form_valid(form)
 
-    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.has_perm('tournament.change_bet'):
-            return redirect('/tournament/not_allowed')
         self.ongoing_bets = get_ongoing_bets(user=self.request.user)
         return super(VoteChangeForm, self).dispatch(request, *args, **kwargs)
 
@@ -191,6 +196,9 @@ class OtherResultForm(FormView):
 
 @method_decorator(login_required, name='dispatch')
 class SeeOngoingMatchBets(FormView):
+    """
+    W Menu Podglad -> Mecze nierozegrane
+    """
 
     form_class = ChooseMatch
     template_name = 'tournament/ongoing_match_bets.html'
@@ -216,6 +224,9 @@ class SeeOngoingMatchBets(FormView):
 
 @method_decorator(login_required, name='dispatch')
 class SeeFinishedMatchBets(FormView):
+    """
+    W Menu Podglad -> Mecze zakonczone
+    """
 
     form_class = ChooseMatch
     template_name = 'tournament/finished_match_bets.html'
@@ -246,15 +257,9 @@ class SeeFinishedMatchBets(FormView):
         return context
 
 
-class TooLateToBet(TemplateView):
+class TooLateToBet(LoginHandling,TemplateView):
 
     template_name = 'tournament/too_late_to_bet.html'
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.has_perm('tournament.add_bet'): #TODO: permission
-            return redirect('/tournament/not_allowed')
-        return super(TooLateToBet, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -314,7 +319,7 @@ class SimulationChooseResultForm(FormView):
         return context
 
 
-class PasswordChange(FormView):
+class PasswordChange(LoginHandling, FormView):
     """
     """
     template_name = 'registration/change_password_form.html'
@@ -328,14 +333,8 @@ class PasswordChange(FormView):
         update_session_auth_hash(self.request, user)
         return HttpResponseRedirect(reverse('change_password_done'))
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.has_perm('tournament.add_bet'): #TODO: permission
-            return redirect('/tournament/not_allowed')
-        return super(PasswordChange, self).dispatch(request, *args, **kwargs)
 
-
-class EmailChange(FormView):
+class EmailChange(LoginHandling, FormView):
     """
     """
     template_name = 'registration/email_change.html'
@@ -348,8 +347,4 @@ class EmailChange(FormView):
         form.save()
         return HttpResponseRedirect(reverse('change_email_done'))
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.has_perm('tournament.add_bet'): #TODO: permission
-            return redirect('/tournament/not_allowed')
-        return super(EmailChange, self).dispatch(request, *args, **kwargs)
+
