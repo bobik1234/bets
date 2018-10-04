@@ -15,7 +15,9 @@
 
         {% csrf_token %}
         <h4> {{ request.session.home_team }} {{form.ht_goals}} : {{form.at_goals}} {{ request.session.away_team }}</h4>
+        <br>
         <input class="btn btn-primary btn-md" type="submit" value="Symuluj" />
+        <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">Powrót</a>
     </form>
     <br>
     {% if points_per_user == None %}

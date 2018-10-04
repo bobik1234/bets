@@ -16,7 +16,6 @@ from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib.auth.forms import PasswordChangeForm
 
 
-
 class LoginHandling:
     """
     Generalnie sprawdza ktora stona jest dosteppna dla Guset a ktora nie
@@ -144,6 +143,7 @@ class VoteChangeForm(LoginHandling, FormView):
     form_class = Vote
     success_url = '/tournament/vote_change_done'
 
+    #TODO: czy nie lepiej uzyc get_form_kwargs()
     def get_form(self):
         return self.form_class(self.request.POST or None, ongoing_bets=self.ongoing_bets, user=self.request.user)
 

@@ -20,6 +20,7 @@
         </div>
 
           <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
+          <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">Powrót</a>
         </div>
 
     </form>

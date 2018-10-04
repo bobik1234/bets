@@ -3,56 +3,60 @@
 {% block title %}Sign up{% endblock %}
 
 {% block content %}
+<div class="container">
 
-  {% if form.errors %}
-  <p class="errors">Please correct the errors below: {{ form.non_field_errors }}</p>
+  {% if form.username.errors %}
+    <div class="alert alert-danger">
+      <p><strong>Błąd! </strong> Gracz o podanym loginie już istnieje.</p>
+    </div>
   {% endif %}
 
-  <h1>Create an account</h1>
-  
-  <form method="post" action="" class="wide">
-	{% csrf_token %}
-    <p>
-      <label for="id_username">Username:</label>
-      {% if form.username.errors %}
-        <p class="errors">{{ form.username.errors.as_text }}</p>
-      {% endif %}
-      {{ form.username }}
-    </p>
-    <p>
-      <label for="id_email">Email address:</label>
-      {% if form.email.errors %}
-        <p class="errors">{{ form.email.errors.as_text }}</p>
-      {% endif %}
-      {{ form.email }}
-    </p>
-    <p>
-      <label for="id_password1">Password:</label>
-      {% if form.password1.errors %}
-        <p class="errors">{{ form.password1.errors.as_text }}</p>
-      {% endif %}
-      {{ form.password1 }}
-    </p>
-    <p>
-      <label for="id_password2">Password (type again to catch typos):</label>
-      {% if form.password2.errors %}
-        <p class="errors">{{ form.password2.errors.as_text }}</p>
-      {% endif %}
-      {{ form.password2 }}
-    </p>
-    <p class="submit"><input type="submit" value="Register &rarr;"></p>
+  {% if form.email.errors %}
+    <div class="alert alert-danger">
+      <p><strong>Błąd! </strong> Adres email jest już używany.</p>
+    </div>
+  {% endif %}
+
+  {% if form.password1.errors or form.password2.errors %}
+    <div class="alert alert-danger">
+      <p><strong>Błądne hasło! </strong> Hasło nie spełnia poniższych reguł lub żle potwierdziłeś hasło.</p>
+    </div>
+  {% endif %}
+
+
+  <h3>Załóż konto</h3>
+
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="container-fluid">
+    <fieldset class="module aligned">
+        <div class="row">
+            <div class="col-6 col-md-6 alert alert-warning"><strong>Nazwa gracza:&nbsp;&nbsp;  </strong> {{ form.username }}</div>
+            <div class="col-6 col-md-6 alert alert-warning"><strong>Email:&nbsp;&nbsp;  </strong> {{ form.email }}</div>
+            <div class="col-12 col-md-6 alert alert-warning"><strong>Hasło:&nbsp;&nbsp;  </strong>{{ form.password1 }} </div>
+            <div class="col-12 col-md-6 alert alert-warning"><strong>Potwierdź hasło:&nbsp;&nbsp;  </strong>{{ form.password2 }} </div>
+        </div>
+          <br>
+             <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
+             <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">Powrót</a>
+        </fieldset>
+        <br>
+    </div>
   </form>
-  
+
+  <div class="alert alert-info">
+      <p>Wypełnij powyższy formularz, żeby stworzyć konto. Otrzymasz maila z instrukcjami jak zakończyć proces rejstracji.</p>
+  </div>
+
+  <div class="jumbotron">
+    <p>Reguły dotyczące hasła:</p>
+    <li>Twoje hasło nie może być zbyt podobne do innych Twoich danych osobowych.</li>
+    <li>Twoje hasło musi zawierać przynajniej 8 znaków.</li>
+    <li>Twoje hasło nie może być powszechnie używanym hasłem.</li>
+    <li>Twoje hasło nie może składać się z samych cyfr.</li>
+  </div>
+
+</div>
 {% endblock %}
 
-{% block content-related %}
-<p>Fill out the form to the left (all fields are required), and your
-account will be created; you'll be sent an email with instructions on how
-to finish your registration.</p>
-
-<p>We'll only use your email to send you signup instructions. We hate spam
-as much as you do.</p>
-
-<p>This account will let you log into the ticket tracker, claim tickets,
-and be exempt from spam filtering.</p>
-{% endblock %}
