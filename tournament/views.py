@@ -72,6 +72,9 @@ class PasswordChangeDone(TemplateView):
 class EmailChangeDone(TemplateView):
     template_name = 'registration/email_change_done.html'
 
+class Logout(TemplateView):
+    template_name = 'registration/logout.html'
+
 @method_decorator(login_required, name='dispatch')
 class TournamentHistory(TemplateView):
     template_name = 'tournament/tournament_history.html'

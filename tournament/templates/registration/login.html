@@ -14,7 +14,7 @@
     {% endif %}
     <br><br><br>
  <div class="col-md-offset-4 col-md-3">
-      <form class="form-signin" action="{% url 'auth_login' %}" method="post" id="login-form">{% csrf_token %}
+      <form class="form-signin" action="{% url 'login' %}" method="post" id="login-form">{% csrf_token %}
         <!-- <label for="id_username" class="sr-only">User Name</label> -->
         <input type="text" name="username" id="id_username" class="form-control" placeholder="User Name" required autofocus>
           <br>
@@ -36,11 +36,10 @@
 <div class="container">
     <div class="col-md-offset-4 col-md-4">
         <div class="btn-group">
-        <a href="/password_reset/" class="btn btn-info" role="button">Reset hasła</a>
-        <a href="/accounts/register/" class="btn btn-success" role="button">Załóż konto</a>
-        <a href="/tournament/login_as_guest/" class="btn btn-danger" role="button">Zaloguj jako gość</a>
+        <a href="{% url 'password_reset' %}" class="btn btn-info" role="button">Reset hasła</a>
+        <a href="{% url 'registration_register' %}" class="btn btn-success" role="button">Załóż konto</a>
+        <a href="{% url 'login_as_guest' %}" class="btn btn-danger" role="button">Zaloguj jako gość</a>
         </div>
     </div></div>
-
 
 {% endblock %}

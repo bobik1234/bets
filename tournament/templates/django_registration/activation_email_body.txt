@@ -4,9 +4,9 @@ Heja.
 
 Ktos, prawdopodobnie Ty, zapisal sie na portal {{ site.name }} uzywajac tego adresu email. Jesli to byles Ty i chcesz aktywowac i uzywac swojego konta, wejdz na ponizszy link lub kopiuj/wklej do przegladarki:
 
-https://{{ site.domain }}{% url 'registration_activate' activation_key %}
+{{scheme}}://{{site}}/accounts/activate/{{activation_key}}
 
-Jesli nie rejstowales sie na stronie, nie musisz robic nic; nie otrzymasz od nas wiecej emaili, a konto wygasnie automatycznie za {{ expiration_days|apnumber }} dni.
+Jesli nie rejstowales sie na stronie, nie musisz robic nic; nie otrzymasz od nas wiecej emaili, a konto wygasnie automatycznie za {{ expiration_days }} dni.
 
 Pozdrawiamy
 /Team Henio

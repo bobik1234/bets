@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'registration',
+    'django_registration',
     'tournament'
 ]
 
@@ -127,10 +127,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = "/home/bobik1234/bobik1234.pythonanywhere.com/static"
 LOGIN_REDIRECT_URL = '/tournament/index/'
+LOGOUT_REDIRECT_URL = '/logout/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #  During development only
-EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #  During development only
+#EMAIL_BACKEND = config('EMAIL_BACKEND')
 
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
