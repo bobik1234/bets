@@ -1,4 +1,5 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,16 +7,16 @@
 
     {% if form.no_matches %}
         <div class="alert alert-info">
-            Symulacja jest tylko dla nierozegranych meczy. Nie ma co symulować, wszystkie mecze się zakończyły
+            {% trans "Symulacja jest tylko dla nierozegranych meczy. Nie ma co symulować, wszystkie mecze się zakończyły" %}
         </div>
     {% else %}
         <div class="alert alert-info">
-            Symuluj wynik meczu i sprawdź jak zmieni się klasyfikacja turniejowa.
+            {% trans "Symuluj wynik meczu i sprawdź jak zmieni się klasyfikacja turniejowa." %}
         </div>
 
         <form method="POST" action=".">
             {% csrf_token %}
-            <p>Wybierz mecz       {{form.choose_match_field}} </p>
+            <p>{% trans "Wybierz mecz" %}       {{form.choose_match_field}} </p>
         </form>
     {% endif %}
 

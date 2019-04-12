@@ -1,14 +1,17 @@
 {% extends "tournament/base.html" %}
 
 {% block content %}
+{% load i18n %}
+
+
 <div class="container">
   <div class="jumbotron">
-    <h2>Regulamin:</h2>
-    <li> Można obstawiać na godz przed rozpoczęciem danego meczu</li>
-    <li> Można zmieniać wynik też na godz przed rozpoczęciem meczu</li>
-    <li> Za kazde prawidłowe wytypowanie meczu gracz otrzymuje 3 punkty (trzeba trafić dokladny wynik) </li>
-    <li> Jeśli nie wytypowaniśmy prawidłowo wyniku meczu ale dobrze obstawilismy zwyciężce (badź remis) otrzymujemy 1 punkt </li>
-    <li> Wyniki przeliczane są per runde (kolejkę) oraz podawana jest generalna klasyfikcja </li>
+    <h2>{% trans "Regulamin:" %}</h2>
+    <li> {% trans "Można obstawiać na godz przed rozpoczęciem danego meczu" %}</li>
+    <li> {% trans "Można zmieniać wynik też na godz przed rozpoczęciem meczu" %}</li>
+    <li> {% trans "Za kazde prawidłowe wytypowanie meczu gracz otrzymuje 3 punkty (trzeba trafić dokladny wynik)" %}</li>
+    <li> {% trans "Jeśli nie wytypowaniśmy prawidłowo wyniku meczu ale dobrze obstawilismy zwyciężce (badź remis) otrzymujemy 1 punkt" %} </li>
+    <li> {% trans "Wyniki przeliczane są per runde (kolejkę) oraz podawana jest generalna klasyfikcja" %} </li>
   </div>
 
   <br>

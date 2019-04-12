@@ -1,4 +1,5 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,16 +7,16 @@
 
     {% if too_late  %}
         <div class="alert alert-danger">
-            Spoźniłeś się z obstawieniem następujących meczy: </a>
+            {% trans "Spoźniłeś się z obstawieniem następujących meczy:" %}</a>
         </div>
 
     <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                 <th>Turniej</th>
-                  <th>Mecz</th>
-                  <th>Data meczu </th>
+                 <th>{% trans "Turniej" %}</th>
+                  <th>{% trans "Mecz" %}</th>
+                  <th>{% trans "Data meczu" %}</th>
               </tr>
             </thead>
             <tbody>
@@ -37,7 +38,7 @@
     {% else %}
 
         <div class="alert alert-success">
-            <strong>Success!</strong> Tak trzymać. Wszystkie mecze obstawione na czas.
+            <strong>{% trans "Success!" %}</strong> {% trans "Tak trzymać. Wszystkie mecze obstawione na czas." %}
         </div>
 
 {% endif %}

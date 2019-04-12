@@ -1,15 +1,23 @@
 from django.contrib import admin
+from django.views.generic import TemplateView
 from django_registration.forms import RegistrationFormUniqueEmail
 from django_registration.backends.activation.views import RegistrationView
 from django.contrib.auth import views as auth_views
-from tournament.views import EmailChange, EmailChangeDone, PasswordChange, PasswordChangeDone, Logout
+from tournament.views import EmailChange, EmailChangeDone, PasswordChange, PasswordChangeDone, Logout, \
+    LanguageChange_Pl, LanguageChange_En
 from django.urls import path, re_path, include
+from django.conf.urls.i18n import i18n_patterns
 
 
 urlpatterns = [
-    re_path(r'^$', auth_views.LoginView.as_view(), name='login'),
-    path('tournament/', include('tournament.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
+]
+
+urlpatterns += i18n_patterns(
+    re_path(r'^$', auth_views.LoginView.as_view(), name='login'),
+    re_path(r'^accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('tournament/', include('tournament.urls')),
     path('logout/', Logout.as_view(), name='logout'),
     path('password_reset_done/',
         auth_views.PasswordResetDoneView.as_view(template_name='registration/reset_password_done.html'),
@@ -31,4 +39,7 @@ urlpatterns = [
     path('accounts/register/',RegistrationView.as_view(form_class=RegistrationFormUniqueEmail),
         name='registration_register'),
     path('accounts/', include('django_registration.backends.activation.urls')),
-]
+    path('language_change/', TemplateView.as_view(template_name='tournament/language_change.html'), name='language_change'),
+    path('language_change_pl/', LanguageChange_Pl.as_view(), name='language_change_pl'),
+    path('language_change_en/', LanguageChange_En.as_view(), name='language_change_en'),
+)

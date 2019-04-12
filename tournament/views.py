@@ -1,7 +1,9 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from bets import settings
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.utils import translation
 
 from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
     get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification
@@ -74,6 +76,11 @@ class EmailChangeDone(TemplateView):
 
 class Logout(TemplateView):
     template_name = 'registration/logout.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        #self.request.session.flush()
+        self.request.session.clear()
+        return super().dispatch(request, *args, **kwargs)
 
 @method_decorator(login_required, name='dispatch')
 class TournamentHistory(TemplateView):
@@ -269,6 +276,32 @@ class TooLateToBet(LoginHandling,TemplateView):
         _, too_late = get_matches_to_bet(self.request.user)
         context['too_late'] = too_late
         return context
+
+#TODO: zamienic dwie ponizsze klasy na jedna i jakos to spojnie zrobic... np. tak zeby z SETTINGS zaczytwal mozliwe jezyki itp. itd.
+class LanguageChange_Pl(TemplateView):
+
+    def dispatch(self, request, *args, **kwargs):
+        language_code = 'pl'
+        translation.activate(language_code)
+        self.request.session[translation.LANGUAGE_SESSION_KEY] = language_code
+        if (str(self.request.user) == 'AnonymousUser'):
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponseRedirect(reverse('index'))
+
+        #return super(LanguageChange_Pl, self).dispatch(request, *args, **kwargs)
+
+class LanguageChange_En(TemplateView):
+
+    def dispatch(self, request, *args, **kwargs):
+        language_code = 'en'
+        translation.activate(language_code)
+        self.request.session[translation.LANGUAGE_SESSION_KEY] = language_code
+        if (str(self.request.user) == 'AnonymousUser'):
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponseRedirect(reverse('index'))
+
 
 @method_decorator(login_required, name='dispatch')
 class SimulationChooseMatchForm(FormView):

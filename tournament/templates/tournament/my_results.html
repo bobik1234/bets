@@ -1,4 +1,5 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,7 +7,7 @@
 {% if points_per_user %}
 
     <div class="alert alert-info">
-        Moje rezultaty w toczacych sie turniejach
+        {% trans "Moje rezultaty w toczacych sie turniejach" %}
     </div>
 
 
@@ -16,16 +17,16 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Runda</th>
-                        <th>Punkty</th>
-                        <th>Miejsce</th>
+                        <th>{% trans "Runda" %}</th>
+                        <th>{% trans "Punkty" %}</th>
+                        <th>{% trans "Miejsce" %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for round, user_scores in rounds.items %}
                         <tr>
-                            {% if round == 'CP'  %} <td>Faza Pucharowa</td>
-                            {% elif round == 'GeneralClassification' %}<td>Klasyfikacja Generalna</td>
+                            {% if round == 'CP'  %} <td>{% trans "Faza Pucharowa" %}</td>
+                            {% elif round == 'GeneralClassification' %}<td>{% trans "Klasyfikacja Generalna" %}</td>
                             {% else %} <td>{{ round }}</td>
                             {% endif %}
 
@@ -43,7 +44,7 @@
 
 
    <div class="alert alert-info">
-        Wyniki pojedyńczych zakladów w trwających turniejach
+        {% trans "Wyniki pojedyńczych zakladów w trwających turniejach" %}
    </div>
 
 
@@ -51,14 +52,14 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Turniej</th>
-                    <th>Gracz</th>
-                    <th>Mecz</th>
-                    <th>Data</th>
-                    <th>Runda</th>
-                    <th>Typowany wynik</th>
-                    <th>Końcowy wynik</th>
-                    <th>Punkty</th>
+                    <th>{% trans "Turniej" %}</th>
+                    <th>{% trans "Gracz" %}</th>
+                    <th>{% trans "Mecz" %}</th>
+                    <th>{% trans "Data" %}</th>
+                    <th>{% trans "Runda" %}</th>
+                    <th>{% trans "Typowany wynik" %}</th>
+                    <th>{% trans "Końcowy wynik" %}</th>
+                    <th>{% trans "Punkty" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,7 +84,7 @@
 
 {% else %}
     <div class="alert alert-info">
-        <strong>Info!</strong> Brak punktacji w rozgrywanych turniejach - żaden mecz który obsawiałeś jeszcze się nie zakończył.
+        <strong>{% trans "Info!" %}</strong> {% trans "Brak punktacji w rozgrywanych turniejach - żaden mecz który obsawiałeś jeszcze się nie zakończył." %}
     </div>
 {% endif %}
 

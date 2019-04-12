@@ -1,11 +1,12 @@
 {% extends "registration/base.html" %}
+{% load i18n %}
 
 {% block title %}Activation complete{% endblock %}
 
 {% block content %}
 <div class="container">
      <div class="alert alert-success">
-      <strong>Gratulacje!</strong> Rejstracja dobiegła końca. Przejdź <a href="{% url 'login' %}">na stronę</a> i baw sie dobrze.
+      <strong>{% trans "Gratulacje!" %}</strong> {% trans "Rejstracja dobiegła końca. Przejdź" %} <a href="{% url 'login' %}">{% trans "na stronę" %}</a> {% trans "i baw sie dobrze." %}
     </div>
 </div>
 {% endblock %}

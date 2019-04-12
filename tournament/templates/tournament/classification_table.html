@@ -1,16 +1,17 @@
+{% load i18n %}
 
 {% if points_per_user %}
 
     {% for tournament_name, rounds in points_per_user.items %}
 
-        <h4> Klasyfikacja Generalna</h4>
+        <h4> {% trans "Klasyfikacja Generalna" %}</h4>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Miejsce</th>
-                        <th>Gracz</th>
-                        <th>Punkty</th>
+                        <th>{% trans "Miejsce" %}</th>
+                        <th>{% trans "Gracz" %}</th>
+                        <th>{% trans "Punkty" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,17 +34,17 @@
       {% else %}
         {% for round, user_scores in rounds.items %}
             {% if round != "GeneralClassification" %}
-                {% if round == "CP" %} <h4> Faza Pucharowa </h4>
-                {% else %} <h4>Runda {{ round }}</h4>
+                {% if round == "CP" %} <h4> {% trans "Faza Pucharowa" %} </h4>
+                {% else %} <h4>{% trans "Runda" %} {{ round }}</h4>
                 {% endif %}
 
                  <div class="table-responsive">
                     <table class="table">
                      <thead>
                         <tr>
-                            <th>Miejsce</th>
-                            <th>Gracz</th>
-                            <th>Punkty</th>
+                            <th>{% trans "Miejsce" %}</th>
+                            <th>{% trans "Gracz" %}</th>
+                            <th>{% trans "Punkty" %}</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -68,6 +69,6 @@
 
 {% else %}
     <div class="alert alert-info">
-    <strong>Info!</strong> Żaden mecz się jeszcze nie zakończył - brak klasyfikacji.
+    <strong>{% trans "Info!" %}</strong> {% trans "Żaden mecz się jeszcze nie zakończył - brak klasyfikacji." %}
     </div>
 {% endif %}

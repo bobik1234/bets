@@ -12,6 +12,7 @@
 
 <body>
 {% load staticfiles %}
+{% load i18n %}
 
 <div class="container">
   <div class="page-header">
@@ -21,7 +22,7 @@
   <div class="menu">
     <ul class="nav nav-pills">
         <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Klasyfikacja <b class="caret"></b></a>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">{% trans "Klasyfikacja" %}<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 {% for tournament in tournaments %}
                     <li><a href="{% url 'tournament' tournament_name=tournament.name %}"> {{ tournament.name }} </a></li>
@@ -29,36 +30,37 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Typowanie <b class="caret"></b></a>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">{% trans "Typowanie" %}<b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'vote_form' %}">Obstaw</a></li>
-                 <li><a href="{% url 'vote_change_form' %}">Zmień</a></li>
-                <li><a href="{% url 'too_late_to_bet' %}">Spóźnione</a></li>
+                <li><a href="{% url 'vote_form' %}">{% trans "Obstaw" %}</a></li>
+                <li><a href="{% url 'vote_change_form' %}">{% trans "Zmień" %}</a></li>
+                <li><a href="{% url 'too_late_to_bet' %}">{% trans "Spóźnione" %}</a></li>
                 <li class="divider"></li>
-                <li><a href="{% url 'simulation' %}">Symulacja</a></li>
+                <li><a href="{% url 'simulation' %}">{% trans "Symulacja" %}</a></li>
             </ul>
         </li>
 
         <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Podgląd <b class="caret"></b></a>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">{% trans "Podgląd" %}<b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'my_results' %}">Moje wyniki</a></li>
-                <li><a href="{% url 'other_results' %}">Pozostali gracze</a></li>
+                <li><a href="{% url 'my_results' %}">{% trans "Moje wyniki" %}</a></li>
+                <li><a href="{% url 'other_results' %}">{% trans "Pozostali gracze" %}</a></li>
                 <li class="divider"></li>
-                <li><a href="{% url 'ongoing_match_bets' %}">Mecze nierozegrane</a></li>
-                <li><a href="{% url 'finished_match_bets' %}">Mecze zakończone</a></li>
+                <li><a href="{% url 'ongoing_match_bets' %}">{% trans "Mecze nierozegrane" %}</a></li>
+                <li><a href="{% url 'finished_match_bets' %}">{% trans "Mecze zakończone" %}</a></li>
             </ul>
         </li>
 
         <li class="dropdown pull-right">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Inne <b class="caret"></b></a>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">{% trans "Inne" %}<b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'info' %}">Info</a></li>
-                <li><a href="{% url 'history' %}">Historia</a></li>
-                <li><a href="{% url 'change_password' %}">Zmiana hasła</a></li>
-                <li><a href="{% url 'change_email' %}">Zmiana email</a></li>
+                <li><a href="{% url 'info' %}">{% trans "Info" %}</a></li>
+                <li><a href="{% url 'history' %}">{% trans "Historia" %}</a></li>
+                <li><a href="{% url 'change_password' %}">{% trans "Zmiana hasła" %}</a></li>
+                <li><a href="{% url 'change_email' %}">{% trans "Zmiana email" %}</a></li>
+                <li><a href="{% url 'language_change' %}">{% trans "Zmiana jezyka" %}</a></li>
                 <li class="divider"></li>
-                <li><a href="{% url 'logout' %}">Wylogowanie</a></li>
+                <li><a href="{% url 'logout' %}">{% trans "Wylogowanie" %}</a></li>
             </ul>
         </li>
     </ul>

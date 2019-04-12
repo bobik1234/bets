@@ -1,9 +1,10 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
   <div class="alert alert-danger">
-  <strong>Uwaga!</strong> Nie masz uprawnień do tej funkcji. Zaloguj sie na inne konto lub skontaktuj z administartorem (TeamHenio@gmail.com)
+  <strong>{% trans "Uwaga!" %}</strong> {% trans "Nie masz uprawnień do tej funkcji. Zaloguj sie na inne konto lub skontaktuj z administartorem (TeamHenio@gmail.com)" %}
   </div>
 </div>
 {% endblock %}

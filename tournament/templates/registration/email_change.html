@@ -1,12 +1,13 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container" xmlns="http://www.w3.org/1999/html">
 
-  <h3>Zmaina adresu email</h3>
+  <h3>{% trans "Zmaina adresu email" %}</h3>
 
   <div class="alert alert-info">
-    Aktualny adres email dla gracza <strong>{{request.user.username}}</strong> to <strong> {{request.user.email}} </strong>
+    {% trans "Aktualny adres email dla gracza" %} <strong>{{request.user.username}}</strong> {% trans "to" %} <strong> {{request.user.email}} </strong>
   </div>
 
 
@@ -19,19 +20,19 @@
                     </div>
                 {% endif %}
                 <div class="row align-items-center">
-                    <div class="col-sm-2">Nowy email</div>
+                    <div class="col-sm-2">{% trans "Nowy email" %}</div>
                     <div class="col-sm-2">{{ form.new_email1 }}</div>
                 </div>
                 <br>
                 <div class="row align-items-center">
-                    <div class="col-sm-2">Potwierdź email</div>
+                    <div class="col-sm-2">{% trans "Potwierdź email" %}</div>
                     <div class="col-sm-2">{{ form.new_email2 }}</div>
                 </div>
             </div>
 
           <br>
              <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
-             <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">Powrót</a>
+             <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">{% trans "Powrót" %}</a>
         </fieldset>
         </form>
         <br><br>

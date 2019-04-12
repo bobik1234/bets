@@ -1,10 +1,12 @@
 {% extends "registration/base.html" %}
+{% load i18n %}
 
 {% block title %}Logged out{% endblock %}
 
 {% block content %}
     <div class="jumbotron">
-        <h2>Wylogowałeś się z aplikacji.</h2>
-        <p>Dziękujemy za korzystanie z naszego serwisu. Możesz się ponownie zalogować  <a href="{% url 'login' %}">tutaj</a>.</p>
+        <h2>{% trans "Wylogowałeś się z aplikacji." %}</h2>
+        <p>{% trans "Dziękujemy za korzystanie z naszego serwisu. Możesz się ponownie zalogować  " %}
+            <a href="{% url 'login' %}">{% trans "tutaj" %}</a>.</p>
     </div>
 {% endblock %}

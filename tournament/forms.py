@@ -84,7 +84,7 @@ class ChooseMatch(forms.Form):
                     list.append((match.id, match.teams_to_string()))
 
         if list:
-            default_choice = ('D', 'Wybierz mecz')
+            default_choice = ('D', _('Wybierz mecz'))
             m_list = [default_choice]
             m_list.extend(list)
 

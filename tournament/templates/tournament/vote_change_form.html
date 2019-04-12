@@ -1,4 +1,6 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
+
 {% block content %}
 <div class="container" xmlns="http://www.w3.org/1999/html">
 
@@ -6,7 +8,7 @@
 
     {% if ongoing_bets  %}
         <div class="alert alert-info">
-            Możesz jeszcze zmienić poniższe typowania:
+            {% trans "Możesz jeszcze zmienić poniższe typowania:" %}
         </div>
 
     <form method="POST">
@@ -14,9 +16,9 @@
             {% csrf_token %}
 
             {% for key,value in form.errors.items %}
-                <div class="alert alert-danger"><strong>Zakłady nie zostały zmienione! </strong>
-                    Błędne typownie dla <strong>{{ key|team_name_from_error }}</strong>
-                    <ul class="errorlist"><li> Upewnij się że nie wpisałeś więcej niż dwie cyfry.</li></ul>
+                <div class="alert alert-danger"><strong>{% trans "Zakłady nie zostały zmienione! " %}</strong>
+                    {% trans "Błędne typownie dla " %}<strong>{{ key|team_name_from_error }}</strong>
+                    <ul class="errorlist"><li>{% trans " Upewnij się że nie wpisałeś więcej niż dwie cyfry." %}</li></ul>
                 </div>
             {% endfor %}
 
@@ -47,7 +49,7 @@
 
     {% else %}
         <div class="alert alert-info">
-            <strong>Info!</strong> Nie ma meczy dla których można zmienić wynik.
+            <strong>{% trans "Info!" %}</strong>{% trans " Nie ma meczy dla których można zmienić wynik." %}
         </div>
     {% endif %}
 </div>

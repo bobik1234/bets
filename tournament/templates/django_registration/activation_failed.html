@@ -1,12 +1,12 @@
 {% extends "registration/base.html" %}
+{% load i18n %}
 
 {% block title %}Activation complete{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="alert alert-danger">
-        <strong>Konto NIE atywowane!!</strong> Link do aktywacji jest niepoprawny albo klucz aktywacyjny wygasł.
-        Jest on ważny tylko przez dwa dni po rejstracji.
+        <strong>{% trans "Konto NIE atywowane!!" %}</strong> {% blocktrans %} Link do aktywacji jest niepoprawny albo klucz aktywacyjny wygasł. Jest on ważny tylko przez dwa dni po rejstracji. {% endblocktrans %}
     </div>
 </div>
 {% endblock %}

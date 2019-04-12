@@ -1,13 +1,14 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
     <div class="alert alert-info">
-            Zobacz klasyfikację końcową zakończonych turniei
+            {% trans "Zobacz klasyfikację końcową zakończonych turniei" %}
     </div>
 
     <div class="container-fluid">
-        <li><a href="{% url 'tournament_history' tournament_name='ms2018' %}"> Mistrzostwa Świata 2018 </a></li>
+        <li><a href="{% url 'tournament_history' tournament_name='ms2018' %}">{% trans "Mistrzostwa Świata 2018" %} </a></li>
     </div>
 
 </div>

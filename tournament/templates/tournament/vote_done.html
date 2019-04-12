@@ -1,9 +1,11 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
+
 <div class="container">
   <div class="alert alert-success">
-    <strong>Success!</strong> Dziękujemy za typowanie. Swoje wyniki możesz sprawdzic <a href="{% url 'my_results' %}"> tutaj </a>
+    <strong>{% trans "Success!" %}</strong> {% trans "Dziękujemy za typowanie. Swoje wyniki możesz sprawdzic" %} <a href="{% url 'my_results' %}"> {% trans "tutaj" %} </a>
   </div>
 </div>
 

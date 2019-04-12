@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django_registration',
+    'django_countries',
     'tournament'
 ]
 
@@ -51,7 +52,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR + '/tournament/', 'locale/'),
+)
+
+ugettext = lambda s: s #TODO: sprawdzic czy to jest OK
+LANGUAGES = (
+    ('en', ugettext('English')),
+    ('pl', ugettext('Polish')),
+)
 
 ROOT_URLCONF = 'bets.urls'
 
@@ -68,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'tournament.context_processors.menu',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -111,6 +124,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
 
 TIME_ZONE = 'Europe/Warsaw'
 

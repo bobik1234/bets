@@ -1,9 +1,10 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
     <div class="alert alert-info">
-            Wyniki turnieju "{{ tournament_name }}"
+            {% trans "Wyniki turnieju" %} "{{ tournament_name }}"
     </div>
     {% include "tournament/classification_table.html" %}
 </div>

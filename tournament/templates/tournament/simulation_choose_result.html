@@ -1,33 +1,34 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="container">
 
     <div class="alert alert-info">
-      Wytypuj wynik meczu
+      {% trans "Wytypuj wynik meczu" %}
     </div>
 
     <form method="POST" action=".">
         {% if form.errors %}
-            <div class="alert alert-danger"><strong>Popraw poniższe błędy:</strong>{{ form.errors }}</div>
+            <div class="alert alert-danger"><strong>{% trans "Popraw poniższe błędy:" %}</strong> {{ form.errors }}</div>
         {% endif %}
 
         {% csrf_token %}
         <h4> {{ request.session.home_team }} {{form.ht_goals}} : {{form.at_goals}} {{ request.session.away_team }}</h4>
         <br>
         <input class="btn btn-primary btn-md" type="submit" value="Symuluj" />
-        <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">Powrót</a>
+        <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">{% trans "Powrót" %}</a>
     </form>
     <br>
     {% if points_per_user == None %}
         <div class="alert alert-danger">
-            <strong>Nie można przeprowadzić symulacji</strong> Jest to pierwszy mecz turnieju "{{ tournament_name }}" i jeszcze NIKT nie typował wyniku
+            <strong>{% trans "Nie można przeprowadzić symulacji" %}</strong> {% trans "Jest to pierwszy mecz turnieju" %} "{{ tournament_name }}" {% trans "i jeszcze NIKT nie typował wyniku" %}
         </div>
 
     {% elif points_per_user %}
         <div class="alert alert-danger">
-            Symulacja klasyfikacji turnieju {{ tournament_name }}
+            {% trans "Symulacja klasyfikacji turnieju" %} "{{ tournament_name }}"
         </div>
         {% include "tournament/classification_table.html" %}
     {% endif %}

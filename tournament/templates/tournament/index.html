@@ -1,16 +1,17 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
   <div class="jumbotron">
-    <h2>Witamy u najlepszego bukmachera w miescie - "u Henia"</h2>
-    <p>Jestes zalogowany jako: {{request.user.username}}</p>
+    <h2>{% trans "Witamy u najlepszego bukmachera w miescie - 'u Henia'" %}</h2>
+    <p>{% trans "Jestes zalogowany jako:" %} {{request.user.username}}</p>
   </div>
-  <p> Wszelkie komentarze mile widziane. Można je przesyłać na adres mailowy: TeamHenio@gmail.com </p>
-  <p> Proszę zgłaszać:
-    <br>- Błędy (źle działa, nie działa)
-    <br>- Usprawnienia (dana funkcjonalność mogłaby wyglądać lepiej itp.)
-    <br>- Pomysły na nowe funkcjonalnosci
+  <p> {% trans "Wszelkie komentarze mile widziane. Można je przesyłać na adres mailowy: TeamHenio@gmail.com" %} </p>
+  <p> {% trans "Proszę zgłaszać:" %}
+    <br>{% trans "- Błędy (źle działa, nie działa)" %}
+    <br>{% trans "- Usprawnienia (dana funkcjonalność mogłaby wyglądać lepiej itp.)" %}
+    <br>{% trans "- Pomysły na nowe funkcjonalnosci" %}
   </p>
 </div>
 {% endblock %}

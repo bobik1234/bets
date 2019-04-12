@@ -1,0 +1,21 @@
+{% extends "tournament/base.html" %}
+
+{% block content %}
+{% load i18n %}
+
+
+<div class="container">
+
+    <div class="col-md-offset-4 col-md-4">
+        <h3>{% trans "Wybierz język:" %}</h3>
+        <br>
+        <div class="btn-group">
+            <a href="{% url 'language_change_pl' %}" class="btn btn-info" role="button"><img src="/static/flags/pl.gif">  Polski</a>
+            <a href="{% url 'language_change_en' %}" class="btn btn-info" role="button"><img src="/static/flags/en.gif">  English</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

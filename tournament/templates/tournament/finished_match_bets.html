@@ -1,4 +1,5 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,39 +7,39 @@
 
     {% if form.no_matches %}
         <div class="alert alert-warning">
-            Żaden mecz się jeszcze nie zakończył
+            {% trans "Żaden mecz się jeszcze nie zakończył" %}
         </div>
     {% else %}
 
         <div class="alert alert-info">
-            Wybierz mecz dla którego chcesz zobaczyć zakłady
+            {% trans "Wybierz mecz dla którego chcesz zobaczyć zakłady" %}
         </div>
 
         <form method="POST" action=".">
             {% csrf_token %}
-            <p>Wybierz mecz       {{form.choose_match_field}} </p>
+            <p>{% trans "Wybierz mecz" %}       {{form.choose_match_field}} </p>
         </form>
         {% endif %}
 
     {% if results == None  %}
     {% elif results %}
          <div class="alert alert-success">
-            Zakłady dla meczu  <strong>{{ match.teams_to_string }}</strong>
+            {% trans "Zakłady dla meczu" %}  <strong>{{ match.teams_to_string }}</strong>
         </div>
 
-        <p>Turniej: {{ match.tournament }}</p>
-        <p>Runda: {{ match.round }}</p>
-        <p>Data meczu: {{match.match_date|date:"P D d M Y"}}</p>
-        <p>Koncowy wynik meczu: {{ match.final_result_to_str }}</p>
+        <p>{% trans "Turniej:" %} {{ match.tournament }}</p>
+        <p>{% trans "Runda:" %} {{ match.round }}</p>
+        <p>{% trans "Data meczu:" %} {{match.match_date|date:"P D d M Y"}}</p>
+        <p>{% trans "Koncowy wynik meczu:" %} {{ match.final_result_to_str }}</p>
 
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Gracz</th>
+                        <th>{% trans "Gracz" %}</th>
                         <th>{{ match.home_team.name }}</th>
                         <th>{{ match.away_team.name }}</th>
-                        <th>Punkty</th>
+                        <th>{% trans "Punkty" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +61,7 @@
 
     {% else %}
         <div class="alert alert-danger">
-            Nikt nie obstawił meczu <strong>{{ match.teams_to_string }}</strong>
+            {% trans "Nikt nie obstawił meczu" %} <strong>{{ match.teams_to_string }}</strong>
         </div>
     {% endif %}
 

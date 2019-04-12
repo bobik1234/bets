@@ -1,11 +1,12 @@
 {% extends "tournament/base.html" %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="container">
 
     <div class="alert alert-info">
-        Tutaj możesz zobaczyć jak obstawiali inni gracze
+        {% trans "Tutaj możesz zobaczyć jak obstawiali inni gracze" %}
     </div>
 
     <form method="POST">
@@ -14,13 +15,13 @@
         <div class="container-fluid">
 
         <div class="row">
-            <div class="col-12 col-md-4 alert alert-warning"><strong>Wybierz gracza&nbsp;&nbsp;  </strong> {{form.choose_user_field}}</div>
-            <div class="col-12 col-md-4 alert alert-warning"><strong>Wybierz turniej&nbsp;&nbsp;  </strong> {{form.choose_tournament}}</div>
-            <div class="col-12 col-md-4 alert alert-warning"><strong>Wybierz runde&nbsp;&nbsp;  </strong>{{form.choose_round}} </div>
+            <div class="col-12 col-md-4 alert alert-warning"><strong>{% trans "Wybierz gracza" %}&nbsp;&nbsp;  </strong> {{form.choose_user_field}}</div>
+            <div class="col-12 col-md-4 alert alert-warning"><strong>{% trans "Wybierz turniej" %}&nbsp;&nbsp;  </strong> {{form.choose_tournament}}</div>
+            <div class="col-12 col-md-4 alert alert-warning"><strong>{% trans "Wybierz runde" %}&nbsp;&nbsp;  </strong>{{form.choose_round}} </div>
         </div>
 
           <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
-          <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">Powrót</a>
+          <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">{% trans "Powrót" %}</a>
         </div>
 
     </form>
@@ -30,19 +31,19 @@
     {% if ongoing_bets is None %}
     {% elif ongoing_bets  %}
         <div class="alert alert-warning">
-            Poniżej aktywne zakłady. Aktywne tzn. takie dla których nie ma jeszcze wyniku meczu.
+            {% trans "Poniżej aktywne zakłady. Aktywne tzn. takie dla których nie ma jeszcze wyniku meczu." %}
         </div>
 
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Turniej</th>
-                        <th>Gracz</th>
-                        <th>Mecz</th>
-                        <th>Data Meczu</th>
-                        <th>Runda</th>
-                        <th>Typowany wynik</th>
+                        <th>{% trans "Turniej" %}</th>
+                        <th>{% trans "Gracz" %}</th>
+                        <th>{% trans "Mecz" %}</th>
+                        <th>{% trans "Data meczu" %}</th>
+                        <th>{% trans "Runda" %}</th>
+                        <th>{% trans "Typowany wynik" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +62,7 @@
         </div>
     {% else %}
         <div class="alert alert-danger">
-            Brak aktywnych zakładów. Aktywnych tzn. takich dla których nie ma jeszcze wyniku meczu.
+            {% trans "Brak aktywnych zakładów. Aktywnych tzn. takich dla których nie ma jeszcze wyniku meczu." %}
         </div>
     {% endif %}
 
@@ -69,21 +70,21 @@
     {% if finished_bets is None %}
     {% elif finished_bets  %}
         <div class="alert alert-warning">
-            Poniżej wyniki zakończonych zakładów w trwajacych turniejach.
+            {% trans "Poniżej wyniki zakończonych zakładów w trwajacych turniejach." %}
         </div>
 
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Turniej</th>
-                        <th>Gracz</th>
-                        <th>Mecz</th>
-                        <th>Data</th>
-                        <th>Runda</th>
-                        <th>Typowany wynik</th>
-                        <th>Wynik końcowy</th>
-                        <th>Punkty</th>
+                        <th>{% trans "Turniej" %}</th>
+                        <th>{% trans "Gracz" %}</th>
+                        <th>{% trans "Mecz" %}</th>
+                        <th>{% trans "Data" %}</th>
+                        <th>{% trans "Runda" %}</th>
+                        <th>{% trans "Typowany wynik" %}</th>
+                        <th>{% trans "Wynik końcowy" %}</th>
+                        <th>{% trans "Punkty" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,7 +114,7 @@
 {% else %}
     <br>
     <div class="alert alert-danger">
-       Brak zakończonych zakładow w trwajacych turniejach
+       {% trans "Brak zakończonych zakładow w trwajacych turniejach" %}
     </div>
 
 {% endif %}

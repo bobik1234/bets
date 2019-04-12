@@ -1,4 +1,5 @@
 {% extends "registration/base.html" %}
+{% load i18n %}
 
 {% block title %}Sign up{% endblock %}
 
@@ -7,24 +8,24 @@
 
   {% if form.username.errors %}
     <div class="alert alert-danger">
-      <p><strong>Błąd! </strong> Gracz o podanym loginie już istnieje.</p>
+      <p><strong>{% trans "Błąd!" %} </strong> {% trans "Gracz o podanym loginie już istnieje." %}</p>
     </div>
   {% endif %}
 
   {% if form.email.errors %}
     <div class="alert alert-danger">
-      <p><strong>Błąd! </strong> Adres email jest już używany.</p>
+      <p><strong>{% trans "Błąd!" %} </strong> {% trans "Adres email jest już używany." %}</p>
     </div>
   {% endif %}
 
   {% if form.password1.errors or form.password2.errors %}
     <div class="alert alert-danger">
-      <p><strong>Błądne hasło! </strong> Hasło nie spełnia poniższych reguł lub żle potwierdziłeś hasło.</p>
+      <p><strong>{% trans "Błędne hasło!" %} </strong> {% trans "Hasło nie spełnia poniższych reguł lub żle potwierdziłeś hasło." %}</p>
     </div>
   {% endif %}
 
 
-  <h3>Załóż konto</h3>
+  <h3>{% trans "Załóż konto" %}</h3>
 
 
   <form method="post">
@@ -32,29 +33,29 @@
     <div class="container-fluid">
     <fieldset class="module aligned">
         <div class="row">
-            <div class="col-6 col-md-6 alert alert-warning"><strong>Nazwa gracza:&nbsp;&nbsp;  </strong> {{ form.username }}</div>
-            <div class="col-6 col-md-6 alert alert-warning"><strong>Email:&nbsp;&nbsp;  </strong> {{ form.email }}</div>
-            <div class="col-12 col-md-6 alert alert-warning"><strong>Hasło:&nbsp;&nbsp;  </strong>{{ form.password1 }} </div>
-            <div class="col-12 col-md-6 alert alert-warning"><strong>Potwierdź hasło:&nbsp;&nbsp;  </strong>{{ form.password2 }} </div>
+            <div class="col-6 col-md-6 alert alert-warning"><strong>{% trans "Nazwa gracza:" %}&nbsp;&nbsp;  </strong> {{ form.username }}</div>
+            <div class="col-6 col-md-6 alert alert-warning"><strong>{% trans "Email:" %}&nbsp;&nbsp;  </strong> {{ form.email }}</div>
+            <div class="col-12 col-md-6 alert alert-warning"><strong>{% trans "Hasło:" %}&nbsp;&nbsp;  </strong>{{ form.password1 }} </div>
+            <div class="col-12 col-md-6 alert alert-warning"><strong>{% trans "Potwierdź hasło:" %}&nbsp;&nbsp;  </strong>{{ form.password2 }} </div>
         </div>
           <br>
              <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
-             <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">Powrót</a>
+             <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">{% trans "Powrót" %}</a>
         </fieldset>
         <br>
     </div>
   </form>
 
   <div class="alert alert-info">
-      <p>Wypełnij powyższy formularz, żeby stworzyć konto. Otrzymasz maila z instrukcjami jak zakończyć proces rejstracji.</p>
+      <p>{% trans "Wypełnij powyższy formularz, żeby stworzyć konto. Otrzymasz maila z instrukcjami jak zakończyć proces rejstracji." %}</p>
   </div>
 
   <div class="jumbotron">
-    <p>Reguły dotyczące hasła:</p>
-    <li>Twoje hasło nie może być zbyt podobne do innych Twoich danych osobowych.</li>
-    <li>Twoje hasło musi zawierać przynajniej 8 znaków.</li>
-    <li>Twoje hasło nie może być powszechnie używanym hasłem.</li>
-    <li>Twoje hasło nie może składać się z samych cyfr.</li>
+    <p>{% trans "Reguły dotyczące hasła:" %}</p>
+    <li>{% trans "Twoje hasło nie może być zbyt podobne do innych Twoich danych osobowych." %}</li>
+    <li>{% trans "Twoje hasło musi zawierać przynajniej 8 znaków." %}</li>
+    <li>{% trans "Twoje hasło nie może być powszechnie używanym hasłem." %}</li>
+    <li>{% trans "Twoje hasło nie może składać się z samych cyfr." %}</li>
   </div>
 
 </div>

@@ -1,4 +1,5 @@
 {% extends "registration/base.html" %}
+{% load i18n %}
 
 {% block title %}Log in{% endblock %}
 
@@ -9,7 +10,8 @@
 
     {% if form.errors %}
             <div class="alert alert-danger">
-                <p><strong>Błąd logowania! </strong> Podaj poprawną nazwę gracza oraz hasło. Paniętaj, że małe i duże litery mają znaczenie.</p>
+                <p><strong>{% trans "Błąd logowania!" %} </strong>
+                    {% trans "Podaj poprawną nazwę gracza oraz hasło. Pamiętaj, że małe i duże litery mają znaczenie." %}</p>
             </div>
     {% endif %}
     <br><br><br>
@@ -34,12 +36,22 @@
 
 {% block content-related %}
 <div class="container">
+    <div class="col-md-offset-4 col-md-5">
+        <div class="btn-group">
+        <a href="{% url 'password_reset' %}" class="btn btn-info" role="button">{% trans "Reset hasła" %}</a>
+        <a href="{% url 'registration_register' %}" class="btn btn-success" role="button">{% trans "Załóż konto" %}</a>
+        <a href="{% url 'login_as_guest' %}" class="btn btn-danger" role="button">{% trans "Zaloguj jako gość" %}</a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
     <div class="col-md-offset-4 col-md-4">
         <div class="btn-group">
-        <a href="{% url 'password_reset' %}" class="btn btn-info" role="button">Reset hasła</a>
-        <a href="{% url 'registration_register' %}" class="btn btn-success" role="button">Załóż konto</a>
-        <a href="{% url 'login_as_guest' %}" class="btn btn-danger" role="button">Zaloguj jako gość</a>
+            <a href="{% url 'language_change_pl' %}" class="btn btn-info" role="button"><img src="/static/flags/pl.gif">  Polski</a>
+            <a href="{% url 'language_change_en' %}" class="btn btn-info" role="button"><img src="/static/flags/en.gif">  English</a>
         </div>
-    </div></div>
+    </div>
+</div>
 
 {% endblock %}
