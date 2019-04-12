@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-12 09:29+0200\n"
+"POT-Creation-Date: 2019-04-12 10:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -154,6 +154,15 @@ msgstr "Password:"
 #: .\tournament\templates\registration\reset_password_confirm.html:23
 msgid "Potwierdź hasło:"
 msgstr "Confirm password:"
+
+#: .\tournament\templates\django_registration\registration_form.html:42
+#: .\tournament\templates\registration\change_password_form.html:32
+#: .\tournament\templates\registration\email_change.html:34
+#: .\tournament\templates\registration\reset_password_confirm.html:26
+#: .\tournament\templates\tournament\vote_change_form.html:44
+#: .\tournament\templates\tournament\vote_form.html:44
+msgid "Akceptuj"
+msgstr "Accept"
 
 #: .\tournament\templates\django_registration\registration_form.html:43
 #: .\tournament\templates\registration\change_password_form.html:33
@@ -739,6 +748,10 @@ msgstr "Predict the result of the match:"
 #: .\tournament\templates\tournament\simulation_choose_result.html:14
 msgid "Popraw poniższe błędy:"
 msgstr "Please correct the below errors:"
+
+#: .\tournament\templates\tournament\simulation_choose_result.html:20
+msgid "Symuluj"
+msgstr "Simulation"
 
 #: .\tournament\templates\tournament\simulation_choose_result.html:26
 msgid "Nie można przeprowadzić symulacji"

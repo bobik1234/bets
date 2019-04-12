@@ -31,7 +31,7 @@
             </div>
 
           <br>
-             <input class="btn btn-primary btn-md" type="submit" value="Akceptuj" />
+             <input class="btn btn-primary btn-md" type="submit" value="{% trans "Akceptuj" %}"/>
              <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">{% trans "Powrót" %}</a>
         </fieldset>
         </form>

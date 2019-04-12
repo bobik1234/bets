@@ -17,7 +17,7 @@
         {% csrf_token %}
         <h4> {{ request.session.home_team }} {{form.ht_goals}} : {{form.at_goals}} {{ request.session.away_team }}</h4>
         <br>
-        <input class="btn btn-primary btn-md" type="submit" value="Symuluj" />
+        <input class="btn btn-primary btn-md" type="submit" value="{% trans "Symuluj" %}"/>
         <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">{% trans "Powrót" %}</a>
     </form>
     <br>
