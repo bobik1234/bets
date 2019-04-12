@@ -396,10 +396,8 @@ msgid "Obstaw"
 msgstr "Obstaw"
 
 #: .\tournament\templates\tournament\base.html:36
-#, fuzzy
-#| msgid "Zmień hasło"
 msgid "Zmień"
-msgstr "Zmień hasło"
+msgstr "Zmień"
 
 #: .\tournament\templates\tournament\base.html:37
 msgid "Spóźnione"
