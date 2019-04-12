@@ -1,0 +1,847 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-12 09:29+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\bets\settings.py:64
+msgid "English"
+msgstr ""
+
+#: .\bets\settings.py:65
+msgid "Polish"
+msgstr ""
+
+#: .\bets\settings.py:160
+msgid "England"
+msgstr ""
+
+#: .\bets\settings.py:161
+msgid "Scotland"
+msgstr ""
+
+#: .\bets\settings.py:162
+msgid "Wales"
+msgstr ""
+
+#: .\tournament\forms.py:87
+#: .\tournament\templates\tournament\finished_match_bets.html:20
+#: .\tournament\templates\tournament\ongoing_match_bets.html:19
+#: .\tournament\templates\tournament\simulation_choose_match.html:19
+msgid "Wybierz mecz"
+msgstr "Wybierz mecz"
+
+#: .\tournament\forms.py:132
+msgid "The two email addresses fields didn't match."
+msgstr "Dwa email adresy nie pasuja do siebie"
+
+#: .\tournament\forms.py:133
+msgid "The email address is the same as the one already defined."
+msgstr "dres e-mail jest taki sam jak już zdefiniowany."
+
+#: .\tournament\forms.py:134
+msgid "The email address already exists for another user."
+msgstr "Adres e-mail już istnieje dla innego użytkownika."
+
+#: .\tournament\forms.py:138
+msgid "New email address"
+msgstr "New email address"
+
+#: .\tournament\forms.py:143
+msgid "New email address confirmation"
+msgstr "Nowe potwierdzenie adresu e-mail"
+
+#: .\tournament\templates\django_registration\activation_complete.html:9
+msgid "Gratulacje!"
+msgstr "Gratulacje!"
+
+#: .\tournament\templates\django_registration\activation_complete.html:9
+msgid "Rejstracja dobiegła końca. Przejdź"
+msgstr "Rejstracja dobiegła końca. Przejdź"
+
+#: .\tournament\templates\django_registration\activation_complete.html:9
+msgid "na stronę"
+msgstr "na stronę"
+
+#: .\tournament\templates\django_registration\activation_complete.html:9
+msgid "i baw sie dobrze."
+msgstr "i baw sie dobrze."
+
+#: .\tournament\templates\django_registration\activation_failed.html:9
+msgid "Konto NIE atywowane!!"
+msgstr "Konto NIE atywowane!!"
+
+#: .\tournament\templates\django_registration\activation_failed.html:9
+msgid ""
+" Link do aktywacji jest niepoprawny albo klucz aktywacyjny wygasł. Jest on "
+"ważny tylko przez dwa dni po rejstracji. "
+msgstr ""
+"Link do aktywacji jest niepoprawny albo klucz aktywacyjny wygasł. Jest on "
+"ważny tylko przez dwa dni po rejstracji. "
+
+#: .\tournament\templates\django_registration\registration_complete.html:9
+msgid "Sprawdź skrzynkę pocztową!"
+msgstr "Sprawdź skrzynkę pocztową!"
+
+#: .\tournament\templates\django_registration\registration_complete.html:9
+msgid ""
+"Link do aktywacji konta został wysłany na adres mailowy, który podałeś "
+"podczas rejstracji."
+msgstr ""
+"Link do aktywacji konta został wysłany na adres mailowy, który podałeś "
+"podczas rejstracji."
+
+#: .\tournament\templates\django_registration\registration_form.html:11
+#: .\tournament\templates\django_registration\registration_form.html:17
+#: .\tournament\templates\registration\change_password_form.html:12
+#: .\tournament\templates\registration\change_password_form.html:18
+#: .\tournament\templates\registration\reset_password_confirm.html:13
+#: .\tournament\templates\registration\reset_password_confirm.html:41
+msgid "Błąd!"
+msgstr "Błąd!"
+
+#: .\tournament\templates\django_registration\registration_form.html:11
+msgid "Gracz o podanym loginie już istnieje."
+msgstr "Gracz o podanym loginie już istnieje."
+
+#: .\tournament\templates\django_registration\registration_form.html:17
+msgid "Adres email jest już używany."
+msgstr "Adres email jest już używany."
+
+#: .\tournament\templates\django_registration\registration_form.html:23
+msgid "Błędne hasło!"
+msgstr "Błędne hasło!"
+
+#: .\tournament\templates\django_registration\registration_form.html:23
+msgid "Hasło nie spełnia poniższych reguł lub żle potwierdziłeś hasło."
+msgstr "Hasło nie spełnia poniższych reguł lub żle potwierdziłeś hasło."
+
+#: .\tournament\templates\django_registration\registration_form.html:28
+#: .\tournament\templates\registration\login.html:42
+msgid "Załóż konto"
+msgstr "Załóż konto"
+
+#: .\tournament\templates\django_registration\registration_form.html:36
+msgid "Nazwa gracza:"
+msgstr "Nazwa gracza:"
+
+#: .\tournament\templates\django_registration\registration_form.html:37
+msgid "Email:"
+msgstr "Email:"
+
+#: .\tournament\templates\django_registration\registration_form.html:38
+msgid "Hasło:"
+msgstr "Hasło:"
+
+#: .\tournament\templates\django_registration\registration_form.html:39
+#: .\tournament\templates\registration\change_password_form.html:29
+#: .\tournament\templates\registration\reset_password_confirm.html:23
+msgid "Potwierdź hasło:"
+msgstr "Potwierdź hasło:"
+
+#: .\tournament\templates\django_registration\registration_form.html:43
+#: .\tournament\templates\registration\change_password_form.html:33
+#: .\tournament\templates\registration\email_change.html:35
+#: .\tournament\templates\registration\reset_password_form.html:24
+#: .\tournament\templates\tournament\other_results.html:24
+#: .\tournament\templates\tournament\simulation_choose_result.html:21
+#: .\tournament\templates\tournament\vote_form.html:45
+msgid "Powrót"
+msgstr "Powrót"
+
+#: .\tournament\templates\django_registration\registration_form.html:50
+msgid ""
+"Wypełnij powyższy formularz, żeby stworzyć konto. Otrzymasz maila z "
+"instrukcjami jak zakończyć proces rejstracji."
+msgstr ""
+"Wypełnij powyższy formularz, żeby stworzyć konto. Otrzymasz maila z "
+"instrukcjami jak zakończyć proces rejstracji."
+
+#: .\tournament\templates\django_registration\registration_form.html:54
+msgid "Reguły dotyczące hasła:"
+msgstr "Reguły dotyczące hasła:"
+
+#: .\tournament\templates\django_registration\registration_form.html:55
+#: .\tournament\templates\registration\change_password_form.html:40
+#: .\tournament\templates\registration\reset_password_confirm.html:33
+msgid ""
+"Twoje hasło nie może być zbyt podobne do innych Twoich danych osobowych."
+msgstr ""
+"Twoje hasło nie może być zbyt podobne do innych Twoich danych osobowych."
+
+#: .\tournament\templates\django_registration\registration_form.html:56
+#: .\tournament\templates\registration\change_password_form.html:41
+#: .\tournament\templates\registration\reset_password_confirm.html:34
+msgid "Twoje hasło musi zawierać przynajniej 8 znaków."
+msgstr "Twoje hasło musi zawierać przynajniej 8 znaków."
+
+#: .\tournament\templates\django_registration\registration_form.html:57
+#: .\tournament\templates\registration\change_password_form.html:42
+#: .\tournament\templates\registration\reset_password_confirm.html:35
+msgid "Twoje hasło nie może być powszechnie używanym hasłem."
+msgstr "Twoje hasło nie może być powszechnie używanym hasłem."
+
+#: .\tournament\templates\django_registration\registration_form.html:58
+#: .\tournament\templates\registration\change_password_form.html:43
+#: .\tournament\templates\registration\reset_password_confirm.html:36
+msgid "Twoje hasło nie może składać się z samych cyfr."
+msgstr "Twoje hasło nie może składać się z samych cyfr."
+
+#: .\tournament\templates\registration\base.html:16
+msgid "Zakłady 'u Henia'"
+msgstr "Zakłady 'u Henia'"
+
+#: .\tournament\templates\registration\change_password_done.html:8
+#: .\tournament\templates\registration\email_change_done.html:8
+#: .\tournament\templates\registration\reset_password_complete.html:8
+#: .\tournament\templates\registration\reset_password_done.html:9
+#: .\tournament\templates\tournament\vote_change_done.html:7
+msgid "Sukces!"
+msgstr "Sukces!"
+
+#: .\tournament\templates\registration\change_password_done.html:8
+msgid "Hasło zostało zmienione."
+msgstr "Hasło zostało zmienione."
+
+#: .\tournament\templates\registration\change_password_form.html:7
+#: .\tournament\templates\registration\reset_password_confirm.html:8
+msgid "Zmień hasło"
+msgstr "Zmień hasło"
+
+#: .\tournament\templates\registration\change_password_form.html:12
+msgid "Niepoprawne stare hasło"
+msgstr "Niepoprawne stare hasło"
+
+#: .\tournament\templates\registration\change_password_form.html:18
+#: .\tournament\templates\registration\reset_password_confirm.html:13
+msgid ""
+"Nowe hasło nie spełnia wymagań podanych na dole strony lub błędnie "
+"potwierdziłeś nowe hasło"
+msgstr ""
+"Nowe hasło nie spełnia wymagań podanych na dole strony lub błędnie "
+"potwierdziłeś nowe hasło"
+
+#: .\tournament\templates\registration\change_password_form.html:27
+msgid "Stare hasło:"
+msgstr "Stare hasło:"
+
+#: .\tournament\templates\registration\change_password_form.html:28
+#: .\tournament\templates\registration\reset_password_confirm.html:22
+msgid "Nowe hasło:"
+msgstr "Nowe hasło:"
+
+#: .\tournament\templates\registration\email_change.html:7
+msgid "Zmaina adresu email"
+msgstr "Zmaina adresu email"
+
+#: .\tournament\templates\registration\email_change.html:10
+msgid "Aktualny adres email dla gracza"
+msgstr "Aktualny adres email dla gracza"
+
+#: .\tournament\templates\registration\email_change.html:10
+msgid "to"
+msgstr "to"
+
+#: .\tournament\templates\registration\email_change.html:23
+msgid "Nowy email"
+msgstr "Nowy email"
+
+#: .\tournament\templates\registration\email_change.html:28
+msgid "Potwierdź email"
+msgstr "Potwierdź email"
+
+#: .\tournament\templates\registration\email_change_done.html:8
+msgid "Twój email został zmieniony na"
+msgstr "Twój email został zmieniony na"
+
+#: .\tournament\templates\registration\login.html:13
+msgid "Błąd logowania!"
+msgstr "Błąd logowania!"
+
+#: .\tournament\templates\registration\login.html:14
+msgid ""
+"Podaj poprawną nazwę gracza oraz hasło. Pamiętaj, że małe i duże litery mają "
+"znaczenie."
+msgstr ""
+"Podaj poprawną nazwę gracza oraz hasło. Pamiętaj, że małe i duże litery mają "
+"znaczenie."
+
+#: .\tournament\templates\registration\login.html:41
+msgid "Reset hasła"
+msgstr "Reset hasła"
+
+#: .\tournament\templates\registration\login.html:43
+msgid "Zaloguj jako gość"
+msgstr "Zaloguj jako gość"
+
+#: .\tournament\templates\registration\logout.html:8
+msgid "Wylogowałeś się z aplikacji."
+msgstr "Wylogowałeś się z aplikacji."
+
+#: .\tournament\templates\registration\logout.html:9
+msgid ""
+"Dziękujemy za korzystanie z naszego serwisu. Możesz się ponownie zalogować  "
+msgstr ""
+"Dziękujemy za korzystanie z naszego serwisu. Możesz się ponownie zalogować  "
+
+#: .\tournament\templates\registration\logout.html:10
+#: .\tournament\templates\tournament\vote_done.html:8
+msgid "tutaj"
+msgstr "tutaj"
+
+#: .\tournament\templates\registration\reset_password_complete.html:9
+msgid "Twoje hasło zostało zmienione. Możesz się "
+msgstr "Twoje hasło zostało zmienione. Możesz się "
+
+#: .\tournament\templates\registration\reset_password_complete.html:9
+msgid "zalogować"
+msgstr "zalogować"
+
+#: .\tournament\templates\registration\reset_password_confirm.html:41
+msgid ""
+"Link do resetu hasła jest niepoprawny. Mozliwe że został już użyty. Spróbój "
+"ponownie zrestartować hasło."
+msgstr ""
+"Link do resetu hasła jest niepoprawny. Mozliwe że został już użyty. Spróbój "
+"ponownie zrestartować hasło."
+
+#: .\tournament\templates\registration\reset_password_done.html:9
+msgid ""
+"Wysłalismy na wskazanego przez Ciebie maila instrukcje do ustawienia hasła. "
+"Powinieneś wkrótce otrzymac maila (oczywiście jeśli wskazany mail istnieje)"
+msgstr ""
+"Wysłalismy na wskazanego przez Ciebie maila instrukcje do ustawienia hasła. "
+"Powinieneś wkrótce otrzymac maila (oczywiście jeśli wskazany mail istnieje)"
+
+#: .\tournament\templates\registration\reset_password_done.html:14
+#: .\tournament\templates\tournament\classification_table.html:72
+#: .\tournament\templates\tournament\my_results.html:87
+#: .\tournament\templates\tournament\vote_change_form.html:52
+#: .\tournament\templates\tournament\vote_form.html:52
+msgid "Info!"
+msgstr "Info!"
+
+#: .\tournament\templates\registration\reset_password_done.html:14
+msgid ""
+"Jeśli nie otrzymałeś maila (sprawdź katalog spam), skontaktuj się z "
+"administratorem TeamHenio@gmail.com"
+msgstr ""
+"Jeśli nie otrzymałeś maila (sprawdź katalog spam), skontaktuj się z "
+"administratorem TeamHenio@gmail.com"
+
+#: .\tournament\templates\registration\reset_password_email.html:4
+msgid ""
+"Otrzymales tego maila poniewaz poprosiles o zresetowanie hasla dla konta dla "
+"aplikacji \"Zaklady Bukmacherskie \"u Henia\" \""
+msgstr ""
+"Otrzymales tego maila poniewaz poprosiles o zresetowanie hasla dla konta dla "
+"aplikacji \"Zaklady \"u Henia\" \""
+
+#: .\tournament\templates\registration\reset_password_email.html:6
+msgid "Przejdz na ponizsza strone i wybierz nowe haslo:"
+msgstr "Przejdz na ponizsza strone i wybierz nowe haslo:"
+
+#: .\tournament\templates\registration\reset_password_email.html:11
+msgid "Przypominamy nazwe gracza, na wypadek jakbys rowniez zapomial:"
+msgstr "Przypominamy nazwe gracza, na wypadek jakbys rowniez zapomnial:"
+
+#: .\tournament\templates\registration\reset_password_email.html:13
+msgid "Dziekujemy za uzycie naszej aplikacji"
+msgstr "Dziekujemy za uzycie naszej aplikacji"
+
+#: .\tournament\templates\registration\reset_password_form.html:10
+msgid "Błędny email!"
+msgstr "Błędny email!"
+
+#: .\tournament\templates\registration\reset_password_form.html:10
+msgid "Żaden gracz nie ma takiego adresu email. Wprowadź poprawny adres email."
+msgstr ""
+"Żaden gracz nie ma takiego adresu email. Wprowadź poprawny adres email."
+
+#: .\tournament\templates\tournament\base.html:25
+msgid "Klasyfikacja"
+msgstr "Klasyfikacja"
+
+#: .\tournament\templates\tournament\base.html:33
+msgid "Typowanie"
+msgstr "Typowanie"
+
+#: .\tournament\templates\tournament\base.html:35
+msgid "Obstaw"
+msgstr "Obstaw"
+
+#: .\tournament\templates\tournament\base.html:36
+#, fuzzy
+#| msgid "Zmień hasło"
+msgid "Zmień"
+msgstr "Zmień hasło"
+
+#: .\tournament\templates\tournament\base.html:37
+msgid "Spóźnione"
+msgstr "Spóźnione"
+
+#: .\tournament\templates\tournament\base.html:39
+msgid "Symulacja"
+msgstr "Symulacja"
+
+#: .\tournament\templates\tournament\base.html:44
+msgid "Podgląd"
+msgstr "Podgląd"
+
+#: .\tournament\templates\tournament\base.html:46
+msgid "Moje wyniki"
+msgstr "Moje wyniki"
+
+#: .\tournament\templates\tournament\base.html:47
+msgid "Pozostali gracze"
+msgstr "Pozostali gracze"
+
+#: .\tournament\templates\tournament\base.html:49
+msgid "Mecze nierozegrane"
+msgstr "Mecze nierozegrane"
+
+#: .\tournament\templates\tournament\base.html:50
+msgid "Mecze zakończone"
+msgstr "Mecze zakończone"
+
+#: .\tournament\templates\tournament\base.html:55
+msgid "Inne"
+msgstr "Inne"
+
+#: .\tournament\templates\tournament\base.html:57
+msgid "Info"
+msgstr "Info"
+
+#: .\tournament\templates\tournament\base.html:58
+msgid "Historia"
+msgstr "Historia"
+
+#: .\tournament\templates\tournament\base.html:59
+msgid "Zmiana hasła"
+msgstr "Zmiana hasła"
+
+#: .\tournament\templates\tournament\base.html:60
+msgid "Zmiana email"
+msgstr "Zmaina email"
+
+#: .\tournament\templates\tournament\base.html:61
+msgid "Zmiana jezyka"
+msgstr "Zmiana jezyka"
+
+#: .\tournament\templates\tournament\base.html:63
+msgid "Wylogowanie"
+msgstr "Wylogowanie"
+
+#: .\tournament\templates\tournament\classification_table.html:7
+#: .\tournament\templates\tournament\my_results.html:29
+msgid "Klasyfikacja Generalna"
+msgstr "Klasyfikacja Generalna"
+
+#: .\tournament\templates\tournament\classification_table.html:12
+#: .\tournament\templates\tournament\classification_table.html:45
+#: .\tournament\templates\tournament\my_results.html:22
+msgid "Miejsce"
+msgstr "Miejsce"
+
+#: .\tournament\templates\tournament\classification_table.html:13
+#: .\tournament\templates\tournament\classification_table.html:46
+#: .\tournament\templates\tournament\finished_match_bets.html:39
+#: .\tournament\templates\tournament\my_results.html:56
+#: .\tournament\templates\tournament\ongoing_match_bets.html:37
+#: .\tournament\templates\tournament\other_results.html:42
+#: .\tournament\templates\tournament\other_results.html:81
+msgid "Gracz"
+msgstr "Gracz"
+
+#: .\tournament\templates\tournament\classification_table.html:14
+#: .\tournament\templates\tournament\classification_table.html:47
+#: .\tournament\templates\tournament\finished_match_bets.html:42
+#: .\tournament\templates\tournament\my_results.html:21
+#: .\tournament\templates\tournament\my_results.html:62
+#: .\tournament\templates\tournament\other_results.html:87
+msgid "Punkty"
+msgstr "Punkty"
+
+#: .\tournament\templates\tournament\classification_table.html:37
+#: .\tournament\templates\tournament\my_results.html:28
+msgid "Faza Pucharowa"
+msgstr "Faza Pucharowa"
+
+#: .\tournament\templates\tournament\classification_table.html:38
+#: .\tournament\templates\tournament\my_results.html:20
+#: .\tournament\templates\tournament\my_results.html:59
+#: .\tournament\templates\tournament\other_results.html:45
+#: .\tournament\templates\tournament\other_results.html:84
+msgid "Runda"
+msgstr "Runda"
+
+#: .\tournament\templates\tournament\classification_table.html:72
+msgid "Żaden mecz się jeszcze nie zakończył - brak klasyfikacji."
+msgstr "Żaden mecz się jeszcze nie zakończył - brak klasyfikacji."
+
+#: .\tournament\templates\tournament\finished_match_bets.html:10
+msgid "Żaden mecz się jeszcze nie zakończył"
+msgstr "Żaden mecz się jeszcze nie zakończył"
+
+#: .\tournament\templates\tournament\finished_match_bets.html:15
+#: .\tournament\templates\tournament\ongoing_match_bets.html:14
+msgid "Wybierz mecz dla którego chcesz zobaczyć zakłady"
+msgstr "Wybierz mecz dla którego chcesz zobaczyć zakłady"
+
+#: .\tournament\templates\tournament\finished_match_bets.html:27
+#: .\tournament\templates\tournament\ongoing_match_bets.html:26
+msgid "Zakłady dla meczu"
+msgstr "Zakłady dla meczu"
+
+#: .\tournament\templates\tournament\finished_match_bets.html:30
+#: .\tournament\templates\tournament\ongoing_match_bets.html:29
+msgid "Turniej:"
+msgstr "Turniej:"
+
+#: .\tournament\templates\tournament\finished_match_bets.html:31
+#: .\tournament\templates\tournament\ongoing_match_bets.html:30
+msgid "Runda:"
+msgstr "Runda:"
+
+#: .\tournament\templates\tournament\finished_match_bets.html:32
+#: .\tournament\templates\tournament\ongoing_match_bets.html:31
+#: .\tournament\templates\tournament\vote_form.html:36
+msgid "Data meczu:"
+msgstr "Data meczu:"
+
+#: .\tournament\templates\tournament\finished_match_bets.html:33
+msgid "Koncowy wynik meczu:"
+msgstr "Koncowy wynik meczu:"
+
+#: .\tournament\templates\tournament\finished_match_bets.html:64
+#: .\tournament\templates\tournament\ongoing_match_bets.html:56
+msgid "Nikt nie obstawił meczu"
+msgstr "Nikt nie obstawił meczu"
+
+#: .\tournament\templates\tournament\history.html:7
+msgid "Zobacz klasyfikację końcową zakończonych turniei"
+msgstr "Zobacz klasyfikację końcową zakończonych turniei"
+
+#: .\tournament\templates\tournament\history.html:11
+msgid "Mistrzostwa Świata 2018"
+msgstr "Mistrzostwa Świata 2018"
+
+#: .\tournament\templates\tournament\index.html:7
+msgid "Witamy u najlepszego bukmachera w miescie - 'u Henia'"
+msgstr "Witamy u najlepszego bukmachera w miescie - 'u Henia'"
+
+#: .\tournament\templates\tournament\index.html:8
+msgid "Jestes zalogowany jako:"
+msgstr "Jestes zalogowany jako:"
+
+#: .\tournament\templates\tournament\index.html:10
+msgid ""
+"Wszelkie komentarze mile widziane. Można je przesyłać na adres mailowy: "
+"TeamHenio@gmail.com"
+msgstr ""
+"Wszelkie komentarze mile widziane. Można je przesyłać na adres mailowy: "
+"TeamHenio@gmail.com"
+
+#: .\tournament\templates\tournament\index.html:11
+msgid "Proszę zgłaszać:"
+msgstr "Proszę zgłaszać:"
+
+#: .\tournament\templates\tournament\index.html:12
+msgid "- Błędy (źle działa, nie działa)"
+msgstr "- Błędy (źle działa, nie działa)"
+
+#: .\tournament\templates\tournament\index.html:13
+msgid "- Usprawnienia (dana funkcjonalność mogłaby wyglądać lepiej itp.)"
+msgstr "- Usprawnienia (dana funkcjonalność mogłaby wyglądać lepiej itp.)"
+
+#: .\tournament\templates\tournament\index.html:14
+msgid "- Pomysły na nowe funkcjonalnosci"
+msgstr "- Pomysły na nowe funkcjonalnosci"
+
+#: .\tournament\templates\tournament\info.html:9
+msgid "Regulamin:"
+msgstr "Regulamin:"
+
+#: .\tournament\templates\tournament\info.html:10
+msgid "Można obstawiać na godz przed rozpoczęciem danego meczu"
+msgstr "Można obstawiać najpóźniej na godz przed rozpoczęciem danego meczu"
+
+#: .\tournament\templates\tournament\info.html:11
+msgid "Można zmieniać wynik też na godz przed rozpoczęciem meczu"
+msgstr "Można zmieniać wynik też najpóźniej na godz przed rozpoczęciem meczu"
+
+#: .\tournament\templates\tournament\info.html:12
+msgid ""
+"Za kazde prawidłowe wytypowanie meczu gracz otrzymuje 3 punkty (trzeba "
+"trafić dokladny wynik)"
+msgstr ""
+"Za kazde prawidłowe wytypowanie meczu gracz otrzymuje 3 punkty (trzeba "
+"trafić dokladny wynik)"
+
+#: .\tournament\templates\tournament\info.html:13
+msgid ""
+"Jeśli nie wytypowaniśmy prawidłowo wyniku meczu ale dobrze obstawilismy "
+"zwyciężce (badź remis) otrzymujemy 1 punkt"
+msgstr ""
+"Jeśli nie wytypowaniśmy prawidłowo wyniku meczu ale dobrze obstawilismy "
+"zwyciężce (badź remis) otrzymujemy 1 punkt"
+
+#: .\tournament\templates\tournament\info.html:14
+msgid ""
+"Wyniki przeliczane są per runde (kolejkę) oraz podawana jest generalna "
+"klasyfikcja"
+msgstr ""
+"Wyniki przeliczane są per runde (kolejkę) oraz podawana jest generalna "
+"klasyfikcja"
+
+#: .\tournament\templates\tournament\language_change.html:10
+msgid "Wybierz język:"
+msgstr "Wybierz język:"
+
+#: .\tournament\templates\tournament\my_results.html:10
+msgid "Moje rezultaty w toczacych sie turniejach"
+msgstr "Moje rezultaty w toczacych sie turniejach"
+
+#: .\tournament\templates\tournament\my_results.html:47
+msgid "Wyniki pojedyńczych zakladów w trwających turniejach"
+msgstr "Wyniki pojedyńczych zakladów w trwających turniejach"
+
+#: .\tournament\templates\tournament\my_results.html:55
+#: .\tournament\templates\tournament\other_results.html:41
+#: .\tournament\templates\tournament\other_results.html:80
+#: .\tournament\templates\tournament\too_late_to_bet.html:17
+msgid "Turniej"
+msgstr "Turniej"
+
+#: .\tournament\templates\tournament\my_results.html:57
+#: .\tournament\templates\tournament\other_results.html:43
+#: .\tournament\templates\tournament\other_results.html:82
+#: .\tournament\templates\tournament\too_late_to_bet.html:18
+msgid "Mecz"
+msgstr "Mecz"
+
+#: .\tournament\templates\tournament\my_results.html:58
+#: .\tournament\templates\tournament\other_results.html:83
+msgid "Data"
+msgstr "Data"
+
+#: .\tournament\templates\tournament\my_results.html:60
+#: .\tournament\templates\tournament\other_results.html:46
+#: .\tournament\templates\tournament\other_results.html:85
+msgid "Typowany wynik"
+msgstr "Typowany wynik"
+
+#: .\tournament\templates\tournament\my_results.html:61
+msgid "Końcowy wynik"
+msgstr "Koncowy wynik"
+
+#: .\tournament\templates\tournament\my_results.html:87
+msgid ""
+"Brak punktacji w rozgrywanych turniejach - żaden mecz który obsawiałeś "
+"jeszcze się nie zakończył."
+msgstr ""
+"Brak punktacji w rozgrywanych turniejach - żaden mecz który obsawiałeś "
+"jeszcze się nie zakończył."
+
+#: .\tournament\templates\tournament\not_allowed.html:7
+msgid "Uwaga!"
+msgstr "Uwaga!"
+
+#: .\tournament\templates\tournament\not_allowed.html:7
+msgid ""
+"Nie masz uprawnień do tej funkcji. Zaloguj sie na inne konto lub skontaktuj "
+"z administartorem (TeamHenio@gmail.com)"
+msgstr ""
+"Nie masz uprawnień do tej funkcji. Zaloguj sie na inne konto lub skontaktuj "
+"z administartorem (TeamHenio@gmail.com)"
+
+#: .\tournament\templates\tournament\ongoing_match_bets.html:10
+msgid "Wszystkie mecze zostały rozegrane."
+msgstr "Wszystkie mecze zostały rozegrane."
+
+#: .\tournament\templates\tournament\other_results.html:9
+msgid "Tutaj możesz zobaczyć jak obstawiali inni gracze"
+msgstr "Tutaj możesz zobaczyć jak obstawiali inni gracze"
+
+#: .\tournament\templates\tournament\other_results.html:18
+msgid "Wybierz gracza"
+msgstr "Wybierz gracza"
+
+#: .\tournament\templates\tournament\other_results.html:19
+msgid "Wybierz turniej"
+msgstr "Wybierz turniej"
+
+#: .\tournament\templates\tournament\other_results.html:20
+msgid "Wybierz runde"
+msgstr "Wybierz runde"
+
+#: .\tournament\templates\tournament\other_results.html:34
+msgid ""
+"Poniżej aktywne zakłady. Aktywne tzn. takie dla których nie ma jeszcze "
+"wyniku meczu."
+msgstr ""
+"Poniżej aktywne zakłady. Aktywne tzn. takie dla których nie ma jeszcze "
+"wyniku meczu."
+
+#: .\tournament\templates\tournament\other_results.html:44
+#: .\tournament\templates\tournament\too_late_to_bet.html:19
+msgid "Data meczu"
+msgstr "Data meczu"
+
+#: .\tournament\templates\tournament\other_results.html:65
+msgid ""
+"Brak aktywnych zakładów. Aktywnych tzn. takich dla których nie ma jeszcze "
+"wyniku meczu."
+msgstr ""
+"Brak aktywnych zakładów. Aktywnych tzn. takich dla których nie ma jeszcze "
+"wyniku meczu."
+
+#: .\tournament\templates\tournament\other_results.html:73
+msgid "Poniżej wyniki zakończonych zakładów w trwajacych turniejach."
+msgstr "Poniżej wyniki zakończonych zakładów w trwajacych turniejach."
+
+#: .\tournament\templates\tournament\other_results.html:86
+msgid "Wynik końcowy"
+msgstr "Wynik końcowy"
+
+#: .\tournament\templates\tournament\other_results.html:117
+msgid "Brak zakończonych zakładow w trwajacych turniejach"
+msgstr "Brak zakończonych zakładow w trwajacych turniejach"
+
+#: .\tournament\templates\tournament\simulation_choose_match.html:10
+msgid ""
+"Symulacja jest tylko dla nierozegranych meczy. Nie ma co symulować, "
+"wszystkie mecze się zakończyły"
+msgstr ""
+"Symulacja jest tylko dla nierozegranych meczy. Nie ma co symulować, "
+"wszystkie mecze się zakończyły"
+
+#: .\tournament\templates\tournament\simulation_choose_match.html:14
+msgid "Symuluj wynik meczu i sprawdź jak zmieni się klasyfikacja turniejowa."
+msgstr "Symuluj wynik meczu i sprawdź jak zmieni się klasyfikacja turniejowa."
+
+#: .\tournament\templates\tournament\simulation_choose_result.html:9
+msgid "Wytypuj wynik meczu"
+msgstr "Wytypuj wynik meczu"
+
+#: .\tournament\templates\tournament\simulation_choose_result.html:14
+msgid "Popraw poniższe błędy:"
+msgstr "Popraw poniższe błędy:"
+
+#: .\tournament\templates\tournament\simulation_choose_result.html:26
+msgid "Nie można przeprowadzić symulacji"
+msgstr "Nie można przeprowadzić symulacji"
+
+#: .\tournament\templates\tournament\simulation_choose_result.html:26
+msgid "Jest to pierwszy mecz turnieju"
+msgstr "Jest to pierwszy mecz turnieju"
+
+#: .\tournament\templates\tournament\simulation_choose_result.html:26
+msgid "i jeszcze NIKT nie typował wyniku"
+msgstr "i jeszcze NIKT nie typował wyniku"
+
+#: .\tournament\templates\tournament\simulation_choose_result.html:31
+msgid "Symulacja klasyfikacji turnieju"
+msgstr "Symulacja klasyfikacji turnieju"
+
+#: .\tournament\templates\tournament\too_late_to_bet.html:10
+msgid "Spoźniłeś się z obstawieniem następujących meczy:"
+msgstr "Spoźniłeś się z obstawieniem następujących meczy:"
+
+#: .\tournament\templates\tournament\too_late_to_bet.html:41
+#: .\tournament\templates\tournament\vote_done.html:8
+msgid "Success!"
+msgstr "Sukces!"
+
+#: .\tournament\templates\tournament\too_late_to_bet.html:41
+msgid "Tak trzymać. Wszystkie mecze obstawione na czas."
+msgstr "Tak trzymać. Wszystkie mecze obstawione na czas."
+
+#: .\tournament\templates\tournament\tournament.html:8
+#: .\tournament\templates\tournament\tournament_history.html:7
+msgid "Wyniki turnieju"
+msgstr "Wyniki turnieju"
+
+#: .\tournament\templates\tournament\vote_change_done.html:7
+msgid "Twoje typowania zostały zmienione. Swoje wyniki możesz sprawdzic"
+msgstr "Twoje typowania zostały zmienione. Swoje wyniki możesz sprawdzic"
+
+#: .\tournament\templates\tournament\vote_change_done.html:7
+msgid "  tutaj"
+msgstr "  tutaj"
+
+#: .\tournament\templates\tournament\vote_change_form.html:11
+msgid "Możesz jeszcze zmienić poniższe typowania:"
+msgstr "Możesz jeszcze zmienić poniższe typowania:"
+
+#: .\tournament\templates\tournament\vote_change_form.html:19
+msgid "Zakłady nie zostały zmienione! "
+msgstr "Zakłady nie zostały zmienione! "
+
+#: .\tournament\templates\tournament\vote_change_form.html:20
+msgid "Błędne typownie dla "
+msgstr "Błędne typownie dla "
+
+#: .\tournament\templates\tournament\vote_change_form.html:21
+msgid " Upewnij się że nie wpisałeś więcej niż dwie cyfry."
+msgstr "Upewnij się że nie wpisałeś więcej niż dwie cyfry."
+
+#: .\tournament\templates\tournament\vote_change_form.html:52
+msgid " Nie ma meczy dla których można zmienić wynik."
+msgstr " Nie ma meczy dla których można zmienić wynik."
+
+#: .\tournament\templates\tournament\vote_done.html:8
+msgid "Dziękujemy za typowanie. Swoje wyniki możesz sprawdzic"
+msgstr "Dziękujemy za typowanie. Swoje wyniki możesz sprawdzić"
+
+#: .\tournament\templates\tournament\vote_form.html:11
+msgid "Mecze do obstawienia:"
+msgstr "Mecze do obstawienia:"
+
+#: .\tournament\templates\tournament\vote_form.html:19
+msgid "Zakłady nie zostały przyjęte!"
+msgstr "Zakłady nie zostały przyjęte!"
+
+#: .\tournament\templates\tournament\vote_form.html:20
+msgid "Błędne typownie dla"
+msgstr "Błędne typownie dla"
+
+#: .\tournament\templates\tournament\vote_form.html:21
+msgid "Upewnij się że nie wpisałeś więcej niż dwie cyfry."
+msgstr "Upewnij się że nie wpisałeś więcej niż dwie cyfry."
+
+#: .\tournament\templates\tournament\vote_form.html:52
+msgid "Brak meczy do obstawienia."
+msgstr "Brak meczy do obstawienia."
+
+#, fuzzy
+#~| msgid "Data meczu"
+#~ msgid "Data Meczu"
+#~ msgstr "Data meczu"
+
+#, fuzzy
+#~| msgid "Wybierz mecz dla którego chcesz zobaczyć zakłady"
+#~ msgid "Wybierz mecz dla którego chesz zobaczyć zakłady"
+#~ msgstr "Wybierz mecz dla którego chcesz zobaczyć zakłady"
+
+#~ msgid " Aktywuj konto na portalu \"Zakłady u Henia\" - masz "
+#~ msgstr "Aktywuj konto na portalu \"Zakłady u Henia\" - masz "
+
+#~ msgid "dni!"
+#~ msgstr "dni!"
