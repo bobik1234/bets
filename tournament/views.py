@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils import translation
-from tournament.scores import setup_all_scores
 
 from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
     get_matches_to_bet, get_classification, get_historical_classification, simulate_classification
@@ -377,7 +376,6 @@ class EmailChange(LoginHandling, FormView):
     form_class = EmailChangeForm
 
     def get_form(self):
-        setup_all_scores()
         return self.form_class(self.request.user, self.request.POST or None)
 
     def form_valid(self, form):

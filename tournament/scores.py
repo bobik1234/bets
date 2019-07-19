@@ -43,13 +43,3 @@ def _who_won(home_goals, away_goals):
     else:
         return "away team won"
 
-
-def setup_all_scores():
-    """
-    Funkcja czasowa, do usuniecia
-    :return:
-    """
-
-    matches = match_list()
-    for match in matches:
-        setup_score_for_bets(match)
