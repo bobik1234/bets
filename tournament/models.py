@@ -46,10 +46,11 @@ class Bet(models.Model):
         return "{hg}:{ag}".format(hg=self.expected_home_goals, ag=self.expected_away_goals)
 
     def __str__(self):
-        return 'User: {} Match: {} - {} Bet: {} : {}'.format(self.user,
-                                                             self.match.home_team.name,
-                                                             self.match.away_team.name,
-                                                             self.expected_home_goals,
-                                                             self.expected_away_goals)
+        return 'User: {} Match: {} - {} Bet: {} : {} Score: {}'.format(self.user,
+                                                                self.match.home_team.name,
+                                                                self.match.away_team.name,
+                                                                self.expected_home_goals,
+                                                                self.expected_away_goals,
+                                                                self.score)
 
 
