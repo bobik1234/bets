@@ -40,6 +40,7 @@ class Bet(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
     expected_home_goals = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
     expected_away_goals = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
+    score = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
 
     def expected_result_to_str(self):
         return "{hg}:{ag}".format(hg=self.expected_home_goals, ag=self.expected_away_goals)

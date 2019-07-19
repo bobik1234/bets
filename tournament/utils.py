@@ -8,6 +8,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 import os, json
 from tournament.models import Match, Tournament
+from tournament.scores import setup_score_for_bets
 
 classification_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'classification_file.json')
 
@@ -97,13 +98,6 @@ def _sort_dict(dictionary):
 
     return sorted_rounds_results
 
-def get_bets_for_match(match):
-    """
-    Zwraca wszystkie obstawienia dla konkretnego meczu
-    :param match:
-    :return:
-    """
-
 
 def get_matches_to_bet(user):
     """
@@ -161,11 +155,11 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
                 continue
 
         if (simulated_match is not None) and (bet.match == simulated_match):
-            finished_bets.append({'bet': bet, 'score': calculate_score(bet, simulated_match)})
+            finished_bets.append({'bet': bet, 'score': int(bet.score)})
             continue
 
         if (Time_To_Bet > bet.match.match_date): #TODO: chyba time_to_bed nie jest potrzebne, mozna by bylo zrobic ze wynik meczu nie jest None, spr..
-            finished_bets.append({'bet': bet, 'score': calculate_score(bet, bet.match)})
+            finished_bets.append({'bet': bet, 'score': int(bet.score)})
 
     return finished_bets
 
@@ -199,32 +193,6 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
             ongoing_bets.append(bet)
 
     return ongoing_bets
-
-def calculate_score(bet, match):
-    """
-    Sprawdza ile punktow zwrocic za zaklad (bet) i zwraca ta ilosc
-    """
-
-    if (match.home_goals is None) or (match.away_goals is None):
-        return 0
-
-    if (match.home_goals == bet.expected_home_goals) and (match.away_goals == bet.expected_away_goals):
-        return 3
-    elif _who_won(match.home_goals, match.away_goals) == _who_won(bet.expected_home_goals, bet.expected_away_goals):
-        return 1
-    else:
-        return 0
-
-def _who_won(home_goals, away_goals):
-    """
-    funkcja pomocnicza do powyzszej funkcji _calculate_score()
-    """
-    if home_goals > away_goals:
-        return "home team won"
-    elif home_goals == away_goals:
-        return "duce"
-    else:
-        return "away team won"
 
 
 def _set_place(sorted_rounds_results):
@@ -277,11 +245,13 @@ def _set_place(sorted_rounds_results):
 @receiver(post_delete, sender=Match)
 @receiver(post_save, sender=Tournament)
 @receiver(post_delete, sender=Tournament) #TODO: Czy nie trzeba by dodac tego dla tabeli BET??
-def calculate_classification(sender, **kwargs):
+def calculate_classification(sender, instance, created, **kwargs):
     """
     Kazda zmiana w tabeli Match i Tournament generuje na nowo plik w formacie JSON w ktorym trzymamy klasyfikacje
     Tylko dla aktywnych turnieji
     """
+    if isinstance(instance, Match):
+        setup_score_for_bets(instance)
 
     finished_bets = get_finished_bets()
     points_per_user = get_points_per_user(finished_bets)
@@ -369,9 +339,9 @@ def simulate_classification(match):
                     user_name = str(bet.user)
                     if (round == match.round) or (round == 'GeneralClassification'):
                         if user_name in simulated_classification[tournament_name][round].keys():
-                            simulated_classification[tournament_name][round][user_name] += calculate_score(bet, match)
+                            simulated_classification[tournament_name][round][user_name] += bet.score
                         else:
-                            simulated_classification[tournament_name][round][user_name] = calculate_score(bet, match)
+                            simulated_classification[tournament_name][round][user_name] = bet.score
 
     sorted_rounds_results = _sort_dict(simulated_classification)
     sorted_rounds_results_with_place = _set_place(sorted_rounds_results)

@@ -4,12 +4,13 @@ from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils import translation
+from tournament.scores import setup_all_scores
 
 from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
-    get_matches_to_bet, calculate_score, get_classification, get_historical_classification, simulate_classification
+    get_matches_to_bet, get_classification, get_historical_classification, simulate_classification
 
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm
-from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_bet, does_user_exist, create_user, \
+from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_goals_bet, does_user_exist, create_user, \
     get_tournament
 from django.views.generic import TemplateView, FormView
 from django.utils.decorators import method_decorator
@@ -161,7 +162,7 @@ class VoteChangeForm(LoginHandling, FormView):
         for bet in self.ongoing_bets:
             expected_home_goals = form.cleaned_data["{}_{}".format(bet.match.home_team.name, bet.match.id)]
             expected_away_goals = form.cleaned_data["{}_{}".format(bet.match.away_team.name, bet.match.id)]
-            update_bet(bet.id, expected_home_goals, expected_away_goals)
+            update_goals_bet(bet.id, expected_home_goals, expected_away_goals)
         return super(VoteChangeForm, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -252,8 +253,7 @@ class SeeFinishedMatchBets(FormView):
         results = []
 
         for bet in bets:
-            score = calculate_score(bet, match)
-            results.append((str(bet.user), bet.expected_home_goals, bet.expected_away_goals, score))
+            results.append((str(bet.user), bet.expected_home_goals, bet.expected_away_goals, bet.score))
 
         context = self.get_context_data()
         context['match'] = match
@@ -377,6 +377,7 @@ class EmailChange(LoginHandling, FormView):
     form_class = EmailChangeForm
 
     def get_form(self):
+        setup_all_scores()
         return self.form_class(self.request.user, self.request.POST or None)
 
     def form_valid(self, form):

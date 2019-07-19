@@ -78,6 +78,10 @@ def add_bet(user, match, expected_home_goals, expected_away_goals):
     m = Bet(user=user, match=match, expected_home_goals=expected_home_goals, expected_away_goals=expected_away_goals)
     m.save()
 
-def update_bet(bet_id, expected_home_goals, expected_away_goals):
+def update_goals_bet(bet_id, expected_home_goals, expected_away_goals):
 
     Bet.objects.filter(id=bet_id).update(expected_home_goals = expected_home_goals, expected_away_goals = expected_away_goals)
+
+def update_score_bet(bet_id, score):
+
+    Bet.objects.filter(id=bet_id).update(score=score)
