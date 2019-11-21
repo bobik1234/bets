@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-12 10:30+0200\n"
+"POT-Creation-Date: 2019-11-21 10:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -548,6 +548,10 @@ msgstr "Zobacz klasyfikację końcową zakończonych turniei"
 #: .\tournament\templates\tournament\history.html:11
 msgid "Mistrzostwa Świata 2018"
 msgstr "Mistrzostwa Świata 2018"
+
+#: .\tournament\templates\tournament\history.html:12
+msgid "Polska 2018/19"
+msgstr "Polska 2018/19"
 
 #: .\tournament\templates\tournament\index.html:7
 msgid "Witamy u najlepszego bukmachera w miescie - 'u Henia'"
