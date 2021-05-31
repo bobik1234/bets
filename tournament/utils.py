@@ -242,9 +242,9 @@ def _set_place(sorted_rounds_results):
     return sorted_rounds_results_with_place
 
 @receiver(post_save, sender=Match)
-@receiver(post_delete, sender=Match)
+#@receiver(post_delete, sender=Match)
 @receiver(post_save, sender=Tournament)
-@receiver(post_delete, sender=Tournament) #TODO: Czy nie trzeba by dodac tego dla tabeli BET??
+#@receiver(post_delete, sender=Tournament) #TODO: Czy nie trzeba by dodac tego dla tabeli BET??
 def calculate_classification(sender, instance, created, **kwargs):
     """
     Kazda zmiana w tabeli Match i Tournament generuje na nowo plik w formacie JSON w ktorym trzymamy klasyfikacje
