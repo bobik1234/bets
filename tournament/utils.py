@@ -337,10 +337,8 @@ def simulate_classification(match):
             for round, user_scores in rounds.items():
                 for bet in bets:
                     user_name = str(bet.user)
-                    print(bet)
                     if (round == match.round) or (round == 'GeneralClassification'):
                         score = calculate_score(bet, match)
-                        print(score)
                         if user_name in simulated_classification[tournament_name][round].keys():
                             #simulated_classification[tournament_name][round][user_name] += bet.score #zmiana na euro21
                             simulated_classification[tournament_name][round][user_name] += score
