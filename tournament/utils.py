@@ -8,7 +8,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 import os, json
 from tournament.models import Match, Tournament
-from tournament.scores import setup_score_for_bets
+from tournament.scores import setup_score_for_bets, calculate_score
 
 classification_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'classification_file.json')
 
@@ -337,11 +337,16 @@ def simulate_classification(match):
             for round, user_scores in rounds.items():
                 for bet in bets:
                     user_name = str(bet.user)
+                    print(bet)
                     if (round == match.round) or (round == 'GeneralClassification'):
+                        score = calculate_score(bet, match)
+                        print(score)
                         if user_name in simulated_classification[tournament_name][round].keys():
-                            simulated_classification[tournament_name][round][user_name] += bet.score
+                            #simulated_classification[tournament_name][round][user_name] += bet.score #zmiana na euro21
+                            simulated_classification[tournament_name][round][user_name] += score
                         else:
-                            simulated_classification[tournament_name][round][user_name] = bet.score
+                            #simulated_classification[tournament_name][round][user_name] = bet.score #zmiana na euro21
+                            simulated_classification[tournament_name][round][user_name] = score
 
     sorted_rounds_results = _sort_dict(simulated_classification)
     sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
