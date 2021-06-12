@@ -158,7 +158,7 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
             finished_bets.append({'bet': bet, 'score': int(bet.score)})
             continue
 
-        if (Time_To_Bet > bet.match.match_date): #TODO: chyba time_to_bed nie jest potrzebne, mozna by bylo zrobic ze wynik meczu nie jest None, spr..
+        if (bet.match.away_goals is not None) and (bet.match.home_goals is not None):
             finished_bets.append({'bet': bet, 'score': int(bet.score)})
 
     return finished_bets
@@ -189,7 +189,7 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
         if (bet.match.home_goals is not None) or (bet.match.away_goals is not None):
             continue
 
-        if (Time_To_Bet < bet.match.match_date):
+        if (bet.match.away_goals is None) and (bet.match.home_goals is None):
             ongoing_bets.append(bet)
 
     return ongoing_bets
