@@ -158,13 +158,16 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
             finished_bets.append({'bet': bet, 'score': int(bet.score)})
             continue
 
+        #if (Time_To_Bet > bet.match.match_date): #TODO: chyba time_to_bed nie jest potrzebne, mozna by bylo zrobic ze wynik meczu nie jest None, spr..
+        #    finished_bets.append({'bet': bet, 'score': int(bet.score)})
+
         if (bet.match.away_goals is not None) and (bet.match.home_goals is not None):
             finished_bets.append({'bet': bet, 'score': int(bet.score)})
 
     return finished_bets
 
 
-def get_ongoing_bets(user=None, tournament_name=None, round='All'):
+def get_ongoing_bets(user=None, tournament_name=None, round='All', change_bet = False):
     """
     Obstawione wyniki meczy, ktore jeszcze sie nie zakonczyly. Zwraca liste zakladow:
     [bet1,bet2,...]
@@ -189,8 +192,13 @@ def get_ongoing_bets(user=None, tournament_name=None, round='All'):
         if (bet.match.home_goals is not None) or (bet.match.away_goals is not None):
             continue
 
-        if (bet.match.away_goals is None) and (bet.match.home_goals is None):
-            ongoing_bets.append(bet)
+        if change_bet:
+            if (Time_To_Bet < bet.match.match_date):
+                ongoing_bets.append(bet)
+                continue
+        else:
+            if (bet.match.away_goals is None) or (bet.match.home_goals is None):
+                ongoing_bets.append(bet)
 
     return ongoing_bets
 

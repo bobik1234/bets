@@ -165,7 +165,7 @@ class VoteChangeForm(LoginHandling, FormView):
         return super(VoteChangeForm, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
-        self.ongoing_bets = get_ongoing_bets(user=self.request.user)
+        self.ongoing_bets = get_ongoing_bets(user=self.request.user, change_bet = True)
         return super(VoteChangeForm, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
