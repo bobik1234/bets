@@ -41,8 +41,8 @@
             </thead>
             <tbody>
                 {% for bet in bets %}
-                    {% if  bet.expected_home_goals > bet.expected_away_goals %}  <tr bgcolor="#87CEFA">
-                    {% elif bet.expected_home_goals < bet.expected_away_goals %} <tr bgcolor="#E3E4FA">
+                    {% if  bet.expected_home_goals > bet.expected_away_goals %}  <tr bgcolor="#B6B6B4">
+                    {% elif bet.expected_home_goals < bet.expected_away_goals %} <tr bgcolor="#C9C0BB">
                     {% else %} <tr bgcolor="#FFFFFF">
                     {% endif %}
                         <td>{{ bet.user }}</td>
