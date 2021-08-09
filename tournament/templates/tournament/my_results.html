@@ -30,7 +30,7 @@
                             {% else %} <td>{{ round }}</td>
                             {% endif %}
 
-                            {% for place, _, points in user_scores %}
+                            {% for place, _, _, points in user_scores %}
                                 <td> {{ points }}</td>
                                 <td> {{ place }}</td>
                             {% endfor %}

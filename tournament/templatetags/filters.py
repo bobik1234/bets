@@ -31,9 +31,8 @@ def team_name(value):
     """
 
     #TODO: moze by tak zmienic mechanizm nazywania pol i pozniejszego porownywania ich w templatach????
-
     value = value.title()
-    value = value.replace('And','and').replace('Mcdonald','McDonald').replace('Of','of').replace('The','the')
+    value = value.replace('And','and').replace('Mcdonald','McDonald').replace('Of','of').replace('The','the').replace(' I ', ' i ')
     field_label = value.split(" ")
     field_label.pop()
     return " ".join(field_label)
@@ -52,3 +51,10 @@ def team_name_from_error(value):
     field_label.pop()
     "".join(field_label)
     return field_label[0]
+
+
+@register.filter
+@stringfilter
+def unicode_escape(value):
+
+    return value.encode().decode('unicode_escape')

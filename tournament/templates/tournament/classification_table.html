@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load filters %}
 
 {% if points_per_user %}
 
@@ -10,18 +11,20 @@
                 <thead>
                     <tr>
                         <th>{% trans "Miejsce" %}</th>
+                        <th>+/-</th>
                         <th>{% trans "Gracz" %}</th>
                         <th>{% trans "Punkty" %}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for place, user, points in rounds.GeneralClassification  %}
+                    {% for place, change, user, points in rounds.GeneralClassification  %}
                         {% if place == 1 %} <tr bgcolor="gold">
                         {% elif place == 2 %} <tr bgcolor="silver">
                         {% elif place == 3 %} <tr bgcolor="peru">
                         {% else %} <tr bgcolor="#FAFAFA">
                         {% endif %}
                         <td>{{ place }}</td>
+                        <td>{{ change | unicode_escape}}</td>
                         <td>{{ user }} </td>
                         <td> {{ points }}</td>
                         </tr>
@@ -32,7 +35,7 @@
 
       {% if general_classification_only %}
       {% else %}
-        {% for round, user_scores in rounds.items %}
+        {% for round,  user_scores in rounds.items %}
             {% if round != "GeneralClassification" %}
                 {% if round == "CP" %} <h4> {% trans "Faza Pucharowa" %} </h4>
                 {% else %} <h4>{% trans "Runda" %} {{ round }}</h4>
@@ -43,18 +46,20 @@
                      <thead>
                         <tr>
                             <th>{% trans "Miejsce" %}</th>
+                            <th>+/-</th>
                             <th>{% trans "Gracz" %}</th>
                             <th>{% trans "Punkty" %}</th>
                         </tr>
                      </thead>
                      <tbody>
-                        {% for place, user, points in user_scores %}
+                        {% for place, change, user, points in user_scores %}
                             {% if place == 1 %} <tr bgcolor="gold">
                             {% elif place == 2 %} <tr bgcolor="silver">
                             {% elif place == 3 %} <tr bgcolor="peru">
                             {% else %} <tr bgcolor="#FAFAFA">
                             {% endif %}
                             <td>{{ place }}</td>
+                            <td>{{ change | unicode_escape }}</td>
                             <td>{{ user }} </td>
                             <td> {{ points }}</td>
                             </tr>

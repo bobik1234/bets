@@ -17,7 +17,7 @@ class Match(models.Model):
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     home_team = CountryField()
     away_team = CountryField()
-    round = models.CharField(max_length=2, choices=ROUND, default='1')
+    round = models.CharField(max_length=3, choices=ROUND, default='1')
     home_goals = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
     away_goals = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
     match_date = models.DateTimeField(blank=True, null=True)

@@ -12,6 +12,7 @@ from tournament.scores import setup_score_for_bets, calculate_score
 
 classification_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'classification_file.json')
 
+
 def vote_context(user):
     """
     Doprecyzujmy co znaczy:
@@ -33,6 +34,7 @@ def vote_context(user):
 
     return context
 
+
 def get_points_per_user(finished_bets):
     """
 
@@ -52,13 +54,12 @@ def get_points_per_user(finished_bets):
 
     Potem dodajemy jeszcze miejsce w klasyfikacji --> zobacz funkcje
     """
-
     scores = {}
 
     for finished_bet in finished_bets:
         tournament_name = finished_bet['bet'].match.tournament.name
         if not (tournament_name in scores.keys()):
-            scores[tournament_name] = {'GeneralClassification' : {}}
+            scores[tournament_name] = {'GeneralClassification': {}}
         round = finished_bet['bet'].match.round
         if not (round in scores[tournament_name].keys()):
             scores[tournament_name][round] = {}
@@ -74,12 +75,10 @@ def get_points_per_user(finished_bets):
         else:
             scores[tournament_name]['GeneralClassification'][user] = finished_bet['score']
 
-
     sorted_rounds_results = _sort_dict(scores)
 
-    sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
+    return sorted_rounds_results
 
-    return sorted_rounds_results_with_place
 
 def _sort_dict(dictionary):
     """
@@ -123,11 +122,10 @@ def get_matches_to_bet(user):
             else:
                 matches_to_bet.append(match)
 
-
     return matches_to_bet, too_late_to_bet
 
 
-def get_finished_bets(user = None, tournament_name = None, active_tournaments = True, round = 'All', simulated_match = None):
+def get_finished_bets(user=None, tournament_name=None, active_tournaments=True, round='All', simulated_match=None):
     """
     Wyniki z zakonczonych meczy, mozna po uzytkowniku i po statusie turnieju, zwraca liste slownikow
     {bet:..., score=...}
@@ -158,7 +156,7 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
             finished_bets.append({'bet': bet, 'score': int(bet.score)})
             continue
 
-        #if (Time_To_Bet > bet.match.match_date): #TODO: chyba time_to_bed nie jest potrzebne, mozna by bylo zrobic ze wynik meczu nie jest None, spr..
+        # if (Time_To_Bet > bet.match.match_date): #TODO: chyba time_to_bed nie jest potrzebne, mozna by bylo zrobic ze wynik meczu nie jest None, spr..
         #    finished_bets.append({'bet': bet, 'score': int(bet.score)})
 
         if (bet.match.away_goals is not None) and (bet.match.home_goals is not None):
@@ -167,7 +165,7 @@ def get_finished_bets(user = None, tournament_name = None, active_tournaments = 
     return finished_bets
 
 
-def get_ongoing_bets(user=None, tournament_name=None, round='All', change_bet = False):
+def get_ongoing_bets(user=None, tournament_name=None, round='All', change_bet=False):
     """
     Obstawione wyniki meczy, ktore jeszcze sie nie zakonczyly. Zwraca liste zakladow:
     [bet1,bet2,...]
@@ -213,7 +211,7 @@ def _set_place(sorted_rounds_results):
 
     Wyjscie:
     {tournament : {'round' : [(place,user, score), (place,user, score)... ]...
-                               'summary' : [(place, user, score), (place, user, score)... ]}
+                               'summary' : [(place,"-", user, score), (place, "-", user, score)... ]}
 
     :param sorted_rounds_results:
     :return:
@@ -235,24 +233,84 @@ def _set_place(sorted_rounds_results):
                 user, score = user_and_score
 
                 if score == previous_score:
-                    #list.append(("-", user, score))
-                    list.append((previous_place, user, score))
+                    # list.append(("-", user, score))
+                    list.append((previous_place, "-", user, score))
                 else:
-                    list.append((i, user, score))
+                    list.append((i, "-", user, score))
                     previous_place = i
                     previous_score = score
 
+            rounds_dict.update({round_name: list})
 
-            rounds_dict.update({round_name : list})
-
-        sorted_rounds_results_with_place.update({tournament_name : rounds_dict })
+        sorted_rounds_results_with_place.update({tournament_name: rounds_dict})
 
     return sorted_rounds_results_with_place
 
+
+def _set_classification_changes(points_per_user_with_place):
+    """
+    Ustaw zmiane w klasyfikacji
+    """
+
+    classification = {}
+
+    try:
+        with open(classification_file_name) as data_file:
+            old_classification = json.load(data_file)
+
+            for tournament_name, tournament_classification  in points_per_user_with_place.items():
+                if tournament_name in old_classification.keys():
+                    for round_name, round_classification in tournament_classification.items():
+                        if round_name in old_classification[tournament_name].keys():
+                            users_in_old_classification = [x for _,_,x,_ in old_classification[tournament_name][round_name]]
+                            for place, _, user, points in round_classification:
+                               if user in users_in_old_classification:
+
+                                    old_place = [place for place,_, old_user, _ in old_classification[tournament_name][round_name] if old_user == user][0]
+                                    changes = int(old_place) - int(place)
+
+                                    if changes > 0:
+                                        change_field = "\\u25B2" + str(changes)
+                                    elif changes < 0:
+                                        change_field = "\\u25BC" + str(abs(changes))
+                                    else:
+                                        change_field = "-"
+
+                                    if tournament_name in classification.keys():
+                                        if round_name in classification[tournament_name].keys():
+                                           classification[tournament_name][round_name].append([place,change_field, user, points])
+                                        else:
+                                           classification[tournament_name][round_name] = [[place,change_field, user, points]]
+                                    else:
+                                        classification[tournament_name]  = {}
+                                        classification[tournament_name][round_name] = [[place,change_field, user, points]]
+
+                               else:
+                                   change_field = "-"
+                                   if tournament_name in classification.keys():
+                                       if round_name in classification[tournament_name].keys():
+                                            classification[tournament_name][round_name].append([place,change_field, user, points])
+                                       else:
+                                           classification[tournament_name][round_name] = [[place,change_field, user, points]]
+                                   else:
+                                       classification[tournament_name] = {}
+                                       classification[tournament_name][round_name] = [[place,change_field, user, points]]
+                        else:
+                           classification[tournament_name][round_name] = points_per_user_with_place[tournament_name][round_name]
+                else:
+                    classification[tournament_name] = points_per_user_with_place[tournament_name]
+
+    except EnvironmentError:
+        pass
+        # nic sie nie ustawia wszyscy maja "-"
+
+    return classification
+
+
 @receiver(post_save, sender=Match)
-#@receiver(post_delete, sender=Match)
+# @receiver(post_delete, sender=Match)
 @receiver(post_save, sender=Tournament)
-#@receiver(post_delete, sender=Tournament) #TODO: Czy nie trzeba by dodac tego dla tabeli BET??
+# @receiver(post_delete, sender=Tournament) #TODO: Czy nie trzeba by dodac tego dla tabeli BET??
 def calculate_classification(sender, instance, created, **kwargs):
     """
     Kazda zmiana w tabeli Match i Tournament generuje na nowo plik w formacie JSON w ktorym trzymamy klasyfikacje
@@ -264,10 +322,15 @@ def calculate_classification(sender, instance, created, **kwargs):
     finished_bets = get_finished_bets()
     points_per_user = get_points_per_user(finished_bets)
 
-    with open(classification_file_name, 'w') as fp:
-        json.dump(points_per_user, fp)
+    points_per_user_with_place = _set_place(points_per_user)
 
-def get_classification(tournament_name = None):
+    classification = _set_classification_changes(points_per_user_with_place)
+
+    with open(classification_file_name, 'w') as fp:
+        json.dump(classification, fp)
+
+
+def get_classification(tournament_name=None):
     """
     """
 
@@ -277,14 +340,15 @@ def get_classification(tournament_name = None):
     except EnvironmentError:
         return {}
 
-    #TODO: przerobic - bez sensu zeby wpisywac tournament_name
+    # TODO: przerobic - bez sensu zeby wpisywac tournament_name
     if tournament_name is not None:
         if tournament_name in classification.keys():
-            return {tournament_name : classification[tournament_name]}
+            return {tournament_name: classification[tournament_name]}
         else:
-            return {} #turniej zakonczony albo nie istnieje
+            return {}  # turniej zakonczony albo nie istnieje
     else:
         return classification
+
 
 def get_historical_classification(tournament_name):
     """
@@ -294,12 +358,12 @@ def get_historical_classification(tournament_name):
     """
 
     dir_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'history')
-    file_name =  os.path.join(dir_name, tournament_name + ".json")
+    file_name = os.path.join(dir_name, tournament_name + ".json")
     print(file_name)
     try:
         with open(file_name) as data_file:
             return json.load(data_file)
-            #return classification
+            # return classification
     except EnvironmentError:
         return {}
 
@@ -325,18 +389,18 @@ def simulate_classification(match):
 
     simulated_classification = _convert_dict(classification, match.tournament.name)
 
-    #moze to byc pierwszy mecz w turnieju wiec turnieju jeszcze nie ma w kluczach
+    # moze to byc pierwszy mecz w turnieju wiec turnieju jeszcze nie ma w kluczach
     if not (match.tournament.name in simulated_classification.keys()):
-        simulated_classification.update({match.tournament.name : {}})
-        simulated_classification[match.tournament.name].update({'GeneralClassification' : {}})
+        simulated_classification.update({match.tournament.name: {}})
+        simulated_classification[match.tournament.name].update({'GeneralClassification': {}})
 
-    #moze to byc pierwszy mecz w rundzie wiec rundy jeszcze nie ma w kluczach
+    # moze to byc pierwszy mecz w rundzie wiec rundy jeszcze nie ma w kluczach
     if not (match.round in simulated_classification[match.tournament.name].keys()):
-        simulated_classification[match.tournament.name].update({match.round : {}})
+        simulated_classification[match.tournament.name].update({match.round: {}})
 
     bets = bet_list(match=match)
 
-    #pierwszy mecz w turnieju, ktorego nikt jeszcze nie obstawił - nie ma co symulowac
+    # pierwszy mecz w turnieju, ktorego nikt jeszcze nie obstawił - nie ma co symulowac
     if not bets and not simulated_classification[match.tournament.name]['GeneralClassification']:
         return None
 
@@ -348,16 +412,17 @@ def simulate_classification(match):
                     if (round == match.round) or (round == 'GeneralClassification'):
                         score = calculate_score(bet, match)
                         if user_name in simulated_classification[tournament_name][round].keys():
-                            #simulated_classification[tournament_name][round][user_name] += bet.score #zmiana na euro21
+                            # simulated_classification[tournament_name][round][user_name] += bet.score #zmiana na euro21
                             simulated_classification[tournament_name][round][user_name] += score
                         else:
-                            #simulated_classification[tournament_name][round][user_name] = bet.score #zmiana na euro21
+                            # simulated_classification[tournament_name][round][user_name] = bet.score #zmiana na euro21
                             simulated_classification[tournament_name][round][user_name] = score
 
     sorted_rounds_results = _sort_dict(simulated_classification)
     sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
 
     return sorted_rounds_results_with_place
+
 
 def _convert_dict(classification_dict, tournament):
     """
@@ -374,7 +439,7 @@ def _convert_dict(classification_dict, tournament):
     I zwracamy dla wybranego turnieju
 
     """
-    #TODO: parametr tournament moze byc opcjonalny
+    # TODO: parametr tournament moze byc opcjonalny
 
     converted_dict = {}
 
@@ -383,7 +448,7 @@ def _convert_dict(classification_dict, tournament):
             continue
 
         if not (tournament_name in converted_dict.keys()):
-            converted_dict[tournament_name] = {'GeneralClassification' : {}}
+            converted_dict[tournament_name] = {'GeneralClassification': {}}
 
         for round, user_scores in rounds.items():
             if not (round in converted_dict[tournament_name].keys()):
@@ -394,6 +459,7 @@ def _convert_dict(classification_dict, tournament):
 
     return converted_dict
 
+
 def player_results(user):
     """
     Potrzebne do zakladki moje wyniki - tak zebysmy widzieli swoje punkty i miejsce w klasyfikacji
@@ -402,18 +468,20 @@ def player_results(user):
     results = {}
     for tournament_name, rounds in get_classification().items():
         for round, user_scores in rounds.items():
-            #nie pokazuje rundy w zakladce my result jesli turniej ma ustawione general_classification_only
-            if get_tournament(tournament_name=tournament_name).general_classification_only and round!="GeneralClassification":
+            # nie pokazuje rundy w zakladce my result jesli turniej ma ustawione general_classification_only
+            if get_tournament(
+                    tournament_name=tournament_name).general_classification_only and round != "GeneralClassification":
                 pass
             else:
                 for user_result in user_scores:
-                    place, user_name, score = user_result
+                    place, _,  user_name, score = user_result
                     if (user_name == user.__str__()):
                         if not (tournament_name in results.keys()):
                             results[tournament_name] = {}
-                        results[tournament_name].update({round : [user_result]}) #TODO: ta lista jest slaba - zmienic
+                        results[tournament_name].update({round: [user_result]})  # TODO: ta lista jest slaba - zmienic
 
     return results
+
 
 @receiver(post_save, sender=User)
 def apply_permissions_to_new_user(sender, instance, created, **kwargs):
@@ -426,4 +494,4 @@ def apply_permissions_to_new_user(sender, instance, created, **kwargs):
     if created and (str(instance) != "guest"):
         permission1 = Permission.objects.get(name='Can add bet')
         permission2 = Permission.objects.get(name='Can change bet')
-        instance.user_permissions.add(permission1,permission2)
+        instance.user_permissions.add(permission1, permission2)
