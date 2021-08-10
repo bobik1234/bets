@@ -1,0 +1,35 @@
+{% extends "tournament/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+
+    <h3>{% trans "Obsługa powiadomień" %}</h3>
+
+    <div class="alert alert-info">
+        {% trans "Powiadomieia to usługa wysyłania maili przypominających o zaległych meczach do obstawienia danego dnia. Aktualnie jest ona " %} <strong>{{request.user.player.notifications|yesno:_("Włączona,Wyłączona")}}</strong>
+    </div>
+
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="container-fluid">
+            <fieldset class="module aligned">
+                <div class="row">
+                    <div class="col-12 col-md-4 alert alert-warning"><strong>{% trans "Czy chcesz otrzymywać powiadomienia? " %}&nbsp;&nbsp; </strong>{{ form.notification }}
+                    </div>
+                </div>
+                <br>
+                <input class="btn btn-primary btn-md" type="submit" value="{% trans "Akceptuj" %}" />
+                <a href="{{request.META.HTTP_REFERER|escape}}" id="cancel" name="cancel" class="btn btn-default">{% trans "Powrót" %}</a>
+            </fieldset>
+        </div>
+
+    </form>
+    <br><br>
+</div>
+
+{% endblock %}
+
+{% block content-related %}
+{% endblock %}

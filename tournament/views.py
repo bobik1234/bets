@@ -8,7 +8,7 @@ from django.utils import translation
 from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
     get_matches_to_bet, get_classification, get_historical_classification, simulate_classification
 
-from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm
+from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm, NotificationChangeForm
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_goals_bet, does_user_exist, create_user, \
     get_tournament
 from django.views.generic import TemplateView, FormView
@@ -73,6 +73,10 @@ class PasswordChangeDone(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class EmailChangeDone(TemplateView):
     template_name = 'registration/email_change_done.html'
+
+@method_decorator(login_required, name='dispatch')
+class NotificationChangeDone(TemplateView):
+    template_name = 'registration/notification_change_done.html'
 
 class Logout(TemplateView):
     template_name = 'registration/logout.html'
@@ -381,5 +385,18 @@ class EmailChange(LoginHandling, FormView):
     def form_valid(self, form):
         form.save()
         return HttpResponseRedirect(reverse('change_email_done'))
+
+class NotificationChange(LoginHandling, FormView):
+    """
+    """
+    template_name = 'registration/notification_change.html'
+    form_class = NotificationChangeForm
+
+    def get_form(self):
+        return self.form_class(self.request.user, self.request.POST or None)
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(reverse('change_notification_done'))
 
 

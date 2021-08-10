@@ -4,7 +4,7 @@ from django_registration.forms import RegistrationFormUniqueEmail
 from django_registration.backends.activation.views import RegistrationView
 from django.contrib.auth import views as auth_views
 from tournament.views import EmailChange, EmailChangeDone, PasswordChange, PasswordChangeDone, Logout, \
-    LanguageChange_Pl, LanguageChange_En
+    LanguageChange_Pl, LanguageChange_En, NotificationChange, NotificationChangeDone
 from django.urls import path, re_path, include
 from django.conf.urls.i18n import i18n_patterns
 
@@ -42,4 +42,6 @@ urlpatterns += i18n_patterns(
     path('language_change/', TemplateView.as_view(template_name='tournament/language_change.html'), name='language_change'),
     path('language_change_pl/', LanguageChange_Pl.as_view(), name='language_change_pl'),
     path('language_change_en/', LanguageChange_En.as_view(), name='language_change_en'),
+    path('notificaton_change/', NotificationChange.as_view(), name='change_notification'),
+    path('notificaton_change_done/', NotificationChangeDone.as_view(), name='change_notification_done'),
 )

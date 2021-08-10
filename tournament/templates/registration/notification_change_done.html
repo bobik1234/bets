@@ -1,0 +1,13 @@
+{% extends "tournament/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+
+  <div class="alert alert-success">
+    <strong>{% trans "Sukces!" %}</strong> {% trans "Powiadomienia zostały" %} <strong> {{request.user.player.notifications|yesno:_("Włączone,Wyłączone")}} </strong>
+  </div>
+
+</div>
+
+{% endblock %}

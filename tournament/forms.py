@@ -182,3 +182,16 @@ class EmailChangeForm(forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+class NotificationChangeForm(forms.Form):
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(NotificationChangeForm, self).__init__(*args, **kwargs)
+        self.fields["notification"] = forms.BooleanField(required=False, initial = user.player.notifications)
+
+    def save(self, commit=True):
+        notification = self.cleaned_data["notification"]
+        self.user.player.notifications = notification
+        if commit:
+            self.user.player.save()
+        return self.user.player

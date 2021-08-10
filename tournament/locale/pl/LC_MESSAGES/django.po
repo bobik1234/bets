@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-21 10:05+0100\n"
+"POT-Creation-Date: 2021-08-10 16:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -158,6 +158,7 @@ msgstr "Potwierdź hasło:"
 #: .\tournament\templates\django_registration\registration_form.html:42
 #: .\tournament\templates\registration\change_password_form.html:32
 #: .\tournament\templates\registration\email_change.html:34
+#: .\tournament\templates\registration\notification_change.html:23
 #: .\tournament\templates\registration\reset_password_confirm.html:26
 #: .\tournament\templates\tournament\vote_change_form.html:44
 #: .\tournament\templates\tournament\vote_form.html:44
@@ -167,6 +168,7 @@ msgstr "Akceptuj"
 #: .\tournament\templates\django_registration\registration_form.html:43
 #: .\tournament\templates\registration\change_password_form.html:33
 #: .\tournament\templates\registration\email_change.html:35
+#: .\tournament\templates\registration\notification_change.html:24
 #: .\tournament\templates\registration\reset_password_form.html:24
 #: .\tournament\templates\tournament\other_results.html:24
 #: .\tournament\templates\tournament\simulation_choose_result.html:21
@@ -218,6 +220,7 @@ msgstr "Zakłady 'u Henia'"
 
 #: .\tournament\templates\registration\change_password_done.html:8
 #: .\tournament\templates\registration\email_change_done.html:8
+#: .\tournament\templates\registration\notification_change_done.html:8
 #: .\tournament\templates\registration\reset_password_complete.html:8
 #: .\tournament\templates\registration\reset_password_done.html:9
 #: .\tournament\templates\tournament\vote_change_done.html:7
@@ -314,6 +317,33 @@ msgstr ""
 msgid "tutaj"
 msgstr "tutaj"
 
+#: .\tournament\templates\registration\notification_change.html:7
+msgid "Obsługa powiadomień"
+msgstr "Obsługa powiadomień"
+
+#: .\tournament\templates\registration\notification_change.html:10
+msgid ""
+"Powiadomieia to usługa wysyłania maili przypominających o zaległych meczach "
+"do obstawienia danego dnia. Aktualnie jest ona "
+msgstr "Powiadomieia to usługa wysyłania maili przypominających o zaległych meczach "
+"do obstawienia danego dnia. Aktualnie jest ona "
+
+#: .\tournament\templates\registration\notification_change.html:10
+msgid "Włączona,Wyłączona"
+msgstr ""
+
+#: .\tournament\templates\registration\notification_change.html:19
+msgid "Czy chcesz otrzymywać powiadomienia? "
+msgstr "Czy chcesz otrzymywać powiadomienia? "
+
+#: .\tournament\templates\registration\notification_change_done.html:8
+msgid "Powiadomienia zostały"
+msgstr "Powiadomienia zostały"
+
+#: .\tournament\templates\registration\notification_change_done.html:8
+msgid "Włączone,Wyłączone"
+msgstr "Włączone,Wyłączone"
+
 #: .\tournament\templates\registration\reset_password_complete.html:9
 msgid "Twoje hasło zostało zmienione. Możesz się "
 msgstr "Twoje hasło zostało zmienione. Możesz się "
@@ -339,7 +369,7 @@ msgstr ""
 "Powinieneś wkrótce otrzymac maila (oczywiście jeśli wskazany mail istnieje)"
 
 #: .\tournament\templates\registration\reset_password_done.html:14
-#: .\tournament\templates\tournament\classification_table.html:72
+#: .\tournament\templates\tournament\classification_table.html:77
 #: .\tournament\templates\tournament\my_results.html:87
 #: .\tournament\templates\tournament\vote_change_form.html:52
 #: .\tournament\templates\tournament\vote_form.html:52
@@ -383,91 +413,95 @@ msgid "Żaden gracz nie ma takiego adresu email. Wprowadź poprawny adres email.
 msgstr ""
 "Żaden gracz nie ma takiego adresu email. Wprowadź poprawny adres email."
 
-#: .\tournament\templates\tournament\base.html:25
+#: .\tournament\templates\tournament\base.html:26
 msgid "Klasyfikacja"
 msgstr "Klasyfikacja"
 
-#: .\tournament\templates\tournament\base.html:33
+#: .\tournament\templates\tournament\base.html:34
 msgid "Typowanie"
 msgstr "Typowanie"
 
-#: .\tournament\templates\tournament\base.html:35
+#: .\tournament\templates\tournament\base.html:36
 msgid "Obstaw"
 msgstr "Obstaw"
 
-#: .\tournament\templates\tournament\base.html:36
+#: .\tournament\templates\tournament\base.html:37
 msgid "Zmień"
 msgstr "Zmień"
 
-#: .\tournament\templates\tournament\base.html:37
+#: .\tournament\templates\tournament\base.html:38
 msgid "Spóźnione"
 msgstr "Spóźnione"
 
-#: .\tournament\templates\tournament\base.html:39
+#: .\tournament\templates\tournament\base.html:40
 msgid "Symulacja"
 msgstr "Symulacja"
 
-#: .\tournament\templates\tournament\base.html:44
+#: .\tournament\templates\tournament\base.html:45
 msgid "Podgląd"
 msgstr "Podgląd"
 
-#: .\tournament\templates\tournament\base.html:46
+#: .\tournament\templates\tournament\base.html:47
 msgid "Moje wyniki"
 msgstr "Moje wyniki"
 
-#: .\tournament\templates\tournament\base.html:47
+#: .\tournament\templates\tournament\base.html:48
 msgid "Pozostali gracze"
 msgstr "Pozostali gracze"
 
-#: .\tournament\templates\tournament\base.html:49
+#: .\tournament\templates\tournament\base.html:50
 msgid "Mecze nierozegrane"
 msgstr "Mecze nierozegrane"
 
-#: .\tournament\templates\tournament\base.html:50
+#: .\tournament\templates\tournament\base.html:51
 msgid "Mecze zakończone"
 msgstr "Mecze zakończone"
 
-#: .\tournament\templates\tournament\base.html:55
+#: .\tournament\templates\tournament\base.html:56
 msgid "Inne"
 msgstr "Inne"
 
-#: .\tournament\templates\tournament\base.html:57
+#: .\tournament\templates\tournament\base.html:58
 msgid "Info"
 msgstr "Info"
 
-#: .\tournament\templates\tournament\base.html:58
+#: .\tournament\templates\tournament\base.html:59
 msgid "Historia"
 msgstr "Historia"
 
-#: .\tournament\templates\tournament\base.html:59
+#: .\tournament\templates\tournament\base.html:60
 msgid "Zmiana hasła"
 msgstr "Zmiana hasła"
 
-#: .\tournament\templates\tournament\base.html:60
+#: .\tournament\templates\tournament\base.html:61
 msgid "Zmiana email"
 msgstr "Zmaina email"
 
-#: .\tournament\templates\tournament\base.html:61
+#: .\tournament\templates\tournament\base.html:62
 msgid "Zmiana jezyka"
 msgstr "Zmiana jezyka"
 
 #: .\tournament\templates\tournament\base.html:63
+msgid "Powiadomienia"
+msgstr "Powiadomienia"
+
+#: .\tournament\templates\tournament\base.html:65
 msgid "Wylogowanie"
 msgstr "Wylogowanie"
 
-#: .\tournament\templates\tournament\classification_table.html:7
+#: .\tournament\templates\tournament\classification_table.html:8
 #: .\tournament\templates\tournament\my_results.html:29
 msgid "Klasyfikacja Generalna"
 msgstr "Klasyfikacja Generalna"
 
-#: .\tournament\templates\tournament\classification_table.html:12
-#: .\tournament\templates\tournament\classification_table.html:45
+#: .\tournament\templates\tournament\classification_table.html:13
+#: .\tournament\templates\tournament\classification_table.html:48
 #: .\tournament\templates\tournament\my_results.html:22
 msgid "Miejsce"
 msgstr "Miejsce"
 
-#: .\tournament\templates\tournament\classification_table.html:13
-#: .\tournament\templates\tournament\classification_table.html:46
+#: .\tournament\templates\tournament\classification_table.html:15
+#: .\tournament\templates\tournament\classification_table.html:50
 #: .\tournament\templates\tournament\finished_match_bets.html:39
 #: .\tournament\templates\tournament\my_results.html:56
 #: .\tournament\templates\tournament\ongoing_match_bets.html:37
@@ -476,8 +510,8 @@ msgstr "Miejsce"
 msgid "Gracz"
 msgstr "Gracz"
 
-#: .\tournament\templates\tournament\classification_table.html:14
-#: .\tournament\templates\tournament\classification_table.html:47
+#: .\tournament\templates\tournament\classification_table.html:16
+#: .\tournament\templates\tournament\classification_table.html:51
 #: .\tournament\templates\tournament\finished_match_bets.html:42
 #: .\tournament\templates\tournament\my_results.html:21
 #: .\tournament\templates\tournament\my_results.html:62
@@ -485,12 +519,12 @@ msgstr "Gracz"
 msgid "Punkty"
 msgstr "Punkty"
 
-#: .\tournament\templates\tournament\classification_table.html:37
+#: .\tournament\templates\tournament\classification_table.html:40
 #: .\tournament\templates\tournament\my_results.html:28
 msgid "Faza Pucharowa"
 msgstr "Faza Pucharowa"
 
-#: .\tournament\templates\tournament\classification_table.html:38
+#: .\tournament\templates\tournament\classification_table.html:41
 #: .\tournament\templates\tournament\my_results.html:20
 #: .\tournament\templates\tournament\my_results.html:59
 #: .\tournament\templates\tournament\other_results.html:45
@@ -498,7 +532,7 @@ msgstr "Faza Pucharowa"
 msgid "Runda"
 msgstr "Runda"
 
-#: .\tournament\templates\tournament\classification_table.html:72
+#: .\tournament\templates\tournament\classification_table.html:77
 msgid "Żaden mecz się jeszcze nie zakończył - brak klasyfikacji."
 msgstr "Żaden mecz się jeszcze nie zakończył - brak klasyfikacji."
 
@@ -537,7 +571,7 @@ msgid "Koncowy wynik meczu:"
 msgstr "Koncowy wynik meczu:"
 
 #: .\tournament\templates\tournament\finished_match_bets.html:64
-#: .\tournament\templates\tournament\ongoing_match_bets.html:56
+#: .\tournament\templates\tournament\ongoing_match_bets.html:59
 msgid "Nikt nie obstawił meczu"
 msgstr "Nikt nie obstawił meczu"
 
