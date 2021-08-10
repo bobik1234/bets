@@ -1,11 +1,15 @@
 from django.db import models
 from django.conf import settings
 from django_countries.fields import CountryField
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 #ROUND = (('1','one'), ('2','two'), ('3','three'), ('QF', "Quarterfinal"), ('SF', "Semifinal"), ('F', "Final"), ('All', "All"))
 ROUND = (('1','one'), ('2','two'), ('3','three'), ('CP', "Faza Pucharowa"), ('All', "All"))
 
 class Tournament(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
     general_classification_only = models.BooleanField(default=False)
@@ -14,6 +18,7 @@ class Tournament(models.Model):
         return self.name
 
 class Match(models.Model):
+    id = models.AutoField(primary_key=True)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
     home_team = CountryField()
     away_team = CountryField()
@@ -36,6 +41,7 @@ class Match(models.Model):
                                                    self.away_goals,)
 
 class Bet(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
     expected_home_goals = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null=True)
@@ -53,4 +59,21 @@ class Bet(models.Model):
                                                                 self.expected_away_goals,
                                                                 self.score)
 
+
+
+#https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
+
+class Player(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    notifications = models.BooleanField(default=False)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Player.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.player.save()
 

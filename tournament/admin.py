@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tournament, Match, Bet
+from .models import Tournament, Match, Bet, Player
 
 # Register your models here.
 
@@ -16,3 +16,4 @@ class MatchAdmin(admin.ModelAdmin):
 admin.site.register(Tournament)
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Bet)
+admin.site.register(Player)
