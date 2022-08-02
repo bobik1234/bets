@@ -145,8 +145,8 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = '/logout/'
 ACCOUNT_ACTIVATION_DAYS = 2 # two days
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #  During development only
-#EMAIL_BACKEND = config('EMAIL_BACKEND')
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #  During development only
+EMAIL_BACKEND = config('EMAIL_BACKEND')
 
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
