@@ -25,7 +25,8 @@ class LoginHandling:
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.has_perm('tournament.add_bet'):  # TODO: permission - moze ladniej jakos zrobiz zeby handlowac guest'a
-            return redirect('/tournament/not_allowed')
+            # return redirect('/tournament/not_allowed')
+            return HttpResponseRedirect(reverse('not_allowed'))
         return super().dispatch(request, *args, **kwargs)
 
     class Meta:
@@ -288,7 +289,8 @@ class LanguageChange_Pl(TemplateView):
         translation.activate(language_code)
         self.request.session[translation.LANGUAGE_SESSION_KEY] = language_code
         if (str(self.request.user) == 'AnonymousUser'):
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse('login'))
+            # return HttpResponseRedirect('/')
         else:
             return HttpResponseRedirect(reverse('index'))
 
@@ -301,7 +303,7 @@ class LanguageChange_En(TemplateView):
         translation.activate(language_code)
         self.request.session[translation.LANGUAGE_SESSION_KEY] = language_code
         if (str(self.request.user) == 'AnonymousUser'):
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse('login'))
         else:
             return HttpResponseRedirect(reverse('index'))
 
