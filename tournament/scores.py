@@ -6,7 +6,8 @@ from tournament.db_handler import bet_list, update_score_bet, match_list
 
 def setup_score_for_bets(match):
     """
-    Jezeli zmienilismy cos w ustawiniu meczu z pozimu administratora to ta funkcja sie wywola
+    Jezeli zmienilismy cos w ustawiniu meczu z pozimu administratora to ta funkcja sie wywola.
+    Trzeba sie temu przyjrzec.
 
     :param match:
     :return:
