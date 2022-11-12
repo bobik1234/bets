@@ -421,6 +421,8 @@ def simulate_classification(match):
     sorted_rounds_results = _sort_dict(simulated_classification)
     sorted_rounds_results_with_place = _set_place(sorted_rounds_results)
 
+    sorted_rounds_results_with_place = _set_classification_changes(sorted_rounds_results_with_place)
+
     return sorted_rounds_results_with_place
 
 
@@ -454,7 +456,7 @@ def _convert_dict(classification_dict, tournament):
             if not (round in converted_dict[tournament_name].keys()):
                 converted_dict[tournament_name][round] = {}
 
-            for place, user, points in user_scores:
+            for place, _, user, points in user_scores:
                 converted_dict[tournament_name][round][user] = points
 
     return converted_dict
