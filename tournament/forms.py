@@ -83,6 +83,9 @@ class ChooseMatch(forms.Form):
                 if (match.home_goals is not None) or (match.away_goals is not None):
                     list.append((match.id, match.teams_to_string()))
 
+        if not ongoing_matches: #zeby mecze rozegrane wyswietlaly sie od ostatniego
+            list = sorted(list, reverse=True)
+
         if list:
             default_choice = ('D', _('Wybierz mecz'))
             m_list = [default_choice]

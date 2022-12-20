@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 #ROUND = (('1','one'), ('2','two'), ('3','three'), ('QF', "Quarterfinal"), ('SF', "Semifinal"), ('F', "Final"), ('All', "All"))
-ROUND = (('1','one'), ('2','two'), ('3','three'), ('CP', "Faza Pucharowa"), ('All', "All"))
+ROUND = (('All', "All"),('1','one'), ('2','two'), ('3','three'), ('CP', "Faza Pucharowa"))
 
 class Tournament(models.Model):
     id = models.AutoField(primary_key=True)
