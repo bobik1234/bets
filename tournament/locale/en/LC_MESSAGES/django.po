@@ -821,7 +821,7 @@ msgstr "Simulation of tournament classification"
 
 #: .\tournament\templates\tournament\stats.html:13
 msgid "Statystyki turnieju"
-msgstr "Tournament's statistics"
+msgstr "Tournament statistics"
 
 #: .\tournament\templates\tournament\stats.html:16
 msgid "Dokładne trafienia"
