@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e35a6ff-05d2-4a77-b850-dd7706a0eac7" name="Default" comment="fix simulation">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tournament/history/ms2022.json" afterDir="false" />
+    <list default="true" id="9e35a6ff-05d2-4a77-b850-dd7706a0eac7" name="Default" comment="small fixes, update history">
+      <change afterPath="$PROJECT_DIR$/tournament/stats_file.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tournament/templates/tournament/stats.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament/migrations/0002_auto_20170814_1415.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/history.html" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/templates/tournament/history.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/locale/en/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/locale/en/LC_MESSAGES/django.mo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/locale/en/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/locale/en/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/locale/pl/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/locale/pl/LC_MESSAGES/django.mo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/locale/pl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/locale/pl/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/templates/tournament/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/templates/tournament/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/tournament/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,12 +228,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/QRAFPIO/Henio/bet&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/QRAFPIO/Henio/bet"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\QRAFPIO\Henio\bet" />
@@ -303,13 +307,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1502268086462</updated>
-    </task>
-    <task id="LOCAL-00082" summary="merge">
-      <created>1536922191318</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1536922191319</updated>
     </task>
     <task id="LOCAL-00083" summary="merge">
       <created>1536924049934</created>
@@ -647,7 +644,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668282263830</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="small fixes, update history">
+      <created>1671526362598</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1671526362598</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -708,7 +712,8 @@
     <MESSAGE value="email backhand" />
     <MESSAGE value="check git connection" />
     <MESSAGE value="fix simulation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix simulation" />
+    <MESSAGE value="small fixes, update history" />
+    <option name="LAST_COMMIT_MESSAGE" value="small fixes, update history" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/tournament/templates/registration/reset_password_confirm.html">

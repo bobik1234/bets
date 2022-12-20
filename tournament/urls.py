@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^history/$', views.History.as_view(), name='history'),
     url(r'^login_as_guest/$', views.LoginAsGuest.as_view(), name='login_as_guest'),
     url(r'^tournament_history/(?P<tournament_name>.+)/$', views.TournamentHistory.as_view(), name='tournament_history'),
+    url(r'^stats/$', views.Stats.as_view(), name='stats'),
 ]

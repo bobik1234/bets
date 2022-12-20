@@ -1,0 +1,80 @@
+{% extends "tournament/base.html" %}
+{% load i18n %}
+{% load filters %}
+
+{% block content %}
+
+<div class="container">
+
+{% if stats %}
+
+    {% for tournament_name, rounds in stats.items %}
+
+        <h3>{% trans "Statystyki turnieju" %} "{{ tournament_name }}"</h3>
+        <br>
+
+        <h4> {% trans "Dokładne trafienia" %}</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Miejsce" %}</th>
+                        <th>{% trans "Gracz" %}</th>
+                        <th>{% trans "Punkty" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for place, change, user, points in rounds.AccuratePredictions  %}
+                        {% if place == 1 %} <tr bgcolor="gold">
+                        {% elif place == 2 %} <tr bgcolor="silver">
+                        {% elif place == 3 %} <tr bgcolor="peru">
+                        {% else %} <tr bgcolor="#FAFAFA">
+                        {% endif %}
+                        <td>{{ place }}</td>
+                        <td>{{ user }} </td>
+                        <td> {{ points }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    <h4> {% trans "Dobre przewidywania (1,x,2)" %}</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Miejsce" %}</th>
+                        <th>{% trans "Gracz" %}</th>
+                        <th>{% trans "Punkty" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for place, change, user, points in rounds.GoodPredictions  %}
+                        {% if place == 1 %} <tr bgcolor="gold">
+                        {% elif place == 2 %} <tr bgcolor="silver">
+                        {% elif place == 3 %} <tr bgcolor="peru">
+                        {% else %} <tr bgcolor="#FAFAFA">
+                        {% endif %}
+                        <td>{{ place }}</td>
+                        <td>{{ user }} </td>
+                        <td> {{ points }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% endfor %}
+
+{% else %}
+    <div class="alert alert-info">
+    <strong>{% trans "Info!" %}</strong> {% trans "Żaden mecz się jeszcze nie zakończył - brak statystyk." %}
+    </div>
+{% endif %}
+
+
+</div>
+
+{% endblock %}

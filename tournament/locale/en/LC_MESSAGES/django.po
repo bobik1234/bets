@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-10 16:51+0200\n"
+"POT-Creation-Date: 2022-12-20 13:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,50 +18,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\bets\settings.py:64
+#: .\bets\settings.py:65
 msgid "English"
 msgstr ""
 
-#: .\bets\settings.py:65
+#: .\bets\settings.py:66
 msgid "Polish"
 msgstr ""
 
-#: .\bets\settings.py:160
+#: .\bets\settings.py:161
 msgid "England"
 msgstr ""
 
-#: .\bets\settings.py:161
+#: .\bets\settings.py:162
 msgid "Scotland"
 msgstr ""
 
-#: .\bets\settings.py:162
+#: .\bets\settings.py:163
 msgid "Wales"
 msgstr ""
 
-#: .\tournament\forms.py:87
+#: .\tournament\forms.py:90
 #: .\tournament\templates\tournament\finished_match_bets.html:20
 #: .\tournament\templates\tournament\ongoing_match_bets.html:19
 #: .\tournament\templates\tournament\simulation_choose_match.html:19
 msgid "Wybierz mecz"
 msgstr "Choose match:"
 
-#: .\tournament\forms.py:132
+#: .\tournament\forms.py:135
 msgid "The two email addresses fields didn't match."
 msgstr "The two email addresses fields didn't match."
 
-#: .\tournament\forms.py:133
+#: .\tournament\forms.py:136
 msgid "The email address is the same as the one already defined."
 msgstr "The email address is the same as the one already defined."
 
-#: .\tournament\forms.py:134
+#: .\tournament\forms.py:137
 msgid "The email address already exists for another user."
 msgstr "The email address already exists for another user."
 
-#: .\tournament\forms.py:138
+#: .\tournament\forms.py:141
 msgid "New email address"
 msgstr "New email address"
 
-#: .\tournament\forms.py:143
+#: .\tournament\forms.py:146
 msgid "New email address confirmation"
 msgstr "New email address confirmation"
 
@@ -323,7 +323,9 @@ msgstr "Notifications"
 msgid ""
 "Powiadomieia to usługa wysyłania maili przypominających o zaległych meczach "
 "do obstawienia danego dnia. Aktualnie jest ona "
-msgstr "Notification is a service of sending emails reminding about overdue matches. Current status is "
+msgstr ""
+"Notification is a service of sending emails reminding about overdue matches. "
+"Current status is "
 
 #: .\tournament\templates\registration\notification_change.html:10
 msgid "Włączona,Wyłączona"
@@ -369,6 +371,7 @@ msgstr ""
 #: .\tournament\templates\registration\reset_password_done.html:14
 #: .\tournament\templates\tournament\classification_table.html:77
 #: .\tournament\templates\tournament\my_results.html:87
+#: .\tournament\templates\tournament\stats.html:73
 #: .\tournament\templates\tournament\vote_change_form.html:52
 #: .\tournament\templates\tournament\vote_form.html:52
 msgid "Info!"
@@ -454,35 +457,39 @@ msgstr "Matches not played"
 msgid "Mecze zakończone"
 msgstr "Matches played"
 
-#: .\tournament\templates\tournament\base.html:56
+#: .\tournament\templates\tournament\base.html:53
+msgid "Statystyki"
+msgstr "Statistics"
+
+#: .\tournament\templates\tournament\base.html:59
 msgid "Inne"
 msgstr "Other"
 
-#: .\tournament\templates\tournament\base.html:58
+#: .\tournament\templates\tournament\base.html:61
 msgid "Info"
 msgstr "Info"
 
-#: .\tournament\templates\tournament\base.html:59
+#: .\tournament\templates\tournament\base.html:62
 msgid "Historia"
 msgstr "History"
 
-#: .\tournament\templates\tournament\base.html:60
+#: .\tournament\templates\tournament\base.html:63
 msgid "Zmiana hasła"
 msgstr "Change Password"
 
-#: .\tournament\templates\tournament\base.html:61
+#: .\tournament\templates\tournament\base.html:64
 msgid "Zmiana email"
 msgstr "Change e-mail"
 
-#: .\tournament\templates\tournament\base.html:62
+#: .\tournament\templates\tournament\base.html:65
 msgid "Zmiana jezyka"
 msgstr "Change language"
 
-#: .\tournament\templates\tournament\base.html:63
+#: .\tournament\templates\tournament\base.html:66
 msgid "Powiadomienia"
 msgstr "Notifications"
 
-#: .\tournament\templates\tournament\base.html:65
+#: .\tournament\templates\tournament\base.html:68
 msgid "Wylogowanie"
 msgstr "Logout"
 
@@ -494,6 +501,8 @@ msgstr "General Classification"
 #: .\tournament\templates\tournament\classification_table.html:13
 #: .\tournament\templates\tournament\classification_table.html:48
 #: .\tournament\templates\tournament\my_results.html:22
+#: .\tournament\templates\tournament\stats.html:21
+#: .\tournament\templates\tournament\stats.html:48
 msgid "Miejsce"
 msgstr "Place"
 
@@ -504,6 +513,8 @@ msgstr "Place"
 #: .\tournament\templates\tournament\ongoing_match_bets.html:37
 #: .\tournament\templates\tournament\other_results.html:42
 #: .\tournament\templates\tournament\other_results.html:81
+#: .\tournament\templates\tournament\stats.html:22
+#: .\tournament\templates\tournament\stats.html:49
 msgid "Gracz"
 msgstr "Player"
 
@@ -513,6 +524,8 @@ msgstr "Player"
 #: .\tournament\templates\tournament\my_results.html:21
 #: .\tournament\templates\tournament\my_results.html:62
 #: .\tournament\templates\tournament\other_results.html:87
+#: .\tournament\templates\tournament\stats.html:23
+#: .\tournament\templates\tournament\stats.html:50
 msgid "Punkty"
 msgstr "Points"
 
@@ -805,6 +818,24 @@ msgstr "and NO ONE has bet on the result yet"
 #: .\tournament\templates\tournament\simulation_choose_result.html:31
 msgid "Symulacja klasyfikacji turnieju"
 msgstr "Simulation of tournament classification"
+
+#: .\tournament\templates\tournament\stats.html:13
+msgid "Statystyki turnieju"
+msgstr "Tournament's statistics"
+
+#: .\tournament\templates\tournament\stats.html:16
+msgid "Dokładne trafienia"
+msgstr "Accurate Predictions"
+
+#: .\tournament\templates\tournament\stats.html:43
+msgid "Dobre przewidywania (1,x,2)"
+msgstr "Good predictions (1,x,2)"
+
+#: .\tournament\templates\tournament\stats.html:73
+#, fuzzy
+#| msgid "Żaden mecz się jeszcze nie zakończył - brak klasyfikacji."
+msgid "Żaden mecz się jeszcze nie zakończył - brak statystyk."
+msgstr "No match has finished yet - no classification."
 
 #: .\tournament\templates\tournament\too_late_to_bet.html:10
 msgid "Spoźniłeś się z obstawieniem następujących meczy:"

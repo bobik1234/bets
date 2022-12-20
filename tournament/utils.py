@@ -11,7 +11,7 @@ from tournament.models import Match, Tournament
 from tournament.scores import setup_score_for_bets, calculate_score
 
 classification_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'classification_file.json')
-
+stats_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'stats_file.json')
 
 def vote_context(user):
     """
@@ -329,6 +329,11 @@ def calculate_classification(sender, instance, created, **kwargs):
     with open(classification_file_name, 'w') as fp:
         json.dump(classification, fp)
 
+    stats = get_statistics(finished_bets)
+    stats_with_place = _set_place(stats)
+
+    with open(stats_file_name, 'w') as fp:
+        json.dump(stats_with_place, fp)
 
 def get_classification(tournament_name=None):
     """
@@ -366,6 +371,26 @@ def get_historical_classification(tournament_name):
             # return classification
     except EnvironmentError:
         return {}
+
+
+def get_stats_classification(tournament_name=None):
+    """
+    """
+
+    try:
+        with open(stats_file_name) as data_file:
+            classification = json.load(data_file)
+    except EnvironmentError:
+        return {}
+
+    # TODO: przerobic - bez sensu zeby wpisywac tournament_name
+    if tournament_name is not None:
+        if tournament_name in classification.keys():
+            return {tournament_name: classification[tournament_name]}
+        else:
+            return {}  # turniej zakonczony albo nie istnieje
+    else:
+        return classification
 
 
 def simulate_classification(match):
@@ -497,3 +522,40 @@ def apply_permissions_to_new_user(sender, instance, created, **kwargs):
         permission1 = Permission.objects.get(name='Can add bet')
         permission2 = Permission.objects.get(name='Can change bet')
         instance.user_permissions.add(permission1, permission2)
+
+
+def get_statistics(finished_bets):
+    """
+    Calculate accurate prediction per user and good direction per user
+    """
+    scores = {}
+
+    for finished_bet in finished_bets:
+        tournament_name = finished_bet['bet'].match.tournament.name
+        if not (tournament_name in scores.keys()):
+            scores[tournament_name] = {'AccuratePredictions': {},
+                                       'GoodPredictions': {}}
+
+        user = finished_bet['bet'].user.__str__()
+
+        if user in scores[tournament_name]['AccuratePredictions'].keys():
+            if finished_bet['score'] == 3:
+                scores[tournament_name]['AccuratePredictions'][user] += 1
+                scores[tournament_name]['GoodPredictions'][user] += 1
+            elif finished_bet['score'] == 1:
+                scores[tournament_name]['GoodPredictions'][user] += 1
+        else:
+            if finished_bet['score'] == 3:
+                scores[tournament_name]['AccuratePredictions'][user] = 1
+                scores[tournament_name]['GoodPredictions'][user] = 1
+            elif finished_bet['score'] == 1:
+                scores[tournament_name]['GoodPredictions'][user] = 1
+            else:
+                scores[tournament_name]['AccuratePredictions'][user] = 0
+                scores[tournament_name]['GoodPredictions'][user] = 0
+
+
+
+    sorted_stats = _sort_dict(scores)
+
+    return sorted_stats

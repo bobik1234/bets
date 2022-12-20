@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils import translation
 
 from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
-    get_matches_to_bet, get_classification, get_historical_classification, simulate_classification
+    get_matches_to_bet, get_classification, get_historical_classification, simulate_classification, get_stats_classification
 
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm, NotificationChangeForm
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_goals_bet, does_user_exist, create_user, \
@@ -95,6 +95,16 @@ class TournamentHistory(TemplateView):
         context = super().get_context_data(**kwargs)
         context['tournament_name'] = self.kwargs['tournament_name']
         context['points_per_user'] = get_historical_classification(tournament_name=self.kwargs['tournament_name'])
+        return context
+
+@method_decorator(login_required, name='dispatch')
+class Stats(TemplateView):
+    template_name = 'tournament/stats.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['tournament_name'] = self.kwargs['tournament_name']
+        context['stats'] = get_stats_classification()
         return context
 
 @method_decorator(login_required, name='dispatch')
