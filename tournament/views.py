@@ -2,7 +2,7 @@ from bets import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils import translation
 
 from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
@@ -139,7 +139,7 @@ class VoteForm(LoginHandling, FormView):
 
     template_name = 'tournament/vote_form.html'
     form_class = Vote
-    success_url = '/tournament/vote_done'
+    success_url = reverse_lazy('vote_done')
 
     def get_form(self):
         return self.form_class(self.request.POST or None, matches_to_bet=self.matches_to_bet, user=self.request.user)
@@ -166,7 +166,7 @@ class VoteChangeForm(LoginHandling, FormView):
 
     template_name = 'tournament/vote_change_form.html'
     form_class = Vote
-    success_url = '/tournament/vote_change_done'
+    success_url = reverse_lazy('vote_change_done')
 
     #TODO: czy nie lepiej uzyc get_form_kwargs()
     def get_form(self):
