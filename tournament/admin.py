@@ -13,7 +13,11 @@ class MatchAdmin(admin.ModelAdmin):
 #class TournamentAdmin(admin.ModelAdmin):
 #    list_display = ('name', 'active', 'general_classification_only')
 
+class PlayerAdmin(admin.ModelAdmin):
+    list_display = ('user', 'notifications')
+
+
 admin.site.register(Tournament)
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Bet)
-admin.site.register(Player)
+admin.site.register(Player, PlayerAdmin)
