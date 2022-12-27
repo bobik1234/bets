@@ -1,4 +1,4 @@
-from tournament.models import Bet, Match, Tournament
+from tournament.models import Bet, Match, Tournament, Player
 from django.contrib.auth.models import User
 
 def bet_list(user = None, match = None):
@@ -85,3 +85,7 @@ def update_goals_bet(bet_id, expected_home_goals, expected_away_goals):
 def update_score_bet(bet_id, score):
 
     Bet.objects.filter(id=bet_id).update(score=score)
+
+def get_payers():
+
+    return Player.objects.all()

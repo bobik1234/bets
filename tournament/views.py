@@ -6,7 +6,8 @@ from django.urls import reverse, reverse_lazy
 from django.utils import translation
 
 from tournament.utils import get_finished_bets, get_ongoing_bets, player_results, \
-    get_matches_to_bet, get_classification, get_historical_classification, simulate_classification, get_stats_classification
+    get_matches_to_bet, get_classification, get_historical_classification, simulate_classification, \
+    get_stats_classification, send_notifications
 
 from tournament.forms import Vote, ChooseUser, ChooseMatch, ChooseMatchResult, EmailChangeForm, NotificationChangeForm
 from tournament.db_handler import get_user, bet_list, get_match, add_bet, update_goals_bet, does_user_exist, create_user, \
@@ -411,4 +412,19 @@ class NotificationChange(LoginHandling, FormView):
         form.save()
         return HttpResponseRedirect(reverse('change_notification_done'))
 
+
+class SendNotification(TemplateView):
+    template_name = 'registration/login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notification_key'] = self.kwargs['notification_key']
+        print(context['notification_key'])
+        if (context['notification_key'] == '47bcba53edb044cfa6672396c4dea0f3'):
+            context['key_valid'] = True
+            send_notifications()
+        else:
+            context['key_valid'] = False
+
+        return context
 

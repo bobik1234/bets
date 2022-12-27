@@ -2,13 +2,15 @@ from django.contrib.auth.models import User, Permission
 from django.utils import timezone
 
 from bets import settings
-from tournament.db_handler import bet_list, match_list, get_tournament
+from tournament.db_handler import bet_list, match_list, get_tournament, get_payers
 import operator
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 import os, json
+from datetime import datetime
 from tournament.models import Match, Tournament
 from tournament.scores import setup_score_for_bets, calculate_score
+from django.core.mail import send_mail
 
 classification_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'classification_file.json')
 stats_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'stats_file.json')
@@ -559,3 +561,35 @@ def get_statistics(finished_bets):
     sorted_stats = _sort_dict(scores)
 
     return sorted_stats
+
+def send_notifications():
+
+    matches =  match_list()
+    matches = [match for match in matches if match.match_date.day == datetime.today().day]
+    matches_id = [match.id for match in matches]
+
+    for player in get_payers():
+        if player.notifications and player.user.email:
+            ids = matches_id.copy()
+
+            for bet in bet_list(user=player.user):
+                if bet.match.id in matches_id:
+                        ids.remove(bet.match.id)
+
+            if ids:
+                miss_bet = [f'{match.teams_to_string()} {match.match_day()}' for match in matches if match.id in ids]
+                miss_bet = '\n'.join(miss_bet)
+                # print(miss_bet)
+
+                email_content = f'Hi {player.user.username}\n\n' \
+                                f'Masz nieobstawione mecze.  Uważaj żeby nie się nie spóźnić. \n' \
+                                f'You have unbet matches. Be careful not to be late. \n\n' \
+                                f'{miss_bet} \n\n' \
+                                f'Best regards \n/Henio'
+
+                send_mail(subject = "Henio reminds of today's matches to bet",
+                          message = email_content,
+                          from_email = settings.EMAIL_HOST_USER,
+                          recipient_list = [player.user.email])
+
+## http://127.0.0.1:8080/en/tournament/send_notification/47bcba53edb044cfa6672396c4dea0f3/

@@ -33,6 +33,9 @@ class Match(models.Model):
     def teams_to_string(self):
         return "{ht}:{at}".format(ht=self.home_team.name, at=self.away_team.name)
 
+    def match_day(self):
+        return str(self.match_date.strftime("%Y/%m/%d, %H:%M"))
+
     def __str__(self):
         return '{} - {} {} Reslut: {} : {}'.format(self.home_team.name,
                                                    self.away_team.name,
