@@ -832,8 +832,6 @@ msgid "Dobre przewidywania (1,x,2)"
 msgstr "Good predictions (1,x,2)"
 
 #: .\tournament\templates\tournament\stats.html:73
-#, fuzzy
-#| msgid "Żaden mecz się jeszcze nie zakończył - brak klasyfikacji."
 msgid "Żaden mecz się jeszcze nie zakończył - brak statystyk."
 msgstr "No match has finished yet - no classification."
 

@@ -546,11 +546,13 @@ def get_statistics(finished_bets):
                 scores[tournament_name]['GoodPredictions'][user] += 1
             elif finished_bet['score'] == 1:
                 scores[tournament_name]['GoodPredictions'][user] += 1
+
         else:
             if finished_bet['score'] == 3:
                 scores[tournament_name]['AccuratePredictions'][user] = 1
                 scores[tournament_name]['GoodPredictions'][user] = 1
             elif finished_bet['score'] == 1:
+                scores[tournament_name]['AccuratePredictions'][user] = 0
                 scores[tournament_name]['GoodPredictions'][user] = 1
             else:
                 scores[tournament_name]['AccuratePredictions'][user] = 0
